@@ -16,5 +16,5 @@ public class Member {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-
+    private String eMail;
 }
