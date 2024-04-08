@@ -102,12 +102,12 @@
           outline: none;
         }
 
-        .login_pw {
+        .login_password {
           margin-top: 5px;
           width: 80%;
         }
 
-        .login_pw input {
+        .login_password input {
           width: 100%;
           height: 50px;
           border-radius: 30px;
@@ -164,7 +164,7 @@
 
 <div class="wrap" layout:fragment="content">
     <div class="login">
-        <form action="/members/new" role="form" method="post" th:object="${memberFormDto}">
+        <form action="/member/new" role="form" method="post" th:object="${memberFormDto}">
             <h2>Sign-up</h2>
 
 
@@ -182,11 +182,11 @@
                 <p th:if="${#fields.hasErrors('nick')}" th:errors="*{nick}" class="fieldError">Incorrect date</p>
             </div>
 
-            <div class="login_pw">
+            <div class="login_password">
                 <h4>Password</h4>
-                <label th:for="pw"></label>
-                <input type="pw" th:field="*{pw}" class="form-control" placeholder="비밀번호를 입력해주세요">
-                <p th:if="${#fields.hasErrors('pw')}" th:errors="*{pw}" class="fieldError">Incorrect date</p>
+                <label th:for="password"></label>
+                <input type="password" th:field="*{password}" class="form-control" placeholder="비밀번호를 입력해주세요">
+                <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="fieldError">Incorrect date</p>
             </div>
 
             <div class="account_type">

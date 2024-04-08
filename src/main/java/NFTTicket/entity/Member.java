@@ -27,17 +27,17 @@ public class Member {
     @Column(unique = true) // 이메일 중복 방지
     private String email;
 
-    private String pw;
+    private String password;
 
     private String metaAdress;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
         member.setEmail(memberFormDto.getEmail());
-        member.setNick(member.getNick());
+        member.setNick(memberFormDto.getNick());
         member.setRole(memberFormDto.getRole());
-        String password = passwordEncoder.encode(memberFormDto.getPw());
-        member.setPw(password);
+        String password = passwordEncoder.encode(memberFormDto.getPassword());
+        member.setPassword(password);
         return member;
     }
 }

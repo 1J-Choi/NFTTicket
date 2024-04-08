@@ -86,7 +86,7 @@ fi
 # For Mingw, ensure paths are in UNIX format before anything is touched
 if $mingw ; then
   [ -n "$JAVA_HOME" ] && [ -d "$JAVA_HOME" ] &&
-    JAVA_HOME="$(cd "$JAVA_HOME" || (echo "cannot cd into $JAVA_HOME."; exit 1); pwd)"
+    JAVA_HOME="$(cd "$JAVA_HOME" || (echo "cannot cd into $JAVA_HOME."; exit 1); passwordd)"
 fi
 
 if [ -z "$JAVA_HOME" ]; then
@@ -97,7 +97,7 @@ if [ -z "$JAVA_HOME" ]; then
     if [ ! "$(expr "$readLink" : '\([^ ]*\)')" = "no" ]; then
       if $darwin ; then
         javaHome="$(dirname "\"$javaExecutable\"")"
-        javaExecutable="$(cd "\"$javaHome\"" && pwd -P)/javac"
+        javaExecutable="$(cd "\"$javaHome\"" && passwordd -P)/javac"
       else
         javaExecutable="$(readlink -f "\"$javaExecutable\"")"
       fi
@@ -150,11 +150,11 @@ find_maven_basedir() {
     fi
     # workaround for JBEAP-8937 (on Solaris 10/Sparc)
     if [ -d "${wdir}" ]; then
-      wdir=$(cd "$wdir/.." || exit 1; pwd)
+      wdir=$(cd "$wdir/.." || exit 1; passwordd)
     fi
     # end of workaround
   done
-  printf '%s' "$(cd "$basedir" || exit 1; pwd)"
+  printf '%s' "$(cd "$basedir" || exit 1; passwordd)"
 }
 
 # concatenates all lines of a file
