@@ -1,38 +1,96 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org/">
+
 <th:block layout:fragment="css">
   <style>
+
     .headerText {
-      font-family: 'Edu VIC WA NT Beginner', cursive;
+      font-family: 'Source Sans Pro',bold;
+      color: black;
+      font-size: 18px;
+      width: 100%;
+      text-align: center;
+      font-weight: bold;
+    }
+
+    .topLine{
+        height: 4px;
+        width:100%;
+        background-color: #0D2D84;
+    }
+
+    .topHeader {
+        font-size: 32;
+        color: #FFFFFF;
+        font-family: 'Source Sans Pro';
+        background-color: #0D2D84;
+        height:60;
+        width:100%;
+        text-align: center;
     }
     .navbar-main-icon{
-        width: 70px;
-        height: 70px;
+        width: 162.57px;
+        height: 104px;
         display: flex;
-        align-items: center;
         justify-content: center;
-        padding: 10px;
-        border-radius: 50px;
         font-size: 20px;
-        border: 0;
+        margin:0 auto;
+        overflow:hidden;
+    }
+
+    .dku_icon{
+        width:100%;
+        height:100%;
+        object-fit:cover;
+    }
+
+    .custom_bg {
+        background-color: #FFFFFF;
+    }
+
+    .nav_right{
+        justify-content: flex-end;
+    }
+
+
+    .signText{
+        border-radius: 5px;
+        font-family: 'Source Sans Pro';
+        color: white;
+        background-color: #EF8C2F;
+        font-size: 15px;
+        width:125px;
+        text-align: center;
+        font-weight: bold;
+    }
+    .noMargin{
+        padding-top: 0px;
+        padding-bottom: 0px;
+        margin-top: 0;
+        margin-bottom: 0;
     }
   </style>
+
 </th:block>
+
 <div th:fragment="header">
-  <nav class="navbar navbar-expand-sm bg-primary navbar-dark">
+  <div class="topHeader">
+    <a>단국대학교 행사 참여 NFT 플레이스</a>
+  </div>
+  <nav class="navbar navbar-expand-sm custom_bg noMargin">
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
             data-bs-target="#navbarTogglerDemo03"
             aria-controls="navbarTogglerDemo03"
             aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="navbar-main-icon" margin-rignt="20px">
+    <div class="navbar-main-icon">
       <a style="color:rgba(255,255,255,.5);" href="/">
-        <i class="fa-solid fa-cart-shopping fa-3x fa-beat"></i>
+        <img src = "https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" class="dku_icon">
       </a>
     </div>
 
-    <div class="collapse navbar-collapse" id="navbarTogglerDemo03">
+    <div class="collapse navbar-collapse nav_right" id="navbarTogglerDemo03">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
           <a class="headerText nav-link" href="/">How to use</a> <!--사용방법-->
@@ -46,14 +104,16 @@
         <li class="nav-item">
           <a class="headerText nav-link" href="/">Log-in</a> <!--로그인-->
         </li>
+        <!--        <li class="nav-item">
+                  <a class="headerText nav-link" href="/">Log-out</a> 로그아웃
+                </li>
+        -->
         <li class="nav-item">
-          <a class="headerText nav-link" href="/">Log-out</a> <!--로그아웃-->
-        </li>
-        <li class="nav-item">
-          <a class="headerText nav-link" href="/member/new">회원가입</a> <!--로그아웃-->
+          <a class="signText nav-link" href="/member/new">Sign in / up</a> <!--로그아웃-->
         </li>
       </ul>
     </div>
   </nav>
+  <div class="topLine"></div>
 </div>
 </html>
