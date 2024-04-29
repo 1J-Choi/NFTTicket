@@ -7,14 +7,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.Customizer;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -39,61 +44,41 @@ public class SecurityConfig{
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-//        http
-//                .csrf(AbstractHttpConfigurer::disable)
-//                .authorizeHttpRequests(requests -> requests
-//                        .requestMatchers("/", "/member/**").permitAll()
-//                        .anyRequest().authenticated()
-//                )
-//                .formLogin(form -> form
-//                        .loginPage("/member/login")
-//                        .defaultSuccessUrl("/")
-//                        .usernameParameter("email")
-//                        .failureUrl("/members/login/error")
-//                        .and()
-//                        .logout()
-//                        .logoutRequestMatcher(new AntPathRequestMatcher("/members/logout"))
-//                        .logoutSuccessUrl("/")
-//                )
-//                .logout(logout -> logout
-//                        .permitAll());
-
-        http
-//                .csrf((csrfConfig) ->
-//                        csrfConfig.disable()
-//                )
-                .headers((headerConfig) ->
+        http.headers((headerConfig) ->
                         headerConfig.frameOptions(frameOptionsConfig ->
                                 frameOptionsConfig.disable()
                         )
-                )
-                .authorizeHttpRequests((authorizeRequests) ->
+        );
+        http.authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
 //                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/", "/member/**").permitAll()
 //                                .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole("USER")
-//                                .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("OWNER")
-//                                .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("ADMIN")
+                                .requestMatchers("/owner/**", "/api/v1/admins/**").hasRole("OWNER")
+                                .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
-                )
-                .exceptionHandling((exceptionConfig) ->
+        );
+        http.exceptionHandling((exceptionConfig) ->
                         exceptionConfig.authenticationEntryPoint(new CustomAuthenticationEntryPoint())
-                )
-                .formLogin((formLogin) ->
+        );
+        http.formLogin((formLogin) ->
                         formLogin
                                 .loginPage("/member/login")
-                                .defaultSuccessUrl("/")
                                 .usernameParameter("email")
+                                .failureUrl("/member/login/error")
                                 .passwordParameter("password")
-                                .loginProcessingUrl("/")
+                                .loginProcessingUrl("/member/login")
                                 .defaultSuccessUrl("/", true)
-                )
-                .logout((logoutConfig) ->
+                                .permitAll()
+        );
+        http.logout((logoutConfig) ->
                         logoutConfig
                                 .logoutRequestMatcher(new AntPathRequestMatcher("member/logout"))
                                 .logoutSuccessUrl("/")
-                )
-                .userDetailsService(memberService);
+        );
+        http.securityContext((securityContext) ->
+                securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()));
+        http.userDetailsService(memberService);
 
         return http.build();
     }

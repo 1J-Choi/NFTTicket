@@ -3,13 +3,19 @@ package NFTTicket.service;
 import NFTTicket.entity.Member;
 import NFTTicket.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
+@Transactional
 @RequiredArgsConstructor
 public class MemberService implements UserDetailsService {
 
@@ -23,7 +29,9 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        return User.builder().username(member.getEmail()).password(member.getPassword()).roles(member.getRole().toString()).build();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        return User.builder().username(member.getEmail()).password(member.getPassword()).roles(member.getRole().toString()).
+                authorities(authorities).build();
     }
 
     public Member saveMember(Member member) {
