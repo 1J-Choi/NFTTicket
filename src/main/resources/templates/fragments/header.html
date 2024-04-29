@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org/"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+
 <th:block layout:fragment="css">
   <style>
 
@@ -100,16 +101,17 @@
           <a class="headerText nav-link" href="/">Events</a> <!--이벤트 목록-->
         </li>
         <li class="nav-item">
-          <a class="headerText nav-link" href="/" sec:authorize="isAuthenticated()">My page</a> <!--마이페이지-->
+          <a class="headerText nav-link" href="/">My page</a> <!--마이페이지-->
         </li>
         <li class="nav-item">
-          <a class="headerText nav-link" href="member/login">Log-in</a> <!--로그인-->
+          <a class="headerText nav-link" href="/">Log-in</a> <!--로그인-->
         </li>
         <li class="nav-item">
           <a class="headerText nav-link" href="member/logout" sec:authorize="isAuthenticated()">Log-out</a> <!--로그아웃-->
         </li>
-        <li class="nav-item">
-          <a class="signText nav-link" href="member/new">Sign in / up</a>
+        <div class="vertical-line"></div>
+        <li class="nav-item divide_line">
+          <a class="signText nav-link" href="/member/new">Sign in / up</a>
         </li>
       </ul>
     </div>
