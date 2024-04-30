@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf.layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
       layout:decorate="~{layouts/layout1}">
+<!--사용자 CSS 추가-->
 <th:block layout:fragment="css">
     <style>
-        .error {
-            color: #bd2130;
+        .fieldError {
+        color: #bd2130;
         }
         * {
           margin: 0;
@@ -24,18 +25,30 @@
 
         .wrap {
           width: 100%;
-          height: 100vh;
+          height: 900px;
           display: flex;
           align-items: center;
           justify-content: center;
           background: rgba(0, 0, 0, 0.1);
+          overflow: auto;
         }
 
         .login {
-          width: 500px;
-          height: 600px;
-          background: white;
-          border-radius: 20px;
+          width: 1920px;
+          height: 900px;
+          background: linear-gradient(170deg, #0D2D84 50%, #ffffff 50%);
+          border-radius: 0px;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          flex-direction: column;
+        }
+
+        .login_white {
+          width: 700px;
+          height: 630px;
+          background: #ffffff;
+          border-radius: 0px;
           display: flex;
           justify-content: center;
           align-items: center;
@@ -43,7 +56,17 @@
         }
 
         h2 {
-          font-size: 2em;
+          color: black;
+          font-size: 3em;
+          text-align: center;
+          margin-bottom: 30px;
+        }
+
+        h4 {
+          color: gray;
+          font-size: 1em;
+          text-align: center;
+          margin-bottom: 20px;
         }
         .login_sns {
           padding: 20px;
@@ -61,37 +84,54 @@
           align-items: center;
           justify-content: center;
           padding: 5px;
-          border-radius: 50px;
+
           background: white;
           font-size: 20px;
           box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.4), -3px -3px 5px rgba(0, 0, 0, 0.1);
         }
 
         .login_id {
-          margin-top: 20px;
+          margin-top: 5px;
+          width: 100%;
+        }
+
+        .account_type {
+          margin-top: 5px;
+          width: 100%;
+        }
+
+        .account_type {
+          margin-top: 5px;
           width: 80%;
         }
 
+        .account_type input{
+          margin-top: 20px;
+          width: 20%;
+          font-size : 30px;
+        }
+
+
         .login_id input {
-          width: 100%;
-          height: 50px;
-          border-radius: 30px;
-          margin-top: 10px;
+          width: 380px;
+          height: 70px;
+          border-radius: 0px;
+          margin-top: -5px;
           padding: 0px 20px;
           border: 1px solid lightgray;
           outline: none;
         }
 
-        .login_pw {
-          margin-top: 20px;
-          width: 80%;
+        .login_password {
+          margin-top: 5px;
+          width: 100%;
         }
 
-        .login_pw input {
-          width: 100%;
-          height: 50px;
-          border-radius: 30px;
-          margin-top: 10px;
+        .login_password input {
+          width: 380;
+          height: 70px;
+          border-radius: 0px;
+          margin-top: -5px;
           padding: 0px 20px;
           border: 1px solid lightgray;
           outline: none;
@@ -99,7 +139,7 @@
 
         .login_etc {
           padding: 10px;
-          width: 80%;
+          width: 380px;
           font-size: 14px;
           display: flex;
           justify-content: space-between;
@@ -113,46 +153,150 @@
         }
 
         .submit input {
-          width: 100%;
-          height: 50px;
+          width: 380px;
+          height: 70px;
           border: 0;
           outline: none;
-          border-radius: 40px;
-          background:  linear-gradient(to right, #1687ed 0%, #14375a 100%);
+          border-radius: 0px;
+          background: #0D2D84;
           color: white;
           font-size: 1.2em;
           letter-spacing: 2px;
         }
+
+        label{
+            height: 0px;
+        }
+
+        .headerText {
+          font-family: 'Source Sans Pro',bold;
+          color: black;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .topLine{
+            height: 4px;
+            width:100%;
+            background-color: #0D2D84;
+        }
+
+        .topHeader {
+            font-size: 32;
+            color: #FFFFFF;
+            font-family: 'Source Sans Pro';
+            background-color: #0D2D84;
+            height:60;
+            width:100%;
+            text-align: center;
+        }
+        .navbar-main-icon{
+            width: 162.57px;
+            height: 104px;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+
+        .dku_icon{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .custom_bg {
+            background-color: #FFFFFF;
+        }
+
+        .nav_right{
+            justify-content: flex-end;
+        }
+
+
+        .signText{
+            border-radius: 5px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:125px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .noMargin{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .vertical-line {
+                border-left: 1px solid #ccc;
+                margin-right: 10px;
+                margin-left: 5px;
+                margin-top: 8px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: middle;
+            }
     </style>
 </th:block>
+
+<!--사용자 스크립트 추가-->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if (errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+
 <div class="wrap" layout:fragment="content">
-    <form action="/member/login" role="form" method="post">
-        <div class="login">
-            <h2>Log-in</h2>
-            <div class="login_id">
-                <h4>E-mail</h4>
-                <label th:for="email"></label>
-                <input type="email" name="email" placeholder="Email">
-            </div>
-            <div class="login_pw">
-                <h4>Password</h4>
-                <label th:for="password"></label>
-                <input type="password" name="password" placeholder="Password">
-            </div>
-            <div class="login_etc">
-                <!--                <div class="checkbox">-->
-                <!--                    <input type="hidden">-->
-                <!--                </div>-->
-                <div class="forgot_pw">
-                    <a href="/member/new">Don't have an account?</a>
+    <div class="login">
+        <div class="login_white">
+            <form action="/member/login" role="form" method="post">
+                <h2>Sign In</h2>
+                <h4>NFT is Easy</h4>
+
+
+
+
+                <div class="login_id">
+                    <label th:for="email"></label>
+                    <input type="email" name="email" class="form-control" placeholder="Email">
                 </div>
-            </div>
-            <div class="submit">
-                <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
-                <input type="submit" value="Log-in">
-                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
-            </div>
+
+
+
+                <div class="login_password">
+                    <label th:for="password"></label>
+                    <input type="password" name="password" class="form-control" placeholder="Password">
+                </div>
+
+                <div class="login_etc">
+                    <!--                <div class="checkbox">-->
+                    <!--                    <input type="hidden">-->
+                    <!--                </div>-->
+                    <div class="forgot_password">
+                        <a href="/member/new">Don't have an account?</a>
+                    </div>
+                </div>
+
+                <div class="submit">
+                    <p th:if="${loginErrorMsg}" class="error" th:text="${loginErrorMsg}"></p>
+                    <input type="submit" value="Sign In">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </div>
+            </form>
         </div>
-    </form>
+    </div>
 </div>
 </html>
