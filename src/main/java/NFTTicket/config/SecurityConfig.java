@@ -19,7 +19,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-import org.thymeleaf.extras.springsecurity5.dialect.SpringSecurityDialect;
 
 @EnableWebSecurity
 @EnableMethodSecurity
@@ -54,7 +53,7 @@ public class SecurityConfig{
 //                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/", "/member/**").permitAll()
 //                                .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole("USER")
-                                .requestMatchers("/owner/**", "/api/v1/admins/**").hasRole("OWNER")
+                                .requestMatchers("/owner/**", "/api/v1/owner/**").hasRole("OWNER")
                                 .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
         );
