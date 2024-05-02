@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+
+<!--사용자 CSS 추가-->
+<th:block layout:fragment="css">
+    <style>
+        .headerText {
+          font-family: 'Source Sans Pro',bold;
+          color: black;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .topLine{
+            height: 4px;
+            width:100%;
+            background-color: #0D2D84;
+        }
+
+        .topHeader {
+            font-size: 32;
+            color: #FFFFFF;
+            font-family: 'Source Sans Pro';
+            background-color: #0D2D84;
+            height:60;
+            width:100%;
+            text-align: center;
+        }
+        .navbar-main-icon{
+            width: 162.57px;
+            height: 104px;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+
+        .dku_icon{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .custom_bg {
+            background-color: #FFFFFF;
+        }
+
+        .nav_right{
+            justify-content: flex-end;
+        }
+
+
+        .signText{
+            border-radius: 5px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:125px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .noMargin{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+    </style>
+</th:block>
+
+<!--사용자 스크립트 추가-->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if (errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+    </script>
+</th:block>
+
+<div class="wrap" layout:fragment="content">
+    <div class="login">
+        <div class="login_white">
+            <form action="/mypage" role="form" method="get">
+                <h2>Sign up</h2>
+                <h4>NFT is Easy</h4>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+</html>>
