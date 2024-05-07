@@ -51,7 +51,7 @@ public class SecurityConfig{
         http.authorizeHttpRequests((authorizeRequests) ->
                         authorizeRequests
 //                                .requestMatchers(PathRequest.toH2Console()).permitAll()
-                                .requestMatchers("/", "/member/**").permitAll()
+                                .requestMatchers("/", "/member/**","/event/**").permitAll()
 //                                .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole("USER")
                                 .requestMatchers("/owner/**", "/api/v1/owner/**").hasRole("OWNER")
                                 .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("ADMIN")
