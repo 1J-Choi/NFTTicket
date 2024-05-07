@@ -45,4 +45,8 @@ public class MemberService implements UserDetailsService {
             throw new IllegalStateException("이미 가입 된 회원입니다.");
         }
     }
+
+    public Member findMember(String email){
+        return memberRepository.findByEmail(email);
+    }
 }
