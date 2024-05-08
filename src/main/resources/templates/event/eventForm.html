@@ -1,0 +1,432 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout1}">
+<!--사용자 CSS 추가-->
+<th:block layout:fragment="css">
+    <style>
+        .fieldError {
+            color: #bd2130;
+        }
+        * {
+             margin: 0;
+             padding: 0;
+             box-sizing: border-box;
+        }
+
+        a {
+          text-decoration: none;
+          color: black;
+        }
+
+        li {
+          list-style: none;
+        }
+
+        .wrap {
+          width: 100%;
+          height: 1200px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: rgba(0, 0, 0, 0.1);
+          overflow: auto;
+        }
+
+        .headerText {
+          font-family: 'Source Sans Pro',bold;
+          color: black;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .topLine{
+            height: 4px;
+            width:100%;
+            background-color: #0D2D84;
+        }
+
+        .topHeader {
+            font-size: 32px;
+            color: #FFFFFF;
+            font-family: 'Source Sans Pro';
+            background-color: #0D2D84;
+            height:60;
+            width:100%;
+            text-align: center;
+        }
+        .navbar-main-icon{
+            width: 162.57px;
+            height: 104px;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+
+        .dku_icon{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .custom_bg {
+            background-color: #FFFFFF;
+        }
+
+        .nav_right{
+            justify-content: flex-end;
+        }
+
+
+        .signText{
+            border-radius: 5px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:125px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .noMargin{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .vertical-line {
+                border-left: 1px solid #ccc;
+                margin-right: 10px;
+                margin-left: 5px;
+                margin-top: 8px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+       .evName {
+          margin-top: 5px;
+          width: 100%;
+          margin-left: 70px;
+        }
+
+        .evName input {
+          width: 770px;
+          height: 66px;
+          border-radius: 3px;
+          margin-top: 20px;
+          margin-left: 70px;
+          margin-bottom: 40px;
+          padding: 0px 20px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+        .number {
+          margin-top: 5px;
+          width: 100%;
+          margin-left: 70px;
+        }
+
+        .number input {
+          width: 770px;
+          height: 66px;
+          border-radius: 3px;
+          margin-top: 20px;
+          margin-left: 70px;
+          margin-bottom: 40px;
+          padding: 0px 20px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+        .place {
+          margin-top: 5px;
+          width: 100%;
+          margin-left: 70px;
+        }
+
+        .place input {
+          width: 770px;
+          height: 66px;
+          border-radius: 3px;
+          margin-top: 20px;
+          margin-left: 70px;
+          margin-bottom: 40px;
+          padding: 0px 20px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+        .date {
+          margin-top: 5px;
+          width: 100%;
+          margin-left: 70px;
+        }
+
+        .date input {
+          width: 455px;
+          height: 66px;
+          border-radius: 3px;
+          margin-top: 20px;
+          margin-left: 70px;
+          margin-bottom: 40px;
+          padding: 0px 20px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+        .script {
+          margin-top: 5px;
+          width: 100%;
+          margin-left: 70px;
+        }
+
+        .script input {
+          width: 455px;
+          height: 63px;
+          border-radius: 3px;
+          margin-top: 20px;
+          margin-left: 70px;
+          padding: 0px 20px;
+          border: 1px solid lightgray;
+          outline: none;
+        }
+
+
+        .event {
+              width: 1920px;
+              height: 100%;
+              overflow: hidden;
+              display: flex;
+              flex-direction: column;
+              align-items: center;
+              justify-content: center;
+              background: #ffffff;
+        }
+
+        .regist {
+          margin-top: 50px;
+          width: 120%;
+          text-align: center;
+        }
+
+        .regist input {
+          width: 380px;
+          height: 70px;
+          border: 0;
+          outline: none;
+          border-radius: 0px;
+          background: #EF8C2F;
+          color: white;
+          font-size: 1.7em;
+          letter-spacing: 2px;
+          text-align: center;
+        }
+
+        #image_container img {
+           max-width: 500px;  /* 최대 너비를 100px로 제한 */
+           max-height: 500px; /* 최대 높이를 100px로 제한 */
+            width: auto;       /* 원본 비율 유지 */
+           height: auto;      /* 원본 비율 유지 */
+        }
+
+        .button {
+          display: flex;
+          justify-content: center;
+        }
+
+        label {
+          cursor: pointer;
+          font-size: 1em;
+        }
+
+
+        .event-list{
+              width: 1550px;
+              height: 100%;
+              background: #EFF3FF;
+              border-radius: 0 0 10px 10px;
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+              flex-direction: column;
+        }
+
+        .regist-contents{
+              width: 1550px;
+              height: 120%;
+              background: #FFE5BD;
+              border-radius: 0 0 10px 10px;
+              display: flex;
+              justify-content: center;
+              align-items: flex-start;
+              flex-direction: column;
+        }
+
+        .menu-bar {
+            width:1550px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: #ffffff;
+            padding: 0;
+        }
+
+        .left-menu, .right-menu {
+            display: flex;
+        }
+
+        .menu-bar .currentButton {
+            width: 200px;
+            height: 70px;
+            border: none;
+            padding: 15px;
+            margin-right: 20px;
+            background-color: #EFF3FF;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-family: 'Telex',bold;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .menu-bar .listButton {
+            width: 200px;
+            height: 70px;
+            border: none;
+            padding: 15px;
+            margin-right: 20px;
+            background-color: #8BAAFF;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-family: 'Telex',bold;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .menu-bar .registButton {
+            width: 200px;
+            height: 70px;
+            border: none;
+            padding: 15px;
+            color: #ffffff;
+            background-color: #FFB876;
+            border-radius: 10px 10px 0 0;
+            cursor: pointer;
+            font-family: 'Telex',bold;
+            font-size: 30px;
+            text-align: center;
+        }
+
+        .menu-bar listButton:hover {
+            background-color: #EFF3FF; /* 호버 시 배경색 변경 */
+        }
+
+        .menu-bar registButton:hover {
+            background-color: #FFE5BD; /* 호버 시 배경색 변경 */
+        }
+
+        .search-window{
+            width: 1920px;
+            height: 200px;
+            background-color: #ffffff;
+        }
+    </style>
+</th:block>
+
+<!--사용자 스크립트 추가-->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if (errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+/*
+        function setThumbnail(event) {
+        for (var image of event.target.files) {
+          var reader = new FileReader();
+
+          reader.onload = function(event) {
+            var img = document.createElement("img");
+            img.setAttribute("src", event.target.result);
+            document.querySelector("div#image_container").appendChild(img);
+          };
+
+          console.log(image);
+          reader.readAsDataURL(image);
+        }
+      }
+*/
+    </script>
+</th:block>
+
+<div class="wrap" layout:fragment="content">
+    <div class="event">
+        <div class="search-window">
+
+        </div>
+        <div class="menu-bar">
+            <div class="left-menu">
+                <a class="listButton nav-link" href="/event/all">All Event</a>
+                <a class="listButton nav-link" href="/event/circle">Circle</a>
+                <a class="listButton nav-link" href="/event/department">Department</a>
+                <a class="listButton nav-link" href="/event/others">Others</a>
+            </div>
+            <div class="right-menu">
+                <a class="registButton nav-link" href="/owner/event/new">Regist</a>
+            </div>
+        </div>
+        <div class="regist-contents" stylle="float:left;">
+            <form action="/owner/event/new" role="form" method="post" th:object="${eventFormDto}">
+                <h2 style="margin-left: 140px; float: left;">행사 이름</h2>
+                <h2 style="margin-left: 870px; float: left;">이미지 파일</h2>
+
+                <div class="evName">
+                    <input type="text" th:field="*{evName}" class="form-control" placeholder="행사명을 기입해주세요.">
+                    <p th:if="${#fields.hasErrors('evName')}" th:errors="*{evName}" class="fieldError" style="margin-left: 70px;margin-top: -35px;">행사명은 필수 입력값입니다.</p>
+                </div>
+
+
+                <h2 style="margin-left: 140px;">행사 인원</h2>
+                <div class="number">
+                    <input type="number" th:field="*{number}" class="form-control" placeholder="행사인원을 기입해주세요.">
+                    <p th:if="${#fields.hasErrors('number')}" th:errors="*{number}" class="fieldError" style="margin-left: 70px;margin-top: -35px;">행사 인원은 필수 입력값입니다.</p>
+                </div>
+
+                <h2 style="margin-left: 140px;">행사 장소</h2>
+                <div class="place">
+                    <input type="text" th:field="*{place}" class="form-control" placeholder="행사장소를 기입해주세요.">
+                    <p th:if="${#fields.hasErrors('place')}" th:errors="*{place}" class="fieldError" style="margin-left: 70px;margin-top: -35px;">행사 장소는 필수 입력값입니다.</p>
+                </div>
+
+
+
+                <h2 style="margin-left: 140px;">행사 일시</h2>
+                <div class="date">
+                    <input type="datetime-local" th:field="*{date}" class="form-control" placeholder="Enter date and time">
+                    <p th:if="${#fields.hasErrors('date')}" th:errors="*{date}" class="fieldError" style="margin-left: 70px;margin-top: -35px;">날짜 선택은 필수 입력값입니다.</p>
+                </div>
+
+                <h2 style="margin-left: 140px;">행사 내용</h2>
+                <div class="script">
+                    <input type="text" th:field="*{script}" class="form-control" placeholder="행사내용을 기입해주세요.">
+                    <p th:if="${#fields.hasErrors('script')}" th:errors="*{script}" class="fieldError" style="margin-left: 70px;">행사 내용은 필수 입력값입니다.</p>
+                </div>
+                <div class="regist">
+                    <input type="submit" value="regist">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+</html>
