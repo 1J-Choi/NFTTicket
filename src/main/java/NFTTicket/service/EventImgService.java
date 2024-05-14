@@ -1,6 +1,6 @@
 package NFTTicket.service;
 
-import NFTTicket.repository.EventRepository;
+import NFTTicket.repository.EventImgRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Transactional
 @RequiredArgsConstructor
 public class EventImgService {
-    private final EventRepository eventRepository;
+    private final EventImgRepository eventImgRepository;
 }

@@ -127,7 +127,6 @@
               border-radius: 0 0 10px 10px;
               display: flex;
               justify-content: center;
-              align-items: center;
               flex-direction: column;
         }
 
@@ -199,67 +198,6 @@
             height: 200px;
             background-color: #ffffff;
         }
-
-
-        .event-card {
-            position: relative;
-            width: 1200px;
-            height: 300px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            display: flex;
-            align-items: center;
-        }
-
-        .event-info {
-            padding: 10px;
-            text-align: left;
-            width: 765px;
-            height: 300px;
-            position: absolute;
-            left: 225px
-        }
-
-        .event-img{
-            width: 195px;
-            height: 300px;
-            object-fit:cover;
-            position: absolute;
-            left: 0;
-        }
-
-        .tip{
-            width: 238px;
-            height: 300px;
-            background-color: #163C9D;
-            position: absolute;
-            right: 0;
-        }
-
-        .safe-mint {
-            position: absolute;
-            right: 65px; /* 오른쪽 경계로부터 10px */
-            top: 50%; /* 상단으로부터 50% 위치 */
-            transform: translateY(-50%); /* Y축 기준 50% 올림 */
-            padding: 10px 20px; /* 패딩 */
-            background-color: #EF8C2F; /* 배경색 */
-            color: white; /* 글자색 */
-            border: none; /* 테두리 없음 */
-            cursor: pointer; /* 커서 모양 */
-            border-radius: 5px;
-        }
-
-        .evHead{
-            font-size: 40px;
-            font-style: 'Source Sans Pro', bold;
-        }
-
-        .event-info .evText{
-            padding-left: 20px;
-            font-size: 20px;
-            font-style: 'Source Sans Pro;
-        }
-
     </style>
 </th:block>
 
@@ -282,35 +220,17 @@
         </div>
         <div class="menu-bar">
             <div class="left-menu">
-                <a class="currentButton nav-link" href="/event/all">All Event</a>
+                <a class="listButton nav-link" href="/event/all">All Event</a>
                 <a class="listButton nav-link" href="/event/circle">Circle</a>
                 <a class="listButton nav-link" href="/event/department">Department</a>
-                <a class="listButton nav-link" href="/event/others">Others</a>
+                <a class="currentButton nav-link" href="/event/others">Others</a>
             </div>
             <div class="right-menu">
                 <a class="registButton nav-link" href="/owner/event/new">Regist</a>
             </div>
         </div>
         <div class="event-list">
-            <p>all event</p>
-            <div class="event-card">
-                <div class="event-img">
-                    <img src="https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" alt="Busan International Rock" class="event-img">
-                </div>
-                <div class="event-info">
-                    <p class="evHead">부산국제록</p>
-                    <div class="evText">
-                        <p>일시: 20xx.10.xx 13 p.m.</p>
-                        <p>장소: 대한민국 부산 해운대</p>
-                        <p>주최: 부산시</p>
-                        <p>인원: 00/0000</p>
-                    </div>
-                </div>
-                <div class="tip">
-                    <button class="safe-mint">safe Mint</button>
-                </div>
-
-            </div>
+            <p>others event</p>
         </div>
     </div>
 </div>

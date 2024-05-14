@@ -1,6 +1,6 @@
 package NFTTicket.service;
 
-import NFTTicket.repository.TicketRepository;
+import NFTTicket.repository.TicketBoxRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -9,5 +9,5 @@ import org.springframework.stereotype.Service;
 @Transactional
 @RequiredArgsConstructor
 public class TicketBoxService {
-    private final TicketRepository ticketRepository;
+    private final TicketBoxRepository ticketBoxRepository;
 }
