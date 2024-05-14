@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -25,7 +25,7 @@ public class EventFormDto {
     private String place;
 
     @NotNull(message = "날짜를 지정해주세요")
-    private Date date;
+    private LocalDateTime date;
 
     @NotBlank(message = "이벤트 세부사항을 작성해주세요")
     private String script;
