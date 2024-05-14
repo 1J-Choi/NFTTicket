@@ -51,6 +51,7 @@ public class Event {
         event.setDate(eventFormDto.getDate());
         event.setScript(eventFormDto.getScript());
         event.setTranNow(TransactionStatus.REQUEST);
+        event.setCategory(eventFormDto.getCategory());
         event.setMember(member);
         return event;
     }
