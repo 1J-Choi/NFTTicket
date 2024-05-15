@@ -267,11 +267,20 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         $(document).ready(function(){
-            var errorMessage = [[${errorMessage}]];
-            if (errorMessage != null){
-                alert(errorMessage);
-            }
+            $("searchBtn").on("click",function(e){
+                e.preventDefault(); // 검색버튼 클릭 시 form 태그 전송 막기
+                page(0);
+            });
         });
+
+        function page(page){
+            var searchBy = $("#searchBy").val();
+            var searchQuery = $("#searchQuery").val();
+
+            location.href="/event/all/" + page
+            + "&searchBy=" + searchBy
+            + "&searchQuery=" + searchQuery;
+        }
     </script>
 </th:block>
 
@@ -280,8 +289,8 @@
         <div class="search-window">
             <div class="form-inline justify-content-center" th:object="${eventSearchDto}">
                 <select th:field="*{searchBy}" class="form-control" style="width:auto;">
-                    <option value="이벤트명">상품명</option>
-                    <option value="주최자">등록자</option>
+                    <option value="eventNm">상품명</option>
+                    <option value="createdBy">등록자</option>
                 </select>
                 <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
                 <button id="searchBtn" type="submit" class="btn btn-primary">검색</button><!--버튼 클래스 구현-->
@@ -301,25 +310,25 @@
             </div>
         </div>
         <div class="event-list">
-            <form th:action="/event/all" role="form" method="get" th:object="${이벤트}"> <!--여기서부터 이벤트 리스트-->
-                <div class="event-card" th:each="이벤트, 카테고리상태 : ${event.getContent()}">
+            <form th:action="/event/all" role="form" method="get" th:object="${events}"> <!--여기서부터 이벤트 리스트-->
+                <div class="event-card" th:each="event, status : ${events.getContent()}">
                     <div class="event-img">
                         <img src="https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" alt="Busan International Rock" class="event-img">
                     </div>
                     <div class="event-info">
-                        <p class="evHead" th:text="${event.이벤트이름}">부산국제록</p>
+                        <p class="evHead" th:text="${event.evName}"></p>
                         <div class="evText">
-                            <p th:text="'일시: '+${event.이벤트시간}"></p>
-                            <p th:text="'장소: '${event.이벤트장소}"></p>
-                            <p th:text="'주최: '${event.이벤트주최}"></p> <!--따로만들어-->
-                            <p th:text="'인원: '${event.이벤트인원}"></p>
+                            <p th:text="'일시: '+${event.date}"></p>
+                            <p th:text="'장소: '${event.place}"></p>
+                            <p th:text="'주최: '${event.member.nick}"></p> <!--따로만들어-->
+                            <p th:text="'인원: '${event.number}"></p>
                         </div>
                     </div>
                     <div class="tip">
                         <button class="safe-mint">safe Mint</button>
                     </div>
                 </div>
-            </form>>
+            </form>
         </div><!--여기까지 이벤트리스트데모버전-->
     </div>
 </div>

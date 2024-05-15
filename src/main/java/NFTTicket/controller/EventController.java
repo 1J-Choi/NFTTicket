@@ -44,4 +44,20 @@ public class EventController {
         }
         return "redirect:/";
     }
+
+    @GetMapping(value = "/event/all")
+    public String eventListAll() {
+        // eventSearchDto, events 를 보내야함
+        // 이를 위해 필요한 Service 주입 해볼 것
+        return "event/eventList_all";
+    }
+
+    @GetMapping(value = "/event/circle")
+    public String eventListCircle() {return "event/eventList_circle";}
+
+    @GetMapping(value = "/event/department")
+    public String eventListDepartment() {return "event/eventList_department";}
+
+    @GetMapping(value = "/event/others")
+    public String eventListOthers() {return "event/eventList_others";}
 }
