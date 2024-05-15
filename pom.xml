@@ -90,7 +90,6 @@
 			<groupId>com.querydsl</groupId>
 			<artifactId>querydsl-core</artifactId>
 			<version>${querydsl.version}</version>
-			<classifier>jakarta</classifier>
 		</dependency>
 		<dependency>
 			<groupId>com.querydsl</groupId>
