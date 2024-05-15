@@ -7,6 +7,9 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.ArrayList;
@@ -30,10 +33,13 @@ public class EventRepositoryCustomImpl implements EventRepositoryCustom{
     }
 
     @Override
-    public List<Event> getEvents(EventSearchDto eventSearchDto){
+    public Page<Event> getEvents(EventSearchDto eventSearchDto, Pageable pageable){
         QueryResults<Event> results = queryFactory.selectFrom(QEvent.event).
-                where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQurey()))
-                .orderBy(QEvent.event.id.desc()).fetchResults();
-        return results.getResults();
+                where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                .orderBy(QEvent.event.id.desc())
+                .offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+        List<Event> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
     }
 }

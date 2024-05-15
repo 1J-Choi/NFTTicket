@@ -1,10 +1,9 @@
 package NFTTicket.service;
 
 import NFTTicket.repository.MemberImgRepository;
-import NFTTicket.repository.MemberRepository;
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional

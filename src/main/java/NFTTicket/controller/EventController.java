@@ -1,18 +1,26 @@
 package NFTTicket.controller;
 
 import NFTTicket.dto.EventFormDto;
+import NFTTicket.dto.EventSearchDto;
+import NFTTicket.entity.Event;
 import NFTTicket.entity.Member;
 import NFTTicket.service.EventService;
 import NFTTicket.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import java.security.Principal;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -45,10 +53,13 @@ public class EventController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "/event/all")
-    public String eventListAll() {
-        // eventSearchDto, events 를 보내야함
-        // 이를 위해 필요한 Service 주입 해볼 것
+    @GetMapping(value = {"/event/all","/event/all/{page}"})
+    public String eventListAll(EventSearchDto eventSearchDto, @PathVariable("page")Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<Event> events = eventService.getEventList(eventSearchDto, pageable);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
+        model.addAttribute("maxPage", 5);
         return "event/eventList_all";
     }
 

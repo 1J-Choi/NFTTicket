@@ -9,5 +9,5 @@ public class EventSearchDto {
 
     private String searchBy;
 
-    private String searchQurey = "";
+    private String searchQuery = "";
 }
