@@ -31,4 +31,6 @@ public class EventFormDto {
     private String script;
 
     private EventCategory category;
+
+    private EventImgDto eventImgDto;
 }

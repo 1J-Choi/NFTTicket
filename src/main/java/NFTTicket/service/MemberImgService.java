@@ -10,5 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class MemberImgService {
     private final MemberImgRepository memberImgRepository;
+    private final FileService fileService;
 }
 

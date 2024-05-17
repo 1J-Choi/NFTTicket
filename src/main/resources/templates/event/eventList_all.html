@@ -304,14 +304,15 @@
             <div class="event-list">
                 <div class="event-card" th:each="event, status : ${events.getContent()}">
                     <div class="event-img">
-                        <img src="https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" alt="Busan International Rock" class="event-img">
+<!--                        <img src="https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" alt="Busan International Rock" class="event-img">-->
+                        <img th:src="${event.imgURL}" th:alt="${event.evName}"class="event-img">
                     </div>
                     <div class="event-info">
                         <p class="evHead" th:text="${event.evName}"></p>
                         <div class="evText">
                             <p th:text="'일시: ' + ${event.date}"></p>
                             <p th:text="'장소: ' + ${event.place}"></p>
-                            <p th:text="'주최: ' + ${event.member.nick}"></p> <!--따로만들어-->
+                            <p th:text="'주최: ' + ${event.nick}"></p> <!--따로만들어-->
                             <p th:text="'인원: ' + ${event.number}"></p>
                         </div>
                     </div>

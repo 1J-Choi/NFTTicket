@@ -2,6 +2,7 @@ package NFTTicket.controller;
 
 import NFTTicket.dto.EventFormDto;
 import NFTTicket.dto.EventSearchDto;
+import NFTTicket.dto.EventShowDto;
 import NFTTicket.entity.Event;
 import NFTTicket.entity.Member;
 import NFTTicket.service.EventService;
@@ -17,6 +18,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.security.Principal;
 import java.util.List;
@@ -37,7 +40,7 @@ public class EventController {
 
     @PostMapping("/owner/event/new")
     public String newEvent(@Valid EventFormDto eventFormDto, BindingResult bindingResult, Model model,
-                           Principal principal){
+                           Principal principal, @RequestParam("eventImgFile")MultipartFile eventImgFile){
         if(bindingResult.hasErrors()){
             return "event/eventForm";
         }
@@ -45,7 +48,7 @@ public class EventController {
         String email = principal.getName();
         Member memberNow = memberService.findMember(email);
         try{
-            eventService.saveEvent(eventFormDto, memberNow);
+            eventService.saveEvent(eventFormDto, memberNow, eventImgFile);
         }catch (Exception e){
             model.addAttribute("errorMessage", "이벤트 등록 중 에러가 발생했습니다.");
             return "event/eventForm";
@@ -56,7 +59,7 @@ public class EventController {
     @GetMapping(value = {"/event/all","/event/all/{page}"})
     public String eventListAll(EventSearchDto eventSearchDto, @PathVariable("page")Optional<Integer> page, Model model) {
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<Event> events = eventService.getEventList(eventSearchDto, pageable);
+        Page<EventShowDto> events = eventService.getEventList(eventSearchDto, pageable);
         model.addAttribute("events", events);
         model.addAttribute("eventSearchDto", eventSearchDto);
         model.addAttribute("maxPage", 5);

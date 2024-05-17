@@ -16,6 +16,10 @@ public class MemberImg {
     @Column(name="memberImg_id")
     private Long id;
 
+    private  String imgName; // 이미지 파일명
+
+    private  String oriImgName; // 원본 이미지 파일명
+
     @OneToOne
     @JoinColumn(name="member_id")
     private Member member;

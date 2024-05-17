@@ -1,8 +1,11 @@
 package NFTTicket.repository;
 
 import NFTTicket.dto.EventSearchDto;
+import NFTTicket.dto.EventShowDto;
+import NFTTicket.dto.QEventShowDto;
 import NFTTicket.entity.Event;
 import NFTTicket.entity.QEvent;
+import NFTTicket.entity.QEventImg;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -32,13 +35,31 @@ public class EventRepositoryCustomImpl implements EventRepositoryCustom{
         return null;
     }
 
+    private BooleanExpression evNameLike(String searchQuery) {
+        return StringUtils.isEmpty(searchQuery) ? null : QEvent.event.evName.like("%"+searchQuery+"%");
+    }
+
     @Override
-    public Page<Event> getEvents(EventSearchDto eventSearchDto, Pageable pageable){
-        QueryResults<Event> results = queryFactory.selectFrom(QEvent.event).
-                where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
-                .orderBy(QEvent.event.id.desc())
-                .offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
-        List<Event> content = results.getResults();
+    public Page<EventShowDto> getEvents(EventSearchDto eventSearchDto, Pageable pageable){
+        QEvent event = QEvent.event;
+        QEventImg eventImg = QEventImg.eventImg;
+
+//        QueryResults<EventShowDto> results = queryFactory.selectFrom(QEvent.event).
+//                where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+//                .orderBy(QEvent.event.id.desc())
+//                .offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+//        List<Event> content = results.getResults();
+//        long total = results.getTotal();
+//        return new PageImpl<>(content, pageable, total);
+
+        //QEventShowDto @QueryProjection을 활용하면 DTO로 바로 조회 가능
+        QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
+                        event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
+                // join 내부조인 .repImgYn.eq("Y")인 대표 이미지만 가져온다.
+                .from(eventImg).join(eventImg.event, event)
+                .where(evNameLike(eventSearchDto.getSearchQuery()))
+                .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+        List<EventShowDto> content = results.getResults();
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
