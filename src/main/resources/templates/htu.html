@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/layout2}">
+<th:block layout:fragment="css">
+    <style>
+        .headerText {
+          font-family: 'Source Sans Pro',bold;
+          color: black;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .topLine{
+            height: 4px;
+            width:100%;
+            background-color: #0D2D84;
+        }
+
+        .topHeader {
+            font-size: 32;
+            color: #FFFFFF;
+            font-family: 'Source Sans Pro';
+            background-color: #0D2D84;
+            height:60;
+            width:100%;
+            text-align: center;
+        }
+        .navbar-main-icon{
+            width: 162.57px;
+            height: 104px;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+
+        .dku_icon{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .custom_bg {
+            background-color: #FFFFFF;
+        }
+
+        .nav_right{
+            justify-content: flex-end;
+        }
+
+
+        .signText{
+            border-radius: 5px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:125px;
+            text-align: center;
+            font-weight: bold;
+        }
+        .noMargin{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .wrap{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background: rgba(0, 0, 0, 0.0);
+            overflow: hidden;
+            flex-direction: column;
+        }
+
+        .how_log{
+            width:1920px;
+            height: 540px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EFF3FF;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #28647C;
+        }
+
+        .howButton{
+            width: 235px;
+            height: 60px;
+            border-radius: 30px;
+            color: #ffffff;
+            font-size: 20px;
+            font-style: 'Roboto Condensed';
+            background: #B57C33;
+            text-align: center;
+            padding: 15px;
+            margin-top: 5px;
+        }
+
+        .how_log img{
+            width: 350px;
+            height: 355px;
+            object-fit: cover;
+        }
+
+        .how_log .textbox{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 30px;
+        }
+
+        Hhd{
+            font-size: 38px;
+            font-style: 'Roboto';
+        }
+
+        Hmt{
+            font-size: 38px;
+            font-style: 'Merriweather';
+        }
+
+        Htxt{
+            font-size: 18px;
+            font-style: 'Roboto';
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+
+        .how_meta{
+            width:1920px;
+            height: 620px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EFF3FF;
+            margin: 0;
+            padding: 0;
+            border-bottom: 1px solid #28647C;
+        }
+
+        .how_meta .textbox{
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            margin-left: 100px;
+        }
+
+        .how_meta img{
+            width: 240px;
+            height: 240px;
+            object-fit: cover;
+        }
+
+        .how_connect{
+            width:1920px;
+            height: 635px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #EFF3FF;
+            margin: 0;
+            padding: 0;
+        }
+
+        .how_connect img {
+            width: 1300px;
+            height: 460px;
+
+            margin: 0;
+            padding: 0;
+        }
+
+        .footer{
+            width:1920px;
+            height: 563px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            position: relative;
+        }
+
+        .footer p{
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 68px;
+            font-weight: bold;
+            text-align: center;
+        }
+        .footer img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            margin: 0;
+            padding: 0;
+        }
+        .dark-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5); /* 반투명 검정색 */
+            margin: 0;
+            padding: 0;
+          }
+
+        .footer .evButton{
+            width: 240px;
+            height: 40px;
+            position: absolute;
+            top: 70%;
+            left: 840px;
+            background: rgba(0, 0, 0, 0);
+            border-radius: 20px;
+            font-size: 16px;
+            font-weight: bold;
+            text-align: center;
+            border: 2px solid white;
+            color: #ffffff;
+            padding: 5px;
+        }
+    </style>
+
+</th:block>
+<div class="wrap" layout:fragment="content">
+    <div class="how_log">
+        <img src="https://static.wixstatic.com/media/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png/v1/fill/w_698,h_717,al_c,q_90,enc_auto/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png">
+        <div class="textbox">
+            <Hhd>로그인 및 회원가입</Hhd>
+            <Htxt>홈페이지의 원활한 이용을 위해서 로그인 및 회원가입을 진행합니다.</Htxt>
+            <a class="howButton nav-link" href="/event/all">TO SIGN IN/UP</a>
+        </div>
+    </div>
+    <div class="how_meta">
+        <img src="https://static.wixstatic.com/media/892ace_3790bc795e424ab692c4172808413757~mv2.png/v1/fill/w_120,h_120,al_c,q_85,enc_auto/892ace_3790bc795e424ab692c4172808413757~mv2.png">
+        <div class="textbox">
+            <Hmt>METAMASK INSTALL</Hmt>
+            <Htxt>크롬에 메타마스크 설치</Htxt>
+            <a class="howButton nav-link" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko">TO CHROME STORE</a>
+        </div>
+    </div>
+    <div class="how_meta">
+        <div class="how_meta">
+            <img src="https://static.wixstatic.com/media/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png/v1/fill/w_256,h_256,al_c,q_85,enc_auto/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png">
+            <div class="textbox">
+                <Hhd>비밀번호와 시드문구를 설정하세요</Hhd>
+                <Htxt>비밀번호는 메타마스크 접속 시 필요한 정보입니다.</Htxt>
+                <Htxt>시드문구는 12개의 영어단어로 구성되며,</Htxt>
+                <Htxt>해당 문구를 입력하면 어디서든 메타마스크에 접속할 수</Htxt>
+                <Htxt>있으니 따로 적어서 보관해 주세요.</Htxt>
+            </div>
+        </div>
+    </div>
+    <div class="how_connect">
+        <img src="https://static.wixstatic.com/media/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png/v1/fill/w_740,h_192,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png">
+    </div>
+    <div class="footer">
+        <img src="https://static.wixstatic.com/media/892ace_e18232502be747bfbef90370e0088667~mv2.png/v1/fill/w_740,h_217,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_e18232502be747bfbef90370e0088667~mv2.png">
+        <div class="dark-overlay"></div>
+        <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
+        <a class="evButton nav-link" href="/event/all">EVENTS & CREATING</a>
+    </div>
+</div>
+</html>
