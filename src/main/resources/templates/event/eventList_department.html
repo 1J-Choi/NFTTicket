@@ -215,23 +215,69 @@
 
 <div class="wrap" layout:fragment="content">
     <div class="event">
-        <div class="search-window">
-
-        </div>
-        <div class="menu-bar">
-            <div class="left-menu">
-                <a class="listButton nav-link" href="/event/all">All Event</a>
-                <a class="listButton nav-link" href="/event/circle">Circle</a>
-                <a class="currentButton nav-link" href="/event/department">Department</a>
-                <a class="listButton nav-link" href="/event/others">Others</a>
+        <div style="height:100px"></div>
+        <form th:action="@{'/event/department/'+${events.number}}" role="form" method="get" th:object="${events}"> <!--여기서부터 이벤트 리스트-->
+            <div class="menu-bar">
+                <div class="left-menu">
+                    <a class="listButton nav-link" href="/event/all">All Event</a>
+                    <a class="listButton nav-link" href="/event/circle">Circle</a>
+                    <a class="currentButton nav-link" href="/event/department">Department</a>
+                    <a class="listButton nav-link" href="/event/others">Others</a>
+                </div>
+                <div class="right-menu">
+                    <a class="registButton nav-link" href="/owner/event/new">Regist</a>
+                </div>
             </div>
-            <div class="right-menu">
-                <a class="registButton nav-link" href="/owner/event/new">Regist</a>
+            <div class="event-list">
+                <div class="event-card" th:each="event, status : ${events.getContent()}">
+                    <div class="event-img">
+                        <img src="https://static.wixstatic.com/media/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png/v1/fill/w_385,h_250,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_20cbce70ff194389bd0ad358a3a76e65~mv2.png" alt="Busan International Rock" class="event-img">
+                    </div>
+                    <div class="event-info">
+                        <p class="evHead" th:text="${event.evName}"></p>
+                        <div class="evText">
+                            <p th:text="'일시: ' + ${event.date}"></p>
+                            <p th:text="'장소: ' + ${event.place}"></p>
+                            <p th:text="'주최: ' + ${event.member.nick}"></p> <!--따로만들어-->
+                            <p th:text="'인원: ' + ${event.number}"></p>
+                        </div>
+                    </div>
+                    <div class="tip">
+                        <button class="safe-mint">safe Mint</button>
+                    </div>
+                </div>
+                <div th:with="start=${(events.number/maxPage)*maxPage +1},
+        end=(${(events.totalPages == 0) ? 1 : (start + (maxPage-1) < events.totalPages ? start + (maxPage - 1) : events.totalPages)})">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item" th:classappend="${events.first}?'disabled'">
+                            <a th:onclick="'javascript:page('+${events.number - 1} + ')'" aria-label="Previous" class="page-link">
+                                <span aria-hidden="true">Previous</span>
+                            </a>
+                        </li>
+                        <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${events.number eq page-1}?'active':''">
+                            <a th:onclick="'javascript:page('+${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                        </li>
+                        <li class="page-item" th:classappend="${events.last}?'disabled'">
+                            <a th:onclick="'javascript:page(' + ${events.number + 1} + ')'" aria-label="Next" class="page-link">
+                                <span aria-hidden="true">Next</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div><!--여기까지 이벤트리스트데모버전-->
+            <div style="height: 25px"></div>
+            <div class="search-window">
+                <div class="form-inline justify-content-center" th:object="${eventSearchDto}">
+                    <select th:field="*{searchBy}" class="form-control" style="width:auto;">
+                        <option value="eventNm">축제명</option>
+                        <option value="createdBy">등록자</option>
+                    </select>
+                    <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                    <button id="searchBtn" type="submit" class="btn btn-primary">검색</button><!--버튼 클래스 구현-->
+                </div>
             </div>
-        </div>
-        <div class="event-list">
-            <p>department event</p>
-        </div>
+        </form>
+        <div style="height:100px"></div>
     </div>
 </div>
 </html>
