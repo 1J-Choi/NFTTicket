@@ -75,9 +75,10 @@
             width: 100%;
             height: 100%;
             display: flex;
-            background: rgba(0, 0, 0, 0.0);
+            background: #EFF3FF;
             overflow: hidden;
             flex-direction: column;
+            align-items: center;
         }
 
         .how_log{
@@ -235,49 +236,60 @@
             padding: 5px;
         }
 
+        .how{
+            width: 1920px;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: #EFF3FF;
+        }
+
     </style>
 
 </th:block>
 <div class="wrap" layout:fragment="content">
-    <div class="how_log">
-        <img src="https://static.wixstatic.com/media/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png/v1/fill/w_698,h_717,al_c,q_90,enc_auto/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png">
-        <div class="textbox">
-            <Hhd>로그인 및 회원가입</Hhd>
-            <Htxt>홈페이지의 원활한 이용을 위해서 로그인 및 회원가입을 진행합니다.</Htxt>
-            <div sec:authorize="isAnonymous()">
-                <a class="howButton nav-link" href="/member/login">TO SIGN IN/UP</a>
-            </div>
-            <div class="howButton" sec:authorize="isAuthenticated()">CONNECTED</div>
-        </div>
-    </div>
-    <div class="how_meta">
-        <img src="https://static.wixstatic.com/media/892ace_3790bc795e424ab692c4172808413757~mv2.png/v1/fill/w_120,h_120,al_c,q_85,enc_auto/892ace_3790bc795e424ab692c4172808413757~mv2.png">
-        <div class="textbox">
-            <Hmt>METAMASK INSTALL</Hmt>
-            <Htxt>크롬에 메타마스크 설치</Htxt>
-            <a class="howButton nav-link" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko">TO CHROME STORE</a>
-        </div>
-    </div>
-    <div class="how_meta">
-        <div class="how_meta">
-            <img src="https://static.wixstatic.com/media/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png/v1/fill/w_256,h_256,al_c,q_85,enc_auto/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png">
+    <div class="how">
+        <div class="how_log">
+            <img src="https://static.wixstatic.com/media/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png/v1/fill/w_698,h_717,al_c,q_90,enc_auto/892ace_8d79f8da6dd84bbabadc1dae0cb09b8c~mv2.png">
             <div class="textbox">
-                <Hhd>비밀번호와 시드문구를 설정하세요</Hhd>
-                <Htxt>비밀번호는 메타마스크 접속 시 필요한 정보입니다.</Htxt>
-                <Htxt>시드문구는 12개의 영어단어로 구성되며,</Htxt>
-                <Htxt>해당 문구를 입력하면 어디서든 메타마스크에 접속할 수</Htxt>
-                <Htxt>있으니 따로 적어서 보관해 주세요.</Htxt>
+                <Hhd>로그인 및 회원가입</Hhd>
+                <Htxt>홈페이지의 원활한 이용을 위해서 로그인 및 회원가입을 진행합니다.</Htxt>
+                <div sec:authorize="isAnonymous()">
+                    <a class="howButton nav-link" href="/member/login">TO SIGN IN/UP</a>
+                </div>
+                <div class="howButton" sec:authorize="isAuthenticated()">CONNECTED</div>
             </div>
         </div>
-    </div>
-    <div class="how_connect">
-        <img src="https://static.wixstatic.com/media/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png/v1/fill/w_740,h_192,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png">
-    </div>
-    <div class="footer">
-        <img src="https://static.wixstatic.com/media/892ace_e18232502be747bfbef90370e0088667~mv2.png/v1/fill/w_740,h_217,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_e18232502be747bfbef90370e0088667~mv2.png">
-        <div class="dark-overlay"></div>
-        <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
-        <a class="evButton nav-link" href="/event/all">EVENTS & CREATING</a>
+        <div class="how_meta">
+            <img src="https://static.wixstatic.com/media/892ace_3790bc795e424ab692c4172808413757~mv2.png/v1/fill/w_120,h_120,al_c,q_85,enc_auto/892ace_3790bc795e424ab692c4172808413757~mv2.png">
+            <div class="textbox">
+                <Hmt>METAMASK INSTALL</Hmt>
+                <Htxt>크롬에 메타마스크 설치</Htxt>
+                <a class="howButton nav-link" href="https://chrome.google.com/webstore/detail/metamask/nkbihfbeogaeaoehlefnkodbefgpgknn?hl=ko">TO CHROME STORE</a>
+            </div>
+        </div>
+        <div class="how_meta">
+            <div class="how_meta">
+                <img src="https://static.wixstatic.com/media/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png/v1/fill/w_256,h_256,al_c,q_85,enc_auto/892ace_42fdcc45cd8a46d9adf4639c59072bcb~mv2.png">
+                <div class="textbox">
+                    <Hhd>비밀번호와 시드문구를 설정하세요</Hhd>
+                    <Htxt>비밀번호는 메타마스크 접속 시 필요한 정보입니다.</Htxt>
+                    <Htxt>시드문구는 12개의 영어단어로 구성되며,</Htxt>
+                    <Htxt>해당 문구를 입력하면 어디서든 메타마스크에 접속할 수</Htxt>
+                    <Htxt>있으니 따로 적어서 보관해 주세요.</Htxt>
+                </div>
+            </div>
+        </div>
+        <div class="how_connect">
+            <img src="https://static.wixstatic.com/media/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png/v1/fill/w_740,h_192,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_b5ac4462e2094a08a3d5c882b0180937~mv2.png">
+        </div>
+        <div class="footer">
+            <img src="https://static.wixstatic.com/media/892ace_e18232502be747bfbef90370e0088667~mv2.png/v1/fill/w_740,h_217,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/892ace_e18232502be747bfbef90370e0088667~mv2.png">
+            <div class="dark-overlay"></div>
+            <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
+            <a class="evButton nav-link" href="/event/all">EVENTS & CREATING</a>
+        </div>
     </div>
 </div>
 </html>
