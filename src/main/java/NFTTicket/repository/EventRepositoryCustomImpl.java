@@ -36,10 +36,6 @@ import java.util.List;
         return null;
     }
 
-    private BooleanExpression evNameLike(String searchQuery) {
-        return StringUtils.isEmpty(searchQuery) ? null : QEvent.event.evName.like("%"+searchQuery+"%");
-    }
-
     private BooleanExpression categoryEq(String category) {
         return StringUtils.isEmpty(category) ? null : QEvent.event.category.eq(EventCategory.valueOf(category));
     }
@@ -62,7 +58,7 @@ import java.util.List;
                         event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
                 // join 내부조인 .repImgYn.eq("Y")인 대표 이미지만 가져온다.
                 .from(eventImg).join(eventImg.event, event)
-                .where(evNameLike(eventSearchDto.getSearchQuery()))
+                .where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                 .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<EventShowDto> content = results.getResults();
         long total = results.getTotal();
