@@ -36,4 +36,9 @@ public class EventService {
     public Page<EventShowDto> getEventList(EventSearchDto eventSearchDto, Pageable pageable){
         return eventRepository.getEvents(eventSearchDto, pageable);
     }
+
+    @Transactional(readOnly = true)
+    public Page<EventShowDto> getEventsByCategory(EventSearchDto eventSearchDto, String category, Pageable pageable){
+        return eventRepository.getEventsByCategory(eventSearchDto, category, pageable);
+    }
 }

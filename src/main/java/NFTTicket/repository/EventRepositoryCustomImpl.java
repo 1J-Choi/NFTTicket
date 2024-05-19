@@ -1,5 +1,6 @@
 package NFTTicket.repository;
 
+import NFTTicket.constant.EventCategory;
 import NFTTicket.dto.EventSearchDto;
 import NFTTicket.dto.EventShowDto;
 import NFTTicket.dto.QEventShowDto;
@@ -18,15 +19,15 @@ import org.thymeleaf.util.StringUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EventRepositoryCustomImpl implements EventRepositoryCustom{
+        public class EventRepositoryCustomImpl implements EventRepositoryCustom{
 
-    private JPAQueryFactory queryFactory; // 동적쿼리 사용하기 위해 JPAQueryFactory 변수 선언
+            private JPAQueryFactory queryFactory; // 동적쿼리 사용하기 위해 JPAQueryFactory 변수 선언
 
-    public EventRepositoryCustomImpl (EntityManager em){ // 생성자
-        this.queryFactory =new JPAQueryFactory(em); // JPAQueryFactory 실질적인 객체가 만들어진다.
-    }
+            public EventRepositoryCustomImpl (EntityManager em){ // 생성자
+                this.queryFactory =new JPAQueryFactory(em); // JPAQueryFactory 실질적인 객체가 만들어진다.
+            }
 
-    private BooleanExpression searchByLike(String searchBy, String searchQuery) {
+            private BooleanExpression searchByLike(String searchBy, String searchQuery) {
         if (StringUtils.equals("eventNm", searchBy)) { // 상품명
             return QEvent.event.evName.like("%"+searchQuery+"%");
         } else if (StringUtils.equals("createdBy", searchBy)) { // 작성자
@@ -37,6 +38,10 @@ public class EventRepositoryCustomImpl implements EventRepositoryCustom{
 
     private BooleanExpression evNameLike(String searchQuery) {
         return StringUtils.isEmpty(searchQuery) ? null : QEvent.event.evName.like("%"+searchQuery+"%");
+    }
+
+    private BooleanExpression categoryEq(String category) {
+        return StringUtils.isEmpty(category) ? null : QEvent.event.category.eq(EventCategory.valueOf(category));
     }
 
     @Override
@@ -58,6 +63,21 @@ public class EventRepositoryCustomImpl implements EventRepositoryCustom{
                 // join 내부조인 .repImgYn.eq("Y")인 대표 이미지만 가져온다.
                 .from(eventImg).join(eventImg.event, event)
                 .where(evNameLike(eventSearchDto.getSearchQuery()))
+                .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+        List<EventShowDto> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<EventShowDto> getEventsByCategory(EventSearchDto eventSearchDto, String category, Pageable pageable){
+        QEvent event = QEvent.event;
+        QEventImg eventImg = QEventImg.eventImg;
+
+        QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName, event.date,
+                        event.place, event.member.nick, event.number, eventImg.imgURL))
+                .from(eventImg).join(eventImg.event, event)
+                .where(categoryEq(category), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                 .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<EventShowDto> content = results.getResults();
         long total = results.getTotal();

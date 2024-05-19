@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface EventRepositoryCustom {
     Page<EventShowDto> getEvents(EventSearchDto eventSearchDto, Pageable pageable);
+    Page<EventShowDto> getEventsByCategory(EventSearchDto eventSearchDto, String category, Pageable pageable);
 }

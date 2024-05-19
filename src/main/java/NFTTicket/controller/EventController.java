@@ -66,12 +66,33 @@ public class EventController {
         return "event/eventList_all";
     }
 
-    @GetMapping(value = "/event/circle")
-    public String eventListCircle() {return "event/eventList_circle";}
+    @GetMapping(value = {"/event/circle", "/event/circle/{page}"})
+    public String eventListCircle(EventSearchDto eventSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<EventShowDto> events = eventService.getEventsByCategory(eventSearchDto, "CIRCLE", pageable);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "event/eventList_circle";
+    }
 
-    @GetMapping(value = "/event/department")
-    public String eventListDepartment() {return "event/eventList_department";}
+    @GetMapping(value = {"/event/department", "/event/department/{page}"})
+    public String eventListDepartment(EventSearchDto eventSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<EventShowDto> events = eventService.getEventsByCategory(eventSearchDto, "DEPARTMENT", pageable);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "event/eventList_department";
+    }
 
-    @GetMapping(value = "/event/others")
-    public String eventListOthers() {return "event/eventList_others";}
+    @GetMapping(value = {"/event/others", "/event/others/{page}"})
+    public String eventListOthers(EventSearchDto eventSearchDto, @PathVariable("page") Optional<Integer> page, Model model) {
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<EventShowDto> events = eventService.getEventsByCategory(eventSearchDto, "OTHERS", pageable);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "event/eventList_others";
+    }
 }

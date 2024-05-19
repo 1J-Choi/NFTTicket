@@ -270,11 +270,19 @@
 <th:block layout:fragment="script">
     <script th:inline="javascript">
         $(document).ready(function(){
-            var errorMessage = [[${errorMessage}]];
-            if (errorMessage != null){
-                alert(errorMessage);
-            }
+            $("searchBtn").on("click",function(e){
+                e.preventDefault(); // 검색버튼 클릭 시 form 태그 전송 막기
+                page(0);
+            });
         });
+
+        function page(page){
+            var searchBy = $("#searchBy").val();
+            var searchQuery = $("#searchQuery").val();
+
+            location.href="/event/circle/" + page + "?searchBy=" + searchBy
+            + "&searchQuery=" + searchQuery;
+        }
     </script>
 </th:block>
 
@@ -303,7 +311,7 @@
                         <div class="evText">
                             <p th:text="'일시: ' + ${event.date}"></p>
                             <p th:text="'장소: ' + ${event.place}"></p>
-                            <p th:text="'주최: ' + ${event.member.nick}"></p> <!--따로만들어-->
+                            <p th:text="'주최: ' + ${event.nick}"></p> <!--따로만들어-->
                             <p th:text="'인원: ' + ${event.number}"></p>
                         </div>
                     </div>
