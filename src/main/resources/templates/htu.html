@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       layout:decorate="~{layouts/layout2}">
 <th:block layout:fragment="css">
     <style>
@@ -233,6 +234,7 @@
             color: #ffffff;
             padding: 5px;
         }
+
     </style>
 
 </th:block>
@@ -242,7 +244,10 @@
         <div class="textbox">
             <Hhd>로그인 및 회원가입</Hhd>
             <Htxt>홈페이지의 원활한 이용을 위해서 로그인 및 회원가입을 진행합니다.</Htxt>
-            <a class="howButton nav-link" href="/event/all">TO SIGN IN/UP</a>
+            <div sec:authorize="isAnonymous()">
+                <a class="howButton nav-link" href="/member/login">TO SIGN IN/UP</a>
+            </div>
+            <div class="howButton" sec:authorize="isAuthenticated()">CONNECTED</div>
         </div>
     </div>
     <div class="how_meta">
