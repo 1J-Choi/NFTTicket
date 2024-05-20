@@ -79,4 +79,16 @@ import java.util.List;
         long total = results.getTotal();
         return new PageImpl<>(content, pageable, total);
     }
+    @Override
+    public List<EventShowDto> getNewest5Events(){
+        QEvent event = QEvent.event;
+        QEventImg eventImg = QEventImg.eventImg;
+
+        QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
+                event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
+                .from(eventImg).join(eventImg.event, event)
+                .limit(5)
+                .orderBy(event.id.desc()).fetchResults();
+        return results.getResults();
+    }
 }

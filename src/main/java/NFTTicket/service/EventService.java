@@ -41,4 +41,9 @@ public class EventService {
     public Page<EventShowDto> getEventsByCategory(EventSearchDto eventSearchDto, String category, Pageable pageable){
         return eventRepository.getEventsByCategory(eventSearchDto, category, pageable);
     }
+
+    @Transactional(readOnly = true)
+    public List<EventShowDto> findNewest5Events(){
+        return eventRepository.getNewest5Events();
+    }
 }
