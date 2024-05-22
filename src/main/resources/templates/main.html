@@ -278,21 +278,88 @@
         font-family: 'Source Sans Pro';
     }
 
+
     .recent-events-box {
-    width: 1500px;
-    height: 550px;
-    border-radius: 20px;
-    background-color: #f0f0f0;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 1500px;
+    height: 570px;
+    margin: 0 auto;
+    background-color: #0D2D84;
+    }
+
+    .inner-box {
+    background-color: #f3f6fe;
+    border-radius: 8px;
+    padding: 20px;
+    height: 528px;
     }
 
     .recent-events-box h2 {
-        font-size: 24px;
+        font-size: 45px;
         margin-bottom: 20px;
-        color: black;
+        color: #333;
+        text-align: center;
+        margin-right: 220px;
+        margin-top: 26px;
+        font-family: 'Nosifer Caps';
+        font-weight: bolder;
     }
 
+    .event-list {
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .event-item {
+    padding: 15px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    text-decoration: none;
+    color: inherit;
+    transition: background-color 0.3s;
+    }
+
+    .event-item:last-child {
+        border-bottom: none;
+    }
+
+    .event-item:hover {
+        background-color: #dbe4ff;
+    }
+
+    .event-name {
+        font-size: 25px;
+        font-weight: bold;
+        color: black;
+        margin-right: 15px;
+        margin-left: 15px;
+    }
+
+    .event-nick {
+        font-size: 25px;
+        color: black;
+        font-weight: bold;
+        margin-right: 15px;
+    }
+
+    .event-button {
+    padding: 10px 20px;
+    margin-left: 20px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    }
+
+    .event-button:hover {
+        background-color: #0056b3;
+    }
 
     .vertical-line {
          border-left: 1px solid #ccc;
@@ -359,16 +426,25 @@
             </div>
         </div>
     </div>
-
+    
     <div class="recent-events-box">
-        <h2>최근 등록된 행사</h2>
-        <div class="event-list" style="overflow-y: auto;">
-            <!-- 회의후추가, event-list css도 회의후추가 -->
-            <th:block  th:each="event: ${events}">
-                <h4>[[${event.evName}]] [[${event.nick}]]</h4>
-            </th:block>
+        <div class="inner-box">
+            <h2>최근 등록된 행사</h2>
+            <div class="event-list" style="overflow-y: auto;">
+                <th:block th:each="event: ${events}">
+                    <div class="event-item">
+                        <span class="event-nick"> [[${event.nick}]] </span>
+                        <span style="font-size: 25px; font-weight: bold;"> 주최자가 </span>
+                        <span class="event-name"> [[${event.evName}]] </span>
+                        <span style="font-size: 25px; font-weight: bold;"> 행사를 등록하였습니다!</span>
+                        <button class="event-button" onclick="location.href='/event/all'">이동하기</button>
+                    </div>
+                </th:block>
+            </div>
         </div>
     </div>
+    
+    
 
 </div>
 
