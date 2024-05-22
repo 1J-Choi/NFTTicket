@@ -154,28 +154,37 @@
     }
 
     .tablink {
-        background-color: #FFE7D9;
-        color: black;
-        padding: 10px 20px;
-        border: none;
-        cursor: pointer;
-        font-size: 30px;
-        width: 250px;
-        height: 80px;
-        padding-bottom: 30px;
-        margin-left: 15px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-    }
+            background-color: #FFBC96;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            width: 250px;
+            height: 80px;
+            padding-bottom: 30px;
+            margin-left: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            outline: none;
+        }
 
     .tablink:hover {
-        background-color: #FFBC96;
+        background-color: #FFE7D9;
     }
 
+    .tablink.active {
+        background-color: #FFE7D9;
+    }
+
+    .tablink:focus {
+        outline: none;
+    
+    }
     .tabcontent {
         display: none;
         padding: 20px;
-        background-color: #FFBC96;
+        background-color: #FFE7D9;
         border-radius: 5px;
         margin-top: 60px;
     }
@@ -185,31 +194,33 @@
 <!--사용자 스크립트 추가-->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        $(document).ready(function(){
-            var errorMessage = [[${errorMessage}]];
-            if (errorMessage != null){
-                alert(errorMessage);
-            }
-        });
+    $(document).ready(function(){
+        var errorMessage = [[${errorMessage}]];
+        if (errorMessage != null){
+            alert(errorMessage);
+        }
+    });
 
-        function openTab(evt, tabName) {
-    var i, tabcontent, tablinks;
-    
-    tabcontent = document.getElementsByClassName("tabcontent");
-    for (i = 0; i < tabcontent.length; i++) {
-        tabcontent[i].style.display = "none";
-    }
-    
-    tablinks = document.getElementsByClassName("tablink");
-    for (i = 0; i < tablinks.length; i++) {
-        tablinks[i].className = tablinks[i].className.replace(" active", "");
-    }
-    
-    document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
-}
+    function openTab(evt, tabName) {
+        var i, tabcontent, tablinks;
 
-document.getElementsByClassName("tablink")[0].click();
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    window.onload = function() {
+        document.getElementsByClassName("tablink")[0].click();
+    }
 
     </script>
 </th:block>
