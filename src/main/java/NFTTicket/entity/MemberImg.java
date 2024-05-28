@@ -26,4 +26,10 @@ public class MemberImg {
 
     @Column(name="memberImg_URL")
     private String imgURL;
+
+    public void updateMemberImg(String oriImgName, String imgName, String imgURL){
+        this.oriImgName = oriImgName;
+        this.imgName = imgName;
+        this.imgURL = imgURL;
+    }
 }
