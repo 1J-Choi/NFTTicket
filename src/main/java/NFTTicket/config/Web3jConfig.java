@@ -11,7 +11,6 @@ import org.web3j.tx.Contract;
 import org.web3j.tx.gas.StaticGasProvider;
 
 import java.math.BigInteger;
-import java.util.Scanner;
 
 @Configuration
 public class Web3jConfig {
@@ -27,7 +26,7 @@ public class Web3jConfig {
     @Value("${quicknode.http.provider.url}")
     private String quicknodeHttpProvKey;
 
-    @Value("${metamask.CONTRACT_ADDRESS}")
+    @Value("${metamask.contract_address}")
     private String CONTRACT_ADDRESS;
 
     @Bean
@@ -53,9 +52,6 @@ public class Web3jConfig {
 //        BigInteger gasPrice = Contract.GAS_PRICE;
 //        BigInteger gasLimit = Contract.GAS_LIMIT;
 //        StaticGasProvider gasProvider = new StaticGasProvider(gasPrice, gasLimit);
-//        Scanner sc = new Scanner(System.in);
-//        System.out.println("Contract Address: ");
-//        String CONTRACT_ADDRESS = sc.next();
 //
 //        return NFT.load(CONTRACT_ADDRESS, web3j(), credentials(), gasProvider);
 //    }

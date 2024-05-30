@@ -5,8 +5,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.methods.response.EthAccounts;
 import org.web3j.protocol.core.methods.response.EthBlockNumber;
+import org.web3j.protocol.core.methods.response.EthGetBalance;
+import org.web3j.protocol.core.methods.response.EthGetTransactionCount;
 
 import java.util.concurrent.ExecutionException;
 
@@ -16,42 +19,42 @@ import java.util.concurrent.ExecutionException;
 public class Web3jService {
     private final Web3j web3j;
 //    private final NFT nft;
-//
-//    @Value("${metamask.wallet_address}")
-//    private String WALLET_ADDRESS;
-//
-//    @Value("${metamask.CONTRACT_ADDRESS}")
-//    private String CONTRACT_ADDRESS;
-//
-//    // 현재 블록 번호
-//    public EthBlockNumber getBlockNumber() throws ExecutionException, InterruptedException {
-//        return web3j.ethBlockNumber().sendAsync().get();
-//    }
-//
-//    // 지정된 주소의 계정
-//    public EthAccounts getEthAccounts() throws ExecutionException, InterruptedException {
-//        return web3j.ethAccounts().sendAsync().get();
-//    }
-//
-//    // 계좌 거래 건수
-//    public EthGetTransactionCount getTransactionCount() throws ExecutionException, InterruptedException {
-//        EthGetTransactionCount result = new EthGetTransactionCount();
-//        result = web3j.ethGetTransactionCount(WALLET_ADDRESS,
-//                        DefaultBlockParameter.valueOf("latest"))
-//                .sendAsync()
-//                .get();
-//        return result;
-//    }
-//
-//    // 계정 잔액 조회
-//    public EthGetBalance getEthBalance() throws ExecutionException, InterruptedException {
-//        return web3j.ethGetBalance(WALLET_ADDRESS,
-//                        DefaultBlockParameter.valueOf("latest"))
-//                .sendAsync()
-//                .get();
-//    }
-//
-//    // 스마트컨트랙트명 가져오기
+
+    @Value("${metamask.wallet_address}")
+    private String WALLET_ADDRESS;
+
+    @Value("${metamask.contract_address}")
+    private String CONTRACT_ADDRESS;
+
+    // 현재 블록 번호
+    public EthBlockNumber getBlockNumber() throws ExecutionException, InterruptedException {
+        return web3j.ethBlockNumber().sendAsync().get();
+    }
+
+    // 지정된 주소의 계정
+    public EthAccounts getEthAccounts() throws ExecutionException, InterruptedException {
+        return web3j.ethAccounts().sendAsync().get();
+    }
+
+    // 계좌 거래 건수
+    public EthGetTransactionCount getTransactionCount() throws ExecutionException, InterruptedException {
+        EthGetTransactionCount result = new EthGetTransactionCount();
+        result = web3j.ethGetTransactionCount(WALLET_ADDRESS,
+                        DefaultBlockParameter.valueOf("latest"))
+                .sendAsync()
+                .get();
+        return result;
+    }
+
+    // 계정 잔액 조회
+    public EthGetBalance getEthBalance() throws ExecutionException, InterruptedException {
+        return web3j.ethGetBalance(WALLET_ADDRESS,
+                        DefaultBlockParameter.valueOf("latest"))
+                .sendAsync()
+                .get();
+    }
+
+    // 스마트컨트랙트명 가져오기
 //    public String getContractName() throws Exception {
 //        return nft.name().send();
 //    }
