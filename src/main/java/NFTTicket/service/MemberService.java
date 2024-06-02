@@ -1,6 +1,7 @@
 package NFTTicket.service;
 
 import NFTTicket.entity.Member;
+import NFTTicket.entity.MemberImg;
 import NFTTicket.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -10,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +22,7 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+    private final MemberImgService memberImgService;  // MemberImgService 추가
 
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
@@ -48,5 +51,13 @@ public class MemberService implements UserDetailsService {
 
     public Member findMember(String email){
         return memberRepository.findByEmail(email);
+    }
+
+    public void saveMemberImg(Member member, MultipartFile memberImgFile) throws Exception {
+        if (memberImgFile != null && !memberImgFile.isEmpty()) {
+            MemberImg memberImg = new MemberImg();
+            memberImg.setMember(member);
+            memberImgService.saveMemberImg(memberImg, memberImgFile);
+        }
     }
 }
