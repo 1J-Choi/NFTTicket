@@ -15,7 +15,7 @@ import javax.persistence.EntityNotFoundException;
 @Transactional
 @RequiredArgsConstructor
 public class MemberImgService {
-    @Value("${memberImgLocation}")  // application.properties에 써져있는 memberImgLocation
+    @Value("${itemImgLocation}")  // application.properties에 써져있는 memberImgLocation
     private String memberImgLocation;
 
     private final MemberImgRepository memberImgRepository;
