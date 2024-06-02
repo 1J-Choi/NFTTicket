@@ -2,6 +2,7 @@ package NFTTicket.entity;
 
 import NFTTicket.constant.Role;
 import NFTTicket.dto.MemberFormDto;
+import NFTTicket.dto.MemberImgMetaDto;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -29,7 +30,7 @@ public class Member {
 
     private String password;
 
-    private String metaAdress;
+    private String metaAddress;
 
     public static Member createMember(MemberFormDto memberFormDto, PasswordEncoder passwordEncoder){
         Member member = new Member();
@@ -39,5 +40,9 @@ public class Member {
         String password = passwordEncoder.encode(memberFormDto.getPassword());
         member.setPassword(password);
         return member;
+    }
+
+    public void updateMeta(MemberImgMetaDto memberImgMetaDto){
+        this.metaAddress = memberImgMetaDto.getMetaAddress();
     }
 }

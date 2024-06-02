@@ -37,8 +37,7 @@ public class EventController {
 
     @PostMapping("/owner/event/new")
     public String newEvent(@Valid EventFormDto eventFormDto, BindingResult bindingResult, Model model,
-                           Principal principal, @RequestParam("eventImgFile") MultipartFile eventImgFile,
-                           @RequestParam("memberImgFile") MultipartFile memberImgFile){
+                           Principal principal, @RequestParam("eventImgFile") MultipartFile eventImgFile){
         if(bindingResult.hasErrors()){
             return "event/eventForm";
         }
@@ -47,7 +46,6 @@ public class EventController {
         Member memberNow = memberService.findMember(email);
         try{
             eventService.saveEvent(eventFormDto, memberNow, eventImgFile);
-            memberService.saveMemberImg(memberNow, memberImgFile);
         }catch (Exception e){
             model.addAttribute("errorMessage", "이벤트 등록 중 에러가 발생했습니다.");
             return "event/eventForm";

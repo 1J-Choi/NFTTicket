@@ -1,7 +1,10 @@
 package NFTTicket.service;
 
+import NFTTicket.dto.MemberImgDto;
+import NFTTicket.dto.MemberImgMetaDto;
 import NFTTicket.entity.Member;
 import NFTTicket.entity.MemberImg;
+import NFTTicket.repository.MemberImgRepository;
 import NFTTicket.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,6 +26,8 @@ import java.util.List;
 public class MemberService implements UserDetailsService {
 
     private final MemberRepository memberRepository;
+
+    private final MemberImgRepository memberImgRepository;
     private final MemberImgService memberImgService;  // MemberImgService 추가
 
     @Override
@@ -59,5 +65,25 @@ public class MemberService implements UserDetailsService {
             memberImg.setMember(member);
             memberImgService.saveMemberImg(memberImg, memberImgFile);
         }
+    }
+
+    @Transactional(readOnly = true)
+    public MemberImgMetaDto getMemberDtl(Long memberId){
+        MemberImg memberImg = memberImgRepository.findByMemberId(memberId);
+        MemberImgDto memberImgDto = MemberImgDto.of(memberImg);
+
+        Member member = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+        MemberImgMetaDto memberImgMetaDto = MemberImgMetaDto.of(member);
+        memberImgMetaDto.setMemberImgDto(memberImgDto);
+        return memberImgMetaDto;
+    }
+
+    public Long updateMember(MemberImgMetaDto memberImgMetaDto, MultipartFile memberImgFile) throws Exception{
+        Member member = memberRepository.findById(memberImgMetaDto.getId()).orElseThrow(EntityNotFoundException::new);
+        member.updateMeta(memberImgMetaDto);
+
+        memberImgService.updateMemberImg(memberImgMetaDto.getMemberImgId(), memberImgFile);
+
+        return member.getId();
     }
 }
