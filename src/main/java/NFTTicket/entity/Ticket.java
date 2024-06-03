@@ -24,5 +24,15 @@ public class Ticket {
     @JoinColumn(name="event_id")
     private Event event;
 
+    private Boolean safeMint;
+
     private String NFT;
+
+    public static Ticket createTicket(Event event, TicketBox ticketBox){
+        Ticket ticket = new Ticket();
+        ticket.setTicketBox(ticketBox);
+        ticket.setEvent(event);
+        ticket.setSafeMint(Boolean.FALSE);
+        return ticket;
+    }
 }
