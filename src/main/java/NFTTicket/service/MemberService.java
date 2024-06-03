@@ -74,7 +74,8 @@ public class MemberService implements UserDetailsService {
         MemberImgDto memberImgDto = MemberImgDto.of(memberImg);
 
         Member member = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
-        MemberImgMetaDto memberImgMetaDto = MemberImgMetaDto.of(member);
+        MemberImgMetaDto memberImgMetaDto = new MemberImgMetaDto();
+        memberImgMetaDto.setMemberImgMetaDto(member, memberImgDto);
         memberImgMetaDto.setMemberImgDto(memberImgDto);
         return memberImgMetaDto;
     }

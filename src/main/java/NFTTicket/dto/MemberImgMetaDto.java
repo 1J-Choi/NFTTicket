@@ -15,9 +15,16 @@ public class MemberImgMetaDto {
     private String metaAddress;
     private Long memberImgId;
 
-    private static ModelMapper modelMapper = new ModelMapper();
+//    private static ModelMapper modelMapper = new ModelMapper();
+//
+//    public static MemberImgMetaDto of(Member member){
+//        return modelMapper.map(member, MemberImgMetaDto.class);
+//    }
 
-    public static MemberImgMetaDto of(Member member){
-        return modelMapper.map(member, MemberImgMetaDto.class);
+    public void setMemberImgMetaDto(Member member, MemberImgDto memberImgDto){
+        this.id = member.getId();
+        this.memberImgDto = memberImgDto;
+        this.metaAddress = member.getMetaAddress();
+        this.memberImgId = memberImgDto.getId();
     }
 }
