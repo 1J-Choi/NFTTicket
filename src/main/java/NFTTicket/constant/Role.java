@@ -1,5 +1,9 @@
 package NFTTicket.constant;
 
 public enum Role {
-    USER, OWNER, ADMIN
+    USER, OWNER, ADMIN;
+
+    public String getAuthority() {
+        return this.name();
+    }
 }

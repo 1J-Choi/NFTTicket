@@ -38,9 +38,10 @@ public class MemberService implements UserDetailsService {
             throw new UsernameNotFoundException(email);
         }
 
-        List<GrantedAuthority> authorities = new ArrayList<>();
-        return User.builder().username(member.getEmail()).password(member.getPassword()).roles(member.getRole().toString()).
-                authorities(authorities).build();
+//        List<GrantedAuthority> authorities = new ArrayList<>();
+        return User.builder().username(member.getEmail()).password(member.getPassword()).roles(member.getRole().toString())
+//                .authorities(authorities)
+                .build();
     }
 
     public Member saveMember(Member member) {

@@ -116,6 +116,12 @@
         <li class="nav-item divide_line" sec:authorize="isAnonymous()">
           <a class="signText nav-link" href="/member/login">Sign in / up</a>
         </li>
+<!--        <li class="nav-item divide_line" sec:authorize="hasAuthority('ADMIN')">-->
+<!--          <a class="signText nav-link" href="/">hasAuthority어드민만 보인다</a>-->
+<!--        </li>-->
+<!--        <li class="nav-item divide_line" sec:authorize="hasRole('ADMIN')">-->
+<!--          <a class="signText nav-link" href="/">hasRole어드민만 보인다</a> 정상작동-->
+<!--        </li>-->
       </ul>
     </div>
   </nav>
