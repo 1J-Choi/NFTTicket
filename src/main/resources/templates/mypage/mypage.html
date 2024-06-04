@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/layout1}">
 
 <!--사용자 CSS 추가-->
@@ -262,6 +262,28 @@
             border-radius: 5px;
             margin-top: 60px;
         }
+
+        .modi_button{
+            border-radius: 10px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:185px;
+            height:60px;
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .info_text{
+            border-radius: 20px;
+            font-family: 'Source Sans Pro';
+            background-color: #ffffff;
+            font-size: 15px;
+            width: 900px;
+            height: 60px;
+        }
+
     </style>
 </th:block>
 
@@ -341,19 +363,19 @@
     </script>
 </th:block>
 
-<div class="wrap" layout:fragment="content"> <!--Admin-->
-    <div>
+<div class="wrap" layout:fragment="content">
+    <div sec:authorize="hasRole('ADMIN')"> <!--Admin-->
         <div class="top-section" style="background-color: #FFE7D9;">
             <div class="left-content">
-                <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-                <div class="text-info">
-                    <p>Nickname: Admin</p>
-                    <p>Email: your.email@example.com</p>
-                </div>
+               <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+               <!-- <img th:src="${member.imgURL}" alt="Profile Image">-->
+                <a th:href="@{'/imgmeta/'+${member.id}}" class="modi_button">정보 수정</a>
             </div>
             <div class="divider"></div>
             <div class="right-content">
-                <p>Admin Information</p>
+                <p th:text="'닉네임: ' + ${member.nick}" class="info_text"></p>
+                <p th:text="'이메일: ' + ${member.email}" class="info_text"></p>
+                <p th:text="'메타마스크: ' + ${member.metaAddress}" class="info_text"></p>
             </div>
         </div>
 
@@ -373,7 +395,8 @@
         </div>
         <script src="script.js"></script>
     </div>
-    <div> <!--Owner-->
+
+    <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
         <div class="top-section" style="background-color: #FFEECD;">
             <div class="left-content">
                 <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
@@ -405,7 +428,7 @@
         <script src="script.js"></script>
     </div>
 
-    <div> <!--User-->
+    <div sec:authorize="hasRole('USER')"> <!--User-->
         <div class="top-section" style="background-color: #EFF3FF;">
             <div class="left-content">
                 <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">

@@ -23,7 +23,7 @@ public class MypageController {
     private final MemberService memberService;
 
     @GetMapping(value = "/mypage")
-    public String mypageUser(){
+    public String mypageUser(Model model){
         return "mypage/mypage";
     }
 
