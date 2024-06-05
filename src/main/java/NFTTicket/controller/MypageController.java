@@ -1,10 +1,19 @@
 package NFTTicket.controller;
 
-import NFTTicket.dto.MemberImgMetaDto;
+import NFTTicket.dto.*;
+import NFTTicket.entity.Member;
+import NFTTicket.entity.TicketBox;
+import NFTTicket.service.MemberImgService;
 import NFTTicket.service.MemberService;
+import NFTTicket.service.TicketBoxService;
+import NFTTicket.service.TicketService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -15,12 +24,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
+import java.security.Principal;
+import java.util.Optional;
 
 
 @Controller
 @RequiredArgsConstructor
 public class MypageController {
     private final MemberService memberService;
+    private final TicketBoxService ticketBoxService;
+    private final TicketService ticketService;
+
 
     @GetMapping(value = "/mypage")
     public String mypageUser(Model model){
@@ -55,4 +69,23 @@ public class MypageController {
         return "redirect:/"; // 다시 실행 /
     }
 
+    @GetMapping(value = {"/mypage/ticket", "/mypage/ticket/{page}"})
+    public String ticketShow(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                             Principal principal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "main";
+        }
+
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
+        Long ticketBoxid = ticketBox.getId();
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketSearchDto", ticketSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "mypage/mypageUser";
+    }
 }

@@ -20,4 +20,8 @@ public class TicketBoxService {
         ticketBoxRepository.save(ticketBox);
         return ticketBox.getId();
     }
+
+    public TicketBox findTicketBox (Long memberId) {
+        return ticketBoxRepository.findByMemberId(memberId);
+    }
 }

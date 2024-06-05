@@ -1,6 +1,8 @@
 package NFTTicket.service;
 
 import NFTTicket.dto.TicketDto;
+import NFTTicket.dto.TicketSearchDto;
+import NFTTicket.dto.TicketShowDto;
 import NFTTicket.entity.Event;
 import NFTTicket.entity.Member;
 import NFTTicket.entity.Ticket;
@@ -10,6 +12,8 @@ import NFTTicket.repository.MemberRepository;
 import NFTTicket.repository.TicketBoxRepository;
 import NFTTicket.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -47,4 +51,8 @@ public class TicketService {
         }
     }
 
+    @Transactional(readOnly = true)
+    public Page<TicketShowDto> getTicketList(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
+        return ticketRepository.getUserTickets(ticketSearchDto, ticketBoxId, pageable);
+    }
 }
