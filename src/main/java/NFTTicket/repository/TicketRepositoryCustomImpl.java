@@ -48,7 +48,8 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
 
         QueryResults<TicketShowDto> results = queryFactory.select(new QTicketShowDto(ticket.id, event.evName, event.date,
                         event.place, event.member.nick, eventImg.imgURL))
-                .from(ticket).join(ticket.event, event)
+                .from(ticket).leftJoin(event).on(ticket.event.id.eq(event.id))
+                .leftJoin(eventImg).on(eventImg.event.id.eq(event.id))
                 .where(ticketEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
                 .limit(pageable.getPageSize()).fetchResults();
 
