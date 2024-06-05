@@ -365,35 +365,35 @@
 
 <div class="wrap" layout:fragment="content">
     <div sec:authorize="hasRole('ADMIN')"> <!--Admin-->
-        <div class="top-section" style="background-color: #FFE7D9;">
-            <div class="left-content">
-               <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-               <!-- <img th:src="${member.imgURL}" alt="Profile Image">-->
-                <a th:href="@{'/imgmeta/'+${member.id}}" class="modi_button">정보 수정</a>
+            <div class="top-section" style="background-color: #FFE7D9;">
+                    <div class="left-content">
+                    <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+                    <!-- <img th:src="${member.imgURL}" alt="Profile Image">-->
+                       <!--  <a th:href="@{'/imgmeta/'+${member.id}}" class="modi_button">정보 수정</a>-->
+                    </div>
+                    <div class="divider"></div>
+                    <div class="right-content">
+                       <!-- <p th:text="'닉네임: ' + ${member.nick}" class="info_text"></p>
+                        <p th:text="'이메일: ' + ${member.email}" class="info_text"></p>
+                        <p th:text="'메타마스크: ' + ${member.metaAddress}" class="info_text"></p>-->
+                    </div>
             </div>
-            <div class="divider"></div>
-            <div class="right-content">
-                <p th:text="'닉네임: ' + ${member.nick}" class="info_text"></p>
-                <p th:text="'이메일: ' + ${member.email}" class="info_text"></p>
-                <p th:text="'메타마스크: ' + ${member.metaAddress}" class="info_text"></p>
-            </div>
-        </div>
 
-        <div class="bottom-section" style="background-color: #FFE7D9;">
-            <div class="tabs">
-                <button class="Admin_tablink" onclick="openTab_Admin(event, 'eventList_admin')">신청 행사 목록</button>
-                <button class="Admin_tablink" onclick="openTab_Admin(event, 'completedEvents_admin')">등록 완료 행사</button>
+            <div class="bottom-section" style="background-color: #FFE7D9;">
+                <div class="tabs">
+                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'eventList_admin')">신청 행사 목록</button>
+                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'completedEvents_admin')">등록 완료 행사</button>
+                </div>
+                <div id="eventList_admin" class="Admin_tabcontent">
+                    <h2>신청 행사 목록</h2>
+                    <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
+                </div>
+                <div id="completedEvents_admin" class="Admin_tabcontent" style="display:none;">
+                    <h2>등록 완료 행사</h2>
+                    <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
+                </div>
             </div>
-            <div id="eventList_admin" class="Admin_tabcontent">
-                <h2>신청 행사 목록</h2>
-                <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-            <div id="completedEvents_admin" class="Admin_tabcontent" style="display:none;">
-                <h2>등록 완료 행사</h2>
-                <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-        </div>
-        <script src="script.js"></script>
+            <script src="script.js"></script>
     </div>
 
     <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
