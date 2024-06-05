@@ -96,7 +96,8 @@ public class MemberService implements UserDetailsService {
         return member.getId();
     }
 
-    public MypageShowDto findMypageShowDto(String email) {
-        return memberRepository.findMypageShowDtoByEmail(email);
+    public MypageShowDto findMypageShowDto(Member member) {
+        MypageShowDto mypageShowDto = MypageShowDto.of(member);
+        return mypageShowDto;
     }
 }
