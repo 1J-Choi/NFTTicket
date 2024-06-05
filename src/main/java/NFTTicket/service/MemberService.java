@@ -2,6 +2,7 @@ package NFTTicket.service;
 
 import NFTTicket.dto.MemberImgDto;
 import NFTTicket.dto.MemberImgMetaDto;
+import NFTTicket.dto.MypageShowDto;
 import NFTTicket.entity.Member;
 import NFTTicket.entity.MemberImg;
 import NFTTicket.entity.Ticket;
@@ -93,5 +94,9 @@ public class MemberService implements UserDetailsService {
         memberImgService.updateMemberImg(memberImgMetaDto.getMemberImgId(), memberImgFile);
 
         return member.getId();
+    }
+
+    public MypageShowDto findMypageShowDto(String email) {
+        return memberRepository.findMypageShowDtoByEmail(email);
     }
 }
