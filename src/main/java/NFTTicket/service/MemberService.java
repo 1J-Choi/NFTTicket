@@ -75,13 +75,23 @@ public class MemberService implements UserDetailsService {
         }
     }
 
-    @Transactional(readOnly = true)
+
     public MemberImgMetaDto getMemberDtl(Long memberId){
         MemberImg memberImg = memberImgRepository.findByMemberId(memberId);
-        MemberImgDto memberImgDto = MemberImgDto.of(memberImg);
 
         Member member = memberRepository.findById(memberId).orElseThrow(EntityNotFoundException::new);
+
         MemberImgMetaDto memberImgMetaDto = new MemberImgMetaDto();
+        MemberImgDto memberImgDto;
+
+        if(memberImg != null){
+            memberImgDto = MemberImgDto.of(memberImg);
+        } else{
+            MemberImg memberImgNew = new MemberImg();
+            memberImgNew.setMember(member);
+            memberImgDto = MemberImgDto.of(memberImgNew);
+        }
+
         memberImgMetaDto.setMemberImgMetaDto(member, memberImgDto);
         memberImgMetaDto.setMemberImgDto(memberImgDto);
         return memberImgMetaDto;
@@ -98,7 +108,13 @@ public class MemberService implements UserDetailsService {
 
     public MypageShowDto findMypageShowDto(Member member) {
         MemberImg memberImg = memberImgRepository.findByMemberId(member.getId());
-        MypageShowDto mypageShowDto = new MypageShowDto(member, memberImg);
+        String imgURL;
+        if(memberImg == null){
+            imgURL = "";
+        } else{
+            imgURL=memberImg.getImgURL();
+        }
+        MypageShowDto mypageShowDto = new MypageShowDto(member, imgURL);
         return mypageShowDto;
     }
 }

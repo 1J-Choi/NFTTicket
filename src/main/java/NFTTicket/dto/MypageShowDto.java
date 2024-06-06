@@ -19,12 +19,12 @@ public class MypageShowDto {
     private String metaAddress;
     private String imgURL;
 
-    public MypageShowDto(Member member, MemberImg memberImg){
+    public MypageShowDto(Member member, String imgURL){
         this.id = member.getId();
         this.nick = member.getNick();
         this.email = member.getEmail();
         this.metaAddress = member.getMetaAddress();
-        this.imgURL = memberImg.getImgURL();
+        this.imgURL = imgURL;
     }
     
 }
