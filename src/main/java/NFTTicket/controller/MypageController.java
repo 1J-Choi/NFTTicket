@@ -37,7 +37,18 @@ public class MypageController {
 
 
     @GetMapping(value = "/mypage")
-    public String mypageUser(Model model){
+    public String mypageUser(Model model, Principal principal){
+
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        try {
+            MypageShowDto mypageShowDto = memberService.findMypageShowDto(memberNow);
+            model.addAttribute("mypageShowDto", mypageShowDto);
+        }catch (EntityNotFoundException e){
+            model.addAttribute("errorMessage", "존재하지 않는 계정입니다.");
+            return "/";
+        }
+
         return "mypage/mypage";
     }
 
