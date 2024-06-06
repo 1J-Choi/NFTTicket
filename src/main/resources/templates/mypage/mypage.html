@@ -364,18 +364,18 @@
 </th:block>
 
 <div class="wrap" layout:fragment="content">
-    <div sec:authorize="hasRole('ADMIN')"> <!--Admin-->
+    <div sec:authorize="hasRole('ADMIN')" th:object="${mypageShowDto}"> <!--Admin-->
             <div class="top-section" style="background-color: #FFE7D9;">
                     <div class="left-content">
-                    <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-                    <!-- <img th:src="${member.imgURL}" alt="Profile Image">-->
-                       <!--  <a th:href="@{'/imgmeta/'+${member.id}}" class="modi_button">정보 수정</a>-->
+<!--                    <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">-->
+                     <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
+                         <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
                     </div>
                     <div class="divider"></div>
                     <div class="right-content">
-                       <!-- <p th:text="'닉네임: ' + ${member.nick}" class="info_text"></p>
-                        <p th:text="'이메일: ' + ${member.email}" class="info_text"></p>
-                        <p th:text="'메타마스크: ' + ${member.metaAddress}" class="info_text"></p>-->
+                       <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
+                        <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
+                        <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
                     </div>
             </div>
 

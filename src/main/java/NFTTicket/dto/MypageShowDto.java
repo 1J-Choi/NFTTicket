@@ -13,14 +13,18 @@ import org.modelmapper.ModelMapper;
 @Getter
 @Setter
 public class MypageShowDto {
+    private Long id;
     private String nick;
     private String email;
     private String metaAddress;
+    private String imgURL;
 
-    private static ModelMapper modelMapper = new ModelMapper();
-
-    public static MypageShowDto of(Member member) {
-        return modelMapper.map(member, MypageShowDto.class);
+    public MypageShowDto(Member member, MemberImg memberImg){
+        this.id = member.getId();
+        this.nick = member.getNick();
+        this.email = member.getEmail();
+        this.metaAddress = member.getMetaAddress();
+        this.imgURL = memberImg.getImgURL();
     }
     
 }

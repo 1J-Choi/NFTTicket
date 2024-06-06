@@ -97,7 +97,8 @@ public class MemberService implements UserDetailsService {
     }
 
     public MypageShowDto findMypageShowDto(Member member) {
-        MypageShowDto mypageShowDto = MypageShowDto.of(member);
+        MemberImg memberImg = memberImgRepository.findByMemberId(member.getId());
+        MypageShowDto mypageShowDto = new MypageShowDto(member, memberImg);
         return mypageShowDto;
     }
 }
