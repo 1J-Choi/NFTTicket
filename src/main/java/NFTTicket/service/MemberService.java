@@ -89,6 +89,7 @@ public class MemberService implements UserDetailsService {
         } else{
             MemberImg memberImgNew = new MemberImg();
             memberImgNew.setMember(member);
+            memberImgRepository.save(memberImgNew);
             memberImgDto = MemberImgDto.of(memberImgNew);
         }
 
