@@ -111,7 +111,7 @@ public class MemberService implements UserDetailsService {
         MemberImg memberImg = memberImgRepository.findByMemberId(member.getId());
         String imgURL;
         if(memberImg == null){
-            imgURL = "";
+            imgURL = "https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png";
         } else{
             imgURL=memberImg.getImgURL();
         }
