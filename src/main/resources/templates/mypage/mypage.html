@@ -129,7 +129,8 @@
 
         .right-content {
             display: flex;
-            align-items: center;
+            flex-direction: column;
+            align-items: flex-start;
             width: 1000px;
         }
 
@@ -279,9 +280,32 @@
             border-radius: 20px;
             font-family: 'Source Sans Pro';
             background-color: #ffffff;
-            font-size: 15px;
-            width: 900px;
+            width: fit-content;
+            max-width: 100%;
             height: 60px;
+            font-size: 17pt;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 12px;
+
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
         }
 
     </style>
@@ -367,92 +391,57 @@
     <div sec:authorize="hasRole('ADMIN')" th:object="${mypageShowDto}"> <!--Admin-->
             <div class="top-section" style="background-color: #FFE7D9;">
                     <div class="left-content">
-<!--                    <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">-->
-<!--                     <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">-->
+                        <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+                        <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
                          <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
                     </div>
                     <div class="divider"></div>
                     <div class="right-content">
-                       <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
-                        <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
                         <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
+                        <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
+                        <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
+                        <a href="/mypage/mypageAdmin" class="btn">행사 Mypage</a>
                     </div>
             </div>
-
-            <div class="bottom-section" style="background-color: #FFE7D9;">
-                <div class="tabs">
-                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'eventList_admin')">신청 행사 목록</button>
-                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'completedEvents_admin')">등록 완료 행사</button>
-                </div>
-                <div id="eventList_admin" class="Admin_tabcontent">
-                    <h2>신청 행사 목록</h2>
-                    <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
-                </div>
-                <div id="completedEvents_admin" class="Admin_tabcontent" style="display:none;">
-                    <h2>등록 완료 행사</h2>
-                    <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
-                </div>
-            </div>
-            <script src="script.js"></script>
     </div>
+
+
 
     <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
         <div class="top-section" style="background-color: #FFEECD;">
             <div class="left-content">
                 <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-                <div class="text-info">
-                    <p>Nickname: Owner</p>
-                    <p>Email: your.email@example.com</p>
-                </div>
+                <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
+                <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
             </div>
             <div class="divider"></div>
             <div class="right-content">
-                <p>Owner Information</p>
+                <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
+                <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
+                <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
+                <a href="/mypage/mypageOwner" class="btn">행사 Mypage</a>
             </div>
         </div>
-
-        <div class="bottom-section" style="background-color: #FFEECD;">
-            <div class="tabs">
-                <button class="Owner_tablink" onclick="openTab_Owner(event, 'eventList_owner')">신청 행사(N)</button>
-                <button class="Owner_tablink" onclick="openTab_Owner(event, 'completedEvents_owner')">등록된 행사(N)</button>
-            </div>
-            <div id="eventList_owner" class="Owner_tabcontent">
-                <h2>신청한 행사 목록</h2>
-                <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-            <div id="completedEvents_owner" class="Owner_tabcontent" style="display:none;">
-                <h2>등록된 행사 목록</h2>
-                <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-        </div>
-        <script src="script.js"></script>
     </div>
+
+
 
     <div sec:authorize="hasRole('USER')"> <!--User-->
         <div class="top-section" style="background-color: #EFF3FF;">
             <div class="left-content">
                 <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-                <div class="text-info">
-                    <p>Nickname: User</p>
-                    <p>Email: your.email@example.com</p>
-                </div>
+                <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
+                <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
             </div>
             <div class="divider"></div>
             <div class="right-content">
-                <p>User Information</p>
+                <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
+                <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
+                <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
+                <a href="/mypage/mypageUser" class="btn">행사 Mypage</a>
             </div>
         </div>
-
-        <div class="bottom-section" style="background-color: #EFF3FF;">
-            <div class="tab">
-                <button class="User_tablink" onclick="openTab_User(event, 'joinlist')">참여한 행사(N)</button>
-            </div>
-            <div id="joinlist" class="User_tabcontent">
-                <h2>참여한 행사 목록</h2>
-                <p>참여한 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-        </div>
-        <script src="script.js"></script>
     </div>
 </div>
+
 </html>

@@ -99,4 +99,19 @@ public class MypageController {
         model.addAttribute("maxPage", 5);
         return "mypage/mypageUser";
     }
+
+    @GetMapping(value = "/mypage/mypageAdmin")
+    public String adminbtm(){
+        return "mypage/mypageAdmin";
+    }
+
+    @GetMapping(value = "/mypage/mypageUser")
+    public String userbtm(){
+        return "mypage/mypageUser";
+    }
+
+    @GetMapping(value = "/mypage/mypageOwner")
+    public String ownerbtm(){
+        return "mypage/mypageOwner";
+    }
 }
