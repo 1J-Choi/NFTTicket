@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
-      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/layout1}">
 
 <!--사용자 CSS 추가-->
@@ -82,60 +82,10 @@
             overflow: hidden;
             flex-direction: column;
             align-items: center;
-        }
-
-        .top-section {
-        background-color: #FFEECD;
-        width: 1500px;
-        height: 466px;
-        display: flex;
-        justify-content: space-between;
-        padding: 20px;
-        margin-top: 100px;
-        margin-bottom: 200px;
-        border-radius: 30px;
-        }
-
-        .left-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            width: 400px;
-        }
-
-        .left-content img {
-            width: 290px;
-            height: 242px;
-            border-radius: 50%;
-            margin-right: 20px;
-        }
-
-        .text-info p {
-            margin: 0;
-            color: black;
-            font-size: 30px;
-        }
-
-        .divider {
-        width: 5px;
-        background: repeating-linear-gradient(
-            to bottom,
-            transparent,
-            transparent 4px,
-            black 4px,
-            black 5px
-        );
-        height: 100%;
-    }
-
-        .right-content {
-            display: flex;
-            align-items: center;
-            width: 1000px;
+            margin-top: 100px;
         }
 
         .bottom-section {
-            background-color: #FFEECD;
             width: 1500px;
             height: 800px;
             margin-bottom: 100px;
@@ -153,7 +103,7 @@
         background-color: #FFFFFF;
         }
 
-        .tablink {
+        .Owner_tablink {
             background-color: #FFD584;
             color: black;
             padding: 10px 20px;
@@ -169,25 +119,43 @@
             outline: none;
         }
 
-        .tablink:hover {
+        .Owner_tablink:hover {
             background-color: #FFEECD;
         }
 
-        .tablink.active {
+        .Owner_tablink.active {
             background-color: #FFEECD;
         }
 
-        .tablink:focus {
+        .Owner_tablink:focus {
             outline: none;
         }
 
-        .tabcontent {
+        .Owner_tabcontent {
             display: none;
             padding: 20px;
             background-color: #FFEECD;
             border-radius: 5px;
             margin-top: 60px;
         }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
     </style>
 </th:block>
 
@@ -201,15 +169,15 @@
             }
         });
 
-        function openTab(evt, tabName) {
+        function openTab_Owner(evt, tabName) {
             var i, tabcontent, tablinks;
 
-            tabcontent = document.getElementsByClassName("tabcontent");
+            tabcontent = document.getElementsByClassName("Owner_tabcontent");
             for (i = 0; i < tabcontent.length; i++) {
                 tabcontent[i].style.display = "none";
             }
 
-            tablinks = document.getElementsByClassName("tablink");
+            tablinks = document.getElementsByClassName("Owner_tablink");
             for (i = 0; i < tablinks.length; i++) {
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
@@ -219,42 +187,38 @@
         }
 
         window.onload = function() {
-            document.getElementsByClassName("tablink")[0].click();
+            if (document.getElementsByClassName("Admin_tablink").length > 0) {
+                document.getElementsByClassName("Admin_tablink")[0].click();
+            }
+            if (document.getElementsByClassName("Owner_tablink").length > 0) {
+                document.getElementsByClassName("Owner_tablink")[0].click();
+            }
+            if (document.getElementsByClassName("User_tablink").length > 0) {
+                document.getElementsByClassName("User_tablink")[0].click();
+            }
         }
 
     </script>
 </th:block>
 
 <div class="wrap" layout:fragment="content">
-    <div class="top-section">
-        <div class="left-content">
-            <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
-            <div class="text-info">
-                <p>Nickname: YourNickname</p>
-                <p>Email: your.email@example.com</p>
+    <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
+        <div class="bottom-section" style="background-color: #FFEECD; margin-top: 100px;">
+            <div class="tabs">
+                <button class="Owner_tablink" onclick="openTab_Owner(event, 'eventList_owner')">신청 행사(N)</button>
+                <button class="Owner_tablink" onclick="openTab_Owner(event, 'completedEvents_owner')">등록된 행사(N)</button>
+            </div>
+            <div id="eventList_owner" class="Owner_tabcontent">
+                <h2>신청한 행사 목록</h2>
+                <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
+            </div>
+            <div id="completedEvents_owner" class="Owner_tabcontent" style="display:none;">
+                <h2>등록된 행사 목록</h2>
+                <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
             </div>
         </div>
-        <div class="divider"></div>
-        <div class="right-content">
-            <p>Additional Information</p>
-        </div>
+        <script src="script.js"></script>
     </div>
 
-    <div class="bottom-section">
-        <div class="tabs">
-            <button class="tablink" onclick="openTab(event, 'eventList')">신청 행사(N)</button>
-            <button class="tablink" onclick="openTab(event, 'completedEvents')">등록된 행사(N)</button>
-        </div>
-        <div id="eventList" class="tabcontent">
-            <h2>신청한 행사 목록</h2>
-            <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
-        </div>
-        <div id="completedEvents" class="tabcontent" style="display:none;">
-            <h2>등록된 행사 목록</h2>
-            <p>등록이 완료된 행사의 목록이 여기에 표시됩니다.</p>
-        </div>
-    </div>
-    <script src="script.js"></script>
 </div>
-
 </html>
