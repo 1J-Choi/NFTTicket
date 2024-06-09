@@ -91,15 +91,17 @@
             border-top-right-radius: 30px;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .tabs {
-            position: absolute;
-            top: -100px;
-            left: -35px;
-            margin-top: 100px;
+            width: 1500px;
+            height: 80px;
             background-color: #FFFFFF;
+            padding: 0px;
+
         }
 
         .Admin_tablink {
@@ -112,7 +114,7 @@
             width: 250px;
             height: 80px;
             padding-bottom: 30px;
-            margin-left: 15px;
+            margin-right: 15px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             outline: none;
@@ -132,7 +134,7 @@
             width: 250px;
             height: 80px;
             padding-bottom: 30px;
-            margin-left: 15px;
+            margin-right: 15px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             outline: none;
@@ -142,8 +144,9 @@
             outline: none;
         }
 
-        .Admin_tabcontent {
-            display: none;
+        .Admin_tabcontent
+            width: 1500px;
+            height: 100%;
             padding: 20px;
             background-color: #FFE7D9;
             border-radius: 5px;
@@ -251,7 +254,7 @@
             var searchBy = $("#searchBy").val();
             var searchQuery = $("#searchQuery").val();
 
-            location.href = "/mypage/mypageAdmin/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
+            location.href = "/mypage/mypageAdmin/safemint/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
         function order(eventId) {
@@ -294,11 +297,11 @@
 
 <div class="wrap" layout:fragment="content">
     <div sec:authorize="hasRole('ADMIN')"> <!-- Admin -->
-        <form th:action="@{'/mypage/mypageAdmin/safemint'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
+        <form th:action="@{'/mypage/mypageAdmin/event/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
-                    <a class="Admin_tablink" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
-                    <a class="Admin_tablink_on" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
+                    <a class="Admin_tablink_on" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
+                    <a class="Admin_tablink" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
                 </div>
                 <div class="Admin_tabcontent">
                     <div class="event-card" th:each="event, status : ${tickets.getContent()}">
@@ -315,7 +318,7 @@
                             </div>
                         </div>
                         <div class="tip">
-                            <button class="safe-mint" th:onclick="'order(' + ${event.id} + ')'">Confirm</button>
+                            <button class="safe-mint" th:onclick="'order(' + ${ticket.id} + ')'">Confirm</button>
                         </div>
                     </div>
                     <div th:with="start=${(tickets.number/maxPage)*maxPage +1},

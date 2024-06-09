@@ -143,7 +143,6 @@
         }
 
         .Admin_tabcontent {
-            display: none;
             padding: 20px;
             background-color: #FFE7D9;
             border-radius: 5px;
@@ -251,7 +250,7 @@
             var searchBy = $("#searchBy").val();
             var searchQuery = $("#searchQuery").val();
 
-            location.href = "/mypage/mypageAdmin/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
+            location.href = "/mypage/mypageAdmin/event/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
         function order(eventId) {
@@ -294,14 +293,14 @@
 
 <div class="wrap" layout:fragment="content">
     <div sec:authorize="hasRole('ADMIN')"> <!-- Admin -->
-        <form th:action="@{'/mypage/mypageAdmin/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
+        <form th:action="@{'/mypage/mypageAdmin/event/'+${events.number}}" role="form" method="get" th:object="${events}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
                     <a class="Admin_tablink_on" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
                     <a class="Admin_tablink" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
                 </div>
-                <div id="eventList_admin" class="Admin_tabcontent">
-                    <div class="event-card" th:each="event, status : ${tickets.getContent()}">
+                <div class="Admin_tabcontent">
+                    <div class="event-card" th:each="event, status : ${events.getContent()}">
                         <div class="event-img">
                             <img th:src="${event.imgURL}" th:alt="${event.evName}" class="event-img">
                         </div>
@@ -318,26 +317,26 @@
                             <button class="safe-mint" th:onclick="'order(' + ${event.id} + ')'">Confirm</button>
                         </div>
                     </div>
-                    <div th:with="start=${(tickets.number/maxPage)*maxPage +1},
-        end=(${(tickets.totalPages == 0) ? 1 : (start + (maxPage-1) < tickets.totalPages ? start + (maxPage - 1) : tickets.totalPages)})">
+                    <div th:with="start=${(events.number/maxPage)*maxPage +1},
+        end=(${(events.totalPages == 0) ? 1 : (start + (maxPage-1) < events.totalPages ? start + (maxPage - 1) : events.totalPages)})">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item" th:classappend="${tickets.first}?'disabled'">
-                                <a th:onclick="'javascript:page('+${tickets.number - 1} + ')'" aria-label="Previous" class="page-link">
+                            <li class="page-item" th:classappend="${events.first}?'disabled'">
+                                <a th:onclick="'javascript:page('+${events.number - 1} + ')'" aria-label="Previous" class="page-link">
                                     <span aria-hidden="true">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${tickets.number eq page-1}?'active':''">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${events.number eq page-1}?'active':''">
                                 <a th:onclick="'javascript:page('+${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                             </li>
-                            <li class="page-item" th:classappend="${tickets.last}?'disabled'">
-                                <a th:onclick="'javascript:page(' + ${tickets.number + 1} + ')'" aria-label="Next" class="page-link">
+                            <li class="page-item" th:classappend="${events.last}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${events.number + 1} + ')'" aria-label="Next" class="page-link">
                                     <span aria-hidden="true">Next</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="search-window">
-                        <div class="form-inline justify-content-center" th:object="${ticketSearchDto}">
+                        <div class="form-inline justify-content-center" th:object="${eventSearchDto}">
                             <select th:field="*{searchBy}" class="form-control" style="width: auto;">
                                 <option value="eventNm">축제명</option>
                                 <option value="createdBy">등록자</option>
