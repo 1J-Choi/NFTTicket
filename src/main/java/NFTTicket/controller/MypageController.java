@@ -80,8 +80,28 @@ public class MypageController {
         return "redirect:/"; // 다시 실행 /
     }
 
-    @GetMapping(value = {"/mypage/ticket", "/mypage/ticket/{page}"})
-    public String ticketShow(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+    @GetMapping(value = {"/mypage/mypageAdmin", "/mypage/mypageAdmin/{page}"})
+    public String ticketShowAdmin(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                             Principal principal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "main";
+        }
+
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
+        Long ticketBoxid = ticketBox.getId();
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketSearchDto", ticketSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "mypage/mypageAdmin";
+    }
+
+    @GetMapping(value = {"/mypage/mypageUser", "/mypage/mypageUser/{page}"})
+    public String ticketShowUser(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
                              Principal principal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return "main";
@@ -99,19 +119,23 @@ public class MypageController {
         model.addAttribute("maxPage", 5);
         return "mypage/mypageUser";
     }
+    @GetMapping(value = {"/mypage/mypageOwner", "/mypage/mypageOwner/{page}"})
+    public String ticketShowOwner(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                             Principal principal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "main";
+        }
 
-    @GetMapping(value = "/mypage/mypageAdmin")
-    public String adminbtm(){
-        return "mypage/mypageAdmin";
-    }
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
+        Long ticketBoxid = ticketBox.getId();
 
-    @GetMapping(value = "/mypage/mypageUser")
-    public String userbtm(){
-        return "mypage/mypageUser";
-    }
-
-    @GetMapping(value = "/mypage/mypageOwner")
-    public String ownerbtm(){
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketSearchDto", ticketSearchDto);
+        model.addAttribute("maxPage", 5);
         return "mypage/mypageOwner";
     }
 }

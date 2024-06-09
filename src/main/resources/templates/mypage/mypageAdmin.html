@@ -7,7 +7,7 @@
 <th:block layout:fragment="css">
     <style>
         .headerText {
-          font-family: 'Source Sans Pro',bold;
+          font-family: 'Source Sans Pro', bold;
           color: black;
           font-size: 18px;
           width: 100%;
@@ -15,66 +15,66 @@
           font-weight: bold;
         }
 
-        .topLine{
+        .topLine {
             height: 4px;
-            width:100%;
+            width: 100%;
             background-color: #0D2D84;
         }
 
         .topHeader {
-            font-size: 32;
+            font-size: 32px;
             color: #FFFFFF;
             font-family: 'Source Sans Pro';
             background-color: #0D2D84;
-            height:60;
-            width:100%;
+            height: 60px;
+            width: 100%;
             text-align: center;
         }
-        .navbar-main-icon{
+
+        .navbar-main-icon {
             width: 162.57px;
             height: 104px;
             display: flex;
             justify-content: center;
             font-size: 20px;
-            margin:0 auto;
-            overflow:hidden;
+            margin: 0 auto;
+            overflow: hidden;
         }
 
-        .dku_icon{
-            width:100%;
-            height:100%;
-            object-fit:cover;
+        .dku_icon {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
         }
 
         .custom_bg {
             background-color: #FFFFFF;
         }
 
-        .nav_right{
+        .nav_right {
             justify-content: flex-end;
         }
 
-
-        .signText{
+        .signText {
             border-radius: 5px;
             font-family: 'Source Sans Pro';
             color: white;
             background-color: #EF8C2F;
             font-size: 15px;
-            width:125px;
+            width: 125px;
             text-align: center;
             font-weight: bold;
             margin-top: 4px;
         }
-        .noMargin{
+
+        .noMargin {
             padding-top: 0px;
             padding-bottom: 0px;
             margin-top: 0;
             margin-bottom: 0;
         }
 
-        .wrap
-        {
+        .wrap {
             width: 100%;
             height: 100%;
             display: flex;
@@ -95,28 +95,28 @@
         }
 
         .tabs {
-        position: absolute;
-        top: -100px;
-        left: -35px;
-        margin: 20px;
-        background-color: #FFFFFF;
+            position: absolute;
+            top: -100px;
+            left: -35px;
+            margin: 20px;
+            background-color: #FFFFFF;
         }
 
         .Admin_tablink {
-                background-color: #FFBC96;
-                color: black;
-                padding: 10px 20px;
-                border: none;
-                cursor: pointer;
-                font-size: 30px;
-                width: 250px;
-                height: 80px;
-                padding-bottom: 30px;
-                margin-left: 15px;
-                border-top-left-radius: 10px;
-                border-top-right-radius: 10px;
-                outline: none;
-            }
+            background-color: #FFBC96;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            width: 250px;
+            height: 80px;
+            padding-bottom: 30px;
+            margin-left: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            outline: none;
+        }
 
         .Admin_tablink:hover {
             background-color: #FFE7D9;
@@ -128,8 +128,8 @@
 
         .Admin_tablink:focus {
             outline: none;
-
         }
+
         .Admin_tabcontent {
             display: none;
             padding: 20px;
@@ -146,62 +146,218 @@
             background-color: #FFFFFF;
         }
 
+        .event-card {
+            position: relative;
+            width: 1200px;
+            height: 300px;
+            margin-top: 20px;
+            margin-left: 160px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .event-info {
+            padding: 10px;
+            text-align: left;
+            width: 765px;
+            height: 300px;
+            position: absolute;
+            left: 225px;
+        }
+
+        .event-img {
+            width: 195px;
+            height: 300px;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+        }
+
+        .tip {
+            width: 238px;
+            height: 300px;
+            background-color: #163C9D;
+            position: absolute;
+            right: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .safe-mint {
+            position: absolute;
+            right: 65px; /* 오른쪽 경계로부터 10px */
+            top: 50%; /* 상단으로부터 50% 위치 */
+            transform: translateY(-50%); /* Y축 기준 50% 올림 */
+            padding: 10px 20px; /* 패딩 */
+            background-color: #EF8C2F; /* 배경색 */
+            color: white; /* 글자색 */
+            border: none; /* 테두리 없음 */
+            cursor: pointer; /* 커서 모양 */
+            border-radius: 5px;
+            font-size: 15px;
+            font-style: 'Source Sans Pro';
+            font-weight: bold;
+        }
+
+        .evHead {
+            font-size: 40px;
+            font-style: 'Source Sans Pro', bold;
+        }
+
+        .event-info .evText {
+            padding-left: 20px;
+            font-size: 20px;
+            font-style: 'Source Sans Pro';
+        }
+
+        .vertical-line {
+            border-left: 1px solid #ccc;
+            margin-right: 10px;
+            margin-left: 5px;
+            margin-top: 8px;
+            height: 32px;
+            display: inline-block;
+            vertical-align: middle;
+        }
     </style>
 </th:block>
 
 <!--사용자 스크립트 추가-->
 <th:block layout:fragment="script">
     <script th:inline="javascript">
-        $(document).ready(function(){
+        $(document).ready(function() {
+            // 오류 메시지 알림
             var errorMessage = [[${errorMessage}]];
-            if (errorMessage != null){
+            if (errorMessage != null) {
                 alert(errorMessage);
             }
+
+            // 첫 번째 탭을 초기 활성화
+            $('.Admin_tablink').first().addClass('active');
+            $('.Admin_tabcontent').first().show();
+
+            // 탭 클릭 이벤트 처리
+            $('.Admin_tablink').on('click', function(event) {
+                event.preventDefault();
+                var tabName = $(this).attr('data-tab');
+                openTab_Admin(event, tabName);
+            });
         });
 
         function openTab_Admin(evt, tabName) {
-            var i, tabcontent, tablinks;
+            // 모든 탭 콘텐츠 숨기기
+            $('.Admin_tabcontent').hide();
 
-            tabcontent = document.getElementsByClassName("Admin_tabcontent");
-            for (i = 0; i < tabcontent.length; i++) {
-                tabcontent[i].style.display = "none";
-            }
+            // 모든 탭 링크에서 active 클래스 제거
+            $('.Admin_tablink').removeClass('active');
 
-            tablinks = document.getElementsByClassName("Admin_tablink");
-            for (i = 0; i < tablinks.length; i++) {
-                tablinks[i].className = tablinks[i].className.replace(" active", "");
-            }
+            // 클릭한 탭 링크에 active 클래스 추가
+            $(evt.currentTarget).addClass('active');
 
-            document.getElementById(tabName).style.display = "block";
-            evt.currentTarget.className += " active";
+            // 해당 탭 콘텐츠 표시
+            $('#' + tabName).show();
         }
 
+        function page(page) {
+            var searchBy = $("#searchBy").val();
+            var searchQuery = $("#searchQuery").val();
 
-        window.onload = function() {
-            if (document.getElementsByClassName("Admin_tablink").length > 0) {
-                document.getElementsByClassName("Admin_tablink")[0].click();
-            }
-            if (document.getElementsByClassName("Owner_tablink").length > 0) {
-                document.getElementsByClassName("Owner_tablink")[0].click();
-            }
-            if (document.getElementsByClassName("User_tablink").length > 0) {
-                document.getElementsByClassName("User_tablink")[0].click();
-            }
+            location.href = "/mypage/mypageAdmin/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
+        function order(eventId) {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/safeMint";
+            var paramData = {
+                eventId: eventId
+            }
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url: url,
+                type: "POST",
+                contentType: "application/json",
+                data: param,
+                beforeSend: function(xhr) {
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType: "json",
+                cache: false,
+                success: function(result, status) {
+                    alert("티켓 요청이 완료 되었습니다.");
+                    location.href = '/';
+                },
+                error: function(jqXHR, status, error) {
+                    if (jqXHR.status == '401') {
+                        alert("로그인 후 이용해주세요.");
+                        location.href = '/members/login';
+                    } else {
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
     </script>
 </th:block>
 
 <div class="wrap" layout:fragment="content">
-    <div sec:authorize="hasRole('ADMIN')" th:object="${mypageShowDto}"> <!--Admin-->
+    <div sec:authorize="hasRole('ADMIN')"> <!-- Admin -->
+        <form th:action="@{'/mypage/mypageAdmin/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
-                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'eventList_admin')">신청 행사 목록</button>
-                    <button class="Admin_tablink" onclick="openTab_Admin(event, 'completedEvents_admin')">등록 완료 행사</button>
+                    <button class="Admin_tablink" data-tab="eventList_admin" onclick="openTab_Admin(event, 'eventList_admin')">신청 행사 목록</button>
+                    <button class="Admin_tablink" data-tab="completedEvents_admin" onclick="openTab_Admin(event, 'completedEvents_admin')">등록 완료 행사</button>
                 </div>
                 <div id="eventList_admin" class="Admin_tabcontent">
-                    <h2>신청 행사 목록</h2>
-                    <p>신청한 행사의 목록이 여기에 표시됩니다.</p>
+                    <div class="event-card" th:each="event, status : ${tickets.getContent()}">
+                        <div class="event-img">
+                            <img th:src="${event.imgURL}" th:alt="${event.evName}" class="event-img">
+                        </div>
+                        <div class="event-info">
+                            <p class="evHead" th:text="${event.evName}"></p>
+                            <div class="evText">
+                                <p th:text="'일시: ' + ${event.date}"></p>
+                                <p th:text="'장소: ' + ${event.place}"></p>
+                                <p th:text="'주최: ' + ${event.nick}"></p>
+                                <p th:text="'인원: ' + ${event.number}"></p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                            <button class="safe-mint" th:onclick="'order(' + ${event.id} + ')'">Confirm</button>
+                        </div>
+                    </div>
+                    <div th:with="start=${(tickets.number/maxPage)*maxPage +1},
+        end=(${(tickets.totalPages == 0) ? 1 : (start + (maxPage-1) < tickets.totalPages ? start + (maxPage - 1) : tickets.totalPages)})">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${tickets.first}?'disabled'">
+                                <a th:onclick="'javascript:page('+${tickets.number - 1} + ')'" aria-label="Previous" class="page-link">
+                                    <span aria-hidden="true">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${tickets.number eq page-1}?'active':''">
+                                <a th:onclick="'javascript:page('+${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                            </li>
+                            <li class="page-item" th:classappend="${tickets.last}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${tickets.number + 1} + ')'" aria-label="Next" class="page-link">
+                                    <span aria-hidden="true">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-window">
+                        <div class="form-inline justify-content-center" th:object="${ticketSearchDto}">
+                            <select th:field="*{searchBy}" class="form-control" style="width: auto;">
+                                <option value="eventNm">축제명</option>
+                                <option value="createdBy">등록자</option>
+                            </select>
+                            <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                            <button id="searchBtn" type="submit" class="btn btn-primary">검색</button><!-- 버튼 클래스 구현 -->
+                        </div>
+                    </div>
                 </div>
                 <div id="completedEvents_admin" class="Admin_tabcontent" style="display:none;">
                     <h2>등록 완료 행사</h2>
@@ -209,9 +365,8 @@
                 </div>
             </div>
             <script src="script.js"></script>
+        </form>
     </div>
-
-
-
 </div>
+
 </html>

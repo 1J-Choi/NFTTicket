@@ -269,11 +269,12 @@
             font-family: 'Source Sans Pro';
             color: white;
             background-color: #EF8C2F;
-            font-size: 15px;
+            font-size: 16pt;
             width:185px;
             height:60px;
             text-align: center;
             font-weight: bold;
+            padding: 15px 20px;
         }
 
         .info_text{
@@ -288,6 +289,7 @@
             padding-left: 20px;
             padding-right: 20px;
             padding-top: 12px;
+            margin: 15px;
 
         }
 
@@ -307,6 +309,22 @@
         .btn:hover {
             background-color: #0056b3;
         }
+
+        .right-content .right_array{
+            width: 950px;
+            display: flex;
+            justify-content: flex-end;
+        }
+
+        .vertical-line {
+                border-left: 1px solid #ccc;
+                margin-right: 10px;
+                margin-left: 5px;
+                margin-top: 8px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: middle;
+            }
 
     </style>
 </th:block>
@@ -391,16 +409,21 @@
     <div sec:authorize="hasRole('ADMIN')" th:object="${mypageShowDto}"> <!--Admin-->
             <div class="top-section" style="background-color: #FFE7D9;">
                     <div class="left-content">
-                        <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+<!--                        <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">-->
+                        <div style="height:50px;"></div>
                         <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
-                         <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
+                        <div style="height:50px;"></div>
+                        <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
                     </div>
                     <div class="divider"></div>
                     <div class="right-content">
                         <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
                         <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
                         <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
-                        <a href="/mypage/mypageAdmin" class="btn">행사 Mypage</a>
+                        <div style="height:100px;"></div>
+                        <div class="right_array">
+                            <a href="/mypage/mypageAdmin" class="btn">행사 Mypage</a>
+                        </div>
                     </div>
             </div>
     </div>
@@ -410,8 +433,9 @@
     <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
         <div class="top-section" style="background-color: #FFEECD;">
             <div class="left-content">
-                <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+                <div style="height:50px;"></div>
                 <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
+                <div style="height:50px;"></div>
                 <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
             </div>
             <div class="divider"></div>
@@ -419,7 +443,10 @@
                 <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
                 <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
                 <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
-                <a href="/mypage/mypageOwner" class="btn">행사 Mypage</a>
+                <div style="height:100px;"></div>
+                <div class="right_array">
+                    <a href="/mypage/mypageOwner" class="btn">행사 Mypage</a>
+                </div>
             </div>
         </div>
     </div>
@@ -429,8 +456,9 @@
     <div sec:authorize="hasRole('USER')"> <!--User-->
         <div class="top-section" style="background-color: #EFF3FF;">
             <div class="left-content">
-                <img src="https://static.wixstatic.com/media/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png/v1/fill/w_696,h_580,al_c,lg_1,q_90,enc_auto/33d1bf_6823a436fe014efd8497e7367b3c2c2d~mv2.png" alt="Profile Image">
+                <div style="height:50px;"></div>
                 <img th:src="${mypageShowDto.imgURL}" alt="Profile Image">
+                <div style="height:50px;"></div>
                 <a th:href="@{'/imgmeta/'+${mypageShowDto.id}}" class="modi_button">정보 수정</a>
             </div>
             <div class="divider"></div>
@@ -438,7 +466,10 @@
                 <p th:text="'메타마스크: ' + ${mypageShowDto.metaAddress}" class="info_text"></p>
                 <p th:text="'닉네임: ' + ${mypageShowDto.nick}" class="info_text"></p>
                 <p th:text="'이메일: ' + ${mypageShowDto.email}" class="info_text"></p>
-                <a href="/mypage/mypageUser" class="btn">행사 Mypage</a>
+                <div style="height:100px;"></div>
+                <div class="right_array">
+                    <a href="/mypage/mypageUser" class="btn">행사 Mypage</a>
+                </div>
             </div>
         </div>
     </div>
