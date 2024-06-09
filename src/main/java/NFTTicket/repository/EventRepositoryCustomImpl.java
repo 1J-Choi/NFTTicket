@@ -1,6 +1,7 @@
 package NFTTicket.repository;
 
 import NFTTicket.constant.EventCategory;
+import NFTTicket.constant.TransactionStatus;
 import NFTTicket.dto.EventSearchDto;
 import NFTTicket.dto.EventShowDto;
 import NFTTicket.dto.QEventShowDto;
@@ -38,6 +39,10 @@ import java.util.List;
 
     private BooleanExpression categoryEq(String category) {
         return StringUtils.isEmpty(category) ? null : QEvent.event.category.eq(EventCategory.valueOf(category));
+    }
+
+    private BooleanExpression transactionRq() {
+                return QEvent.event.tranNow.eq(TransactionStatus.REQUEST);
     }
 
     @Override
@@ -91,4 +96,19 @@ import java.util.List;
                 .orderBy(event.id.desc()).fetchResults();
         return results.getResults();
     }
+
+    @Override
+    public Page<EventShowDto> getRequestEvents(EventSearchDto eventSearchDto, Pageable pageable){
+                QEvent event = QEvent.event;
+                QEventImg eventImg = QEventImg.eventImg;
+
+                QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
+                        .from(eventImg).join(eventImg.event, event)
+                        .where(transactionRq(), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                        .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+                List<EventShowDto> content = results.getResults();
+                long total = results.getTotal();
+                return new PageImpl<>(content, pageable, total);
+            }
 }
