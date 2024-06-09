@@ -88,7 +88,8 @@ public class SecurityConfig{
                 securityContext.securityContextRepository(new HttpSessionSecurityContextRepository()));
 
 
-        http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
+        http.csrf((csrf)->
+                csrf.csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse()));
 
         return http.build();
     }
