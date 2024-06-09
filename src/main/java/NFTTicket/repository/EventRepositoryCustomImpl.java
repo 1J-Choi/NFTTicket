@@ -45,6 +45,10 @@ import java.util.List;
                 return QEvent.event.tranNow.eq(TransactionStatus.REQUEST);
     }
 
+    private BooleanExpression transactionCp() {
+                return QEvent.event.tranNow.eq(TransactionStatus.COMPLETION);
+            }
+
     @Override
     public Page<EventShowDto> getEvents(EventSearchDto eventSearchDto, Pageable pageable){
         QEvent event = QEvent.event;
@@ -63,7 +67,7 @@ import java.util.List;
                         event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
                 // join 내부조인 .repImgYn.eq("Y")인 대표 이미지만 가져온다.
                 .from(eventImg).join(eventImg.event, event)
-                .where(searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                .where(transactionCp(), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                 .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<EventShowDto> content = results.getResults();
         long total = results.getTotal();
@@ -78,7 +82,7 @@ import java.util.List;
         QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName, event.date,
                         event.place, event.member.nick, event.number, eventImg.imgURL))
                 .from(eventImg).join(eventImg.event, event)
-                .where(categoryEq(category), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                .where(transactionCp(), categoryEq(category), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                 .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
         List<EventShowDto> content = results.getResults();
         long total = results.getTotal();
@@ -92,6 +96,7 @@ import java.util.List;
         QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
                 event.date, event.place, event.member.nick, event.number, eventImg.imgURL))
                 .from(eventImg).join(eventImg.event, event)
+                .where(transactionCp())
                 .limit(5)
                 .orderBy(event.id.desc()).fetchResults();
         return results.getResults();

@@ -1,6 +1,7 @@
 package NFTTicket.entity;
 
 import NFTTicket.constant.SafeMintStatus;
+import NFTTicket.constant.TransactionStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -36,5 +37,9 @@ public class Ticket {
         ticket.setEvent(event);
         ticket.setSafeMint(SafeMintStatus.N);
         return ticket;
+    }
+
+    public void confirmTicketSafeMint(){
+        this.safeMint = SafeMintStatus.Y;
     }
 }

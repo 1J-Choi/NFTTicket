@@ -55,5 +55,9 @@ public class Event {
         event.setMember(member);
         return event;
     }
+
+    public void confirmEventTransNow(){
+        this.tranNow = TransactionStatus.COMPLETION;
+    }
 }
     //ENUM 같은 경우는 아예 따로 작성

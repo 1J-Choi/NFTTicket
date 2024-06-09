@@ -60,4 +60,9 @@ public class TicketService {
     public Page<TicketShowDto> getAdminTicketList(TicketSearchDto ticketSearchDto, Pageable pageable) {
         return ticketRepository.getAdminTickets(ticketSearchDto, pageable);
     }
+
+    public void confirmTicket(Long ticketId){
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(EntityNotFoundException::new);
+        ticket.confirmTicketSafeMint();
+    }
 }

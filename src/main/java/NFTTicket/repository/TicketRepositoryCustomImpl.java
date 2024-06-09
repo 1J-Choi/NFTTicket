@@ -42,6 +42,10 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
         return QTicket.ticket.safeMint.eq(SafeMintStatus.N);
     }
 
+    private BooleanExpression safeMintY(){
+        return QTicket.ticket.safeMint.eq(SafeMintStatus.Y);
+    }
+
     @Override
     public Page<TicketShowDto> getUserTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
         QTicket ticket = QTicket.ticket;
@@ -52,7 +56,7 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
                         event.place, event.member.nick, event.number, eventImg.imgURL))
                 .from(ticket).leftJoin(event).on(ticket.event.id.eq(event.id))
                 .leftJoin(eventImg).on(eventImg.event.id.eq(event.id))
-                .where(ticketBoxEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
+                .where(safeMintY(), ticketBoxEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
                 .limit(pageable.getPageSize()).fetchResults();
 
         List<TicketShowDto> content = results.getResults();

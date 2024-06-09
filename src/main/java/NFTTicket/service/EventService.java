@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.util.List;
 
 @Service
@@ -50,5 +51,10 @@ public class EventService {
     @Transactional(readOnly = true)
     public Page<EventShowDto> getRequestEvents(EventSearchDto eventSearchDto, Pageable pageable) {
         return eventRepository.getRequestEvents(eventSearchDto, pageable);
+    }
+
+    public void confirmEvent(Long eventId){
+        Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
+        event.confirmEventTransNow();
     }
 }
