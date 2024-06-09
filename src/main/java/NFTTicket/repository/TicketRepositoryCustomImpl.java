@@ -34,7 +34,7 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
         return null;
     }
 
-    private BooleanExpression ticketEq(Long ticketBoxId) {
+    private BooleanExpression ticketBoxEq(Long ticketBoxId) {
         return ticketBoxId == null ? null : QTicket.ticket.ticketBox.id.eq(ticketBoxId);
     }
 
@@ -52,7 +52,7 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
                         event.place, event.member.nick, event.number, eventImg.imgURL))
                 .from(ticket).leftJoin(event).on(ticket.event.id.eq(event.id))
                 .leftJoin(eventImg).on(eventImg.event.id.eq(event.id))
-                .where(ticketEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
+                .where(ticketBoxEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
                 .limit(pageable.getPageSize()).fetchResults();
 
         List<TicketShowDto> content = results.getResults();
