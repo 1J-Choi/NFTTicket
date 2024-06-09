@@ -80,7 +80,7 @@ public class MypageController {
         return "redirect:/"; // 다시 실행 /
     }
 
-    @GetMapping(value = {"/mypage/mypageAdmin", "/mypage/mypageAdmin/{page}"})
+    @GetMapping(value = {"/mypage/mypageAdmin/safemint", "/mypage/mypageAdmin/safemint/{page}"})
     public String ticketShowAdmin(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
                              Principal principal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
@@ -93,11 +93,11 @@ public class MypageController {
         Long ticketBoxid = ticketBox.getId();
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        Page<TicketShowDto> tickets = ticketService.getAdminTicketList(ticketSearchDto, ticketBoxid, pageable);
         model.addAttribute("tickets", tickets);
         model.addAttribute("ticketSearchDto", ticketSearchDto);
         model.addAttribute("maxPage", 5);
-        return "mypage/mypageAdmin";
+        return "mypage/mypageAdmin_safemint";
     }
 
     @GetMapping(value = {"/mypage/mypageUser", "/mypage/mypageUser/{page}"})
