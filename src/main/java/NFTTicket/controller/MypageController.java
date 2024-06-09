@@ -82,18 +82,13 @@ public class MypageController {
 
     @GetMapping(value = {"/mypage/mypageAdmin", "/mypage/mypageAdmin/{page}"})
     public String ticketShowAdmin(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
-                             Principal principal, BindingResult bindingResult) {
+                                  BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return "main";
         }
 
-        String email = principal.getName();
-        Member memberNow = memberService.findMember(email);
-        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
-        Long ticketBoxid = ticketBox.getId();
-
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        Page<TicketShowDto> tickets = ticketService.getAdminTicketList(ticketSearchDto, pageable);
         model.addAttribute("tickets", tickets);
         model.addAttribute("ticketSearchDto", ticketSearchDto);
         model.addAttribute("maxPage", 5);

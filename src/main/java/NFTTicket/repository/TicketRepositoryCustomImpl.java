@@ -61,7 +61,7 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
     }
 
     @Override
-    public Page<TicketShowDto> getAdminTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
+    public Page<TicketShowDto> getAdminTickets(TicketSearchDto ticketSearchDto, Pageable pageable) {
         QTicket ticket = QTicket.ticket;
         QEvent event = QEvent.event;
         QEventImg eventImg = QEventImg.eventImg;

@@ -57,7 +57,7 @@ public class TicketService {
     }
 
     @Transactional(readOnly = true)
-    public Page<TicketShowDto> getAdminTicketList(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
-        return ticketRepository.getAdminTickets(ticketSearchDto, ticketBoxId, pageable);
+    public Page<TicketShowDto> getAdminTicketList(TicketSearchDto ticketSearchDto, Pageable pageable) {
+        return ticketRepository.getAdminTickets(ticketSearchDto, pageable);
     }
 }
