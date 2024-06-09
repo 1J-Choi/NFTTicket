@@ -1,5 +1,6 @@
 package NFTTicket.entity;
 
+import NFTTicket.constant.SafeMintStatus;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,7 +25,8 @@ public class Ticket {
     @JoinColumn(name="event_id")
     private Event event;
 
-    private Boolean safeMint;
+    @Enumerated(EnumType.STRING)
+    private SafeMintStatus safeMint;
 
     private String NFT;
 
@@ -32,7 +34,7 @@ public class Ticket {
         Ticket ticket = new Ticket();
         ticket.setTicketBox(ticketBox);
         ticket.setEvent(event);
-        ticket.setSafeMint(Boolean.FALSE);
+        ticket.setSafeMint(SafeMintStatus.N);
         return ticket;
     }
 }

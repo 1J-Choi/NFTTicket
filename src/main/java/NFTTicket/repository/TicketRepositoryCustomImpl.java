@@ -1,13 +1,12 @@
 package NFTTicket.repository;
 
-import NFTTicket.constant.EventCategory;
+import NFTTicket.constant.SafeMintStatus;
 import NFTTicket.dto.QTicketShowDto;
 import NFTTicket.dto.TicketSearchDto;
 import NFTTicket.dto.TicketShowDto;
 import NFTTicket.entity.QEvent;
 import NFTTicket.entity.QEventImg;
 import NFTTicket.entity.QTicket;
-import NFTTicket.entity.TicketBox;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -15,7 +14,6 @@ import jakarta.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
-import org.springframework.transaction.annotation.Transactional;
 import org.thymeleaf.util.StringUtils;
 
 import java.util.List;
@@ -40,6 +38,10 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
         return ticketBoxId == null ? null : QTicket.ticket.ticketBox.id.eq(ticketBoxId);
     }
 
+    private BooleanExpression safeMintN() {
+        return QTicket.ticket.safeMint.eq(SafeMintStatus.N);
+    }
+
     @Override
     public Page<TicketShowDto> getUserTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
         QTicket ticket = QTicket.ticket;
@@ -51,6 +53,24 @@ public class TicketRepositoryCustomImpl implements TicketRepositoryCustom{
                 .from(ticket).leftJoin(event).on(ticket.event.id.eq(event.id))
                 .leftJoin(eventImg).on(eventImg.event.id.eq(event.id))
                 .where(ticketEq(ticketBoxId), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
+                .limit(pageable.getPageSize()).fetchResults();
+
+        List<TicketShowDto> content = results.getResults();
+        long total = results.getTotal();
+        return new PageImpl<>(content, pageable, total);
+    }
+
+    @Override
+    public Page<TicketShowDto> getAdminTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable) {
+        QTicket ticket = QTicket.ticket;
+        QEvent event = QEvent.event;
+        QEventImg eventImg = QEventImg.eventImg;
+
+        QueryResults<TicketShowDto> results = queryFactory.select(new QTicketShowDto(ticket.id, event.evName, event.date,
+                        event.place, event.member.nick, event.number, eventImg.imgURL))
+                .from(ticket).leftJoin(event).on(ticket.event.id.eq(event.id))
+                .leftJoin(eventImg).on(eventImg.event.id.eq(event.id))
+                .where(safeMintN(), searchByLike(ticketSearchDto.getSearchBy(), ticketSearchDto.getSearchQuery()))
                 .limit(pageable.getPageSize()).fetchResults();
 
         List<TicketShowDto> content = results.getResults();

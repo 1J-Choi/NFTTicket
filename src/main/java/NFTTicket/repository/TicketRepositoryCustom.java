@@ -7,4 +7,6 @@ import org.springframework.data.domain.Pageable;
 
 public interface TicketRepositoryCustom {
     Page<TicketShowDto> getUserTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable);
+    Page<TicketShowDto> getAdminTickets(TicketSearchDto ticketSearchDto, Long ticketBoxId, Pageable pageable);
+
 }
