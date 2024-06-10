@@ -11,6 +11,8 @@ import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -104,16 +106,16 @@ public class MypageController {
         model.addAttribute("maxPage", 5);
         return "mypage/mypageAdmin_event";
     }
-/*
+
     @PostMapping("/mypageAdmin/{eventId}/confirm")
-    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("orderId") Long orderId, Principal principal) {
+    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("eventId") Long eventId, Principal principal) {
 //        if (!orderService.validateOrder(orderId, principal.getName())){
 //            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
 //        }
-        orderService.cancelOrder(orderId);
-        return new ResponseEntity<Long>(orderId, HttpStatus.OK);
+        eventService.confirmEvent(eventId);
+        return new ResponseEntity<Long>(eventId, HttpStatus.OK);
     }
-*/
+
     @GetMapping(value = {"/mypage/mypageUser", "/mypage/mypageUser/{page}"})
     public String ticketShowUser(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
                              Principal principal, BindingResult bindingResult) {
