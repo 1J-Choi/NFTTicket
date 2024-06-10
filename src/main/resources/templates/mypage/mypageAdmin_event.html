@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/layout1}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
 
 <!--사용자 CSS 추가-->
 <th:block layout:fragment="css">
@@ -257,7 +261,7 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/safeMint";
+            var url = "/mypageAdmin/"+eventId+"/confirm";
             var paramData = {
                 eventId: eventId
             }
@@ -275,7 +279,7 @@
                 dataType: "json",
                 cache: false,
                 success: function(result, status) {
-                    alert("티켓 요청이 완료 되었습니다.");
+                    alert("이벤트 등록이 완료 되었습니다.");
                     location.href = '/';
                 },
                 error: function(jqXHR, status, error) {
