@@ -1,5 +1,6 @@
 package NFTTicket.controller;
 
+import NFTTicket.constant.Role;
 import NFTTicket.dto.*;
 import NFTTicket.entity.Member;
 import NFTTicket.entity.TicketBox;
@@ -112,6 +113,9 @@ public class MypageController {
 //        if (!orderService.validateOrder(orderId, principal.getName())){
 //            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
 //        }
+        if(!memberService.findMember(principal.getName()).getRole().toString().equals(Role.ADMIN.toString())){
+            return new ResponseEntity<String>("행사 컨펌 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
         eventService.confirmEvent(eventId);
         return new ResponseEntity<Long>(eventId, HttpStatus.OK);
     }
