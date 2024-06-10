@@ -257,13 +257,13 @@
             location.href = "/mypage/mypageAdmin/safemint/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
-        function order(eventId) {
+        function order(ticketId) {
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
             var url = "/safeMint";
             var paramData = {
-                eventId: eventId
+                ticketId: ticketId
             }
 
             var param = JSON.stringify(paramData);
@@ -297,24 +297,24 @@
 
 <div class="wrap" layout:fragment="content">
     <div sec:authorize="hasRole('ADMIN')"> <!-- Admin -->
-        <form th:action="@{'/mypage/mypageAdmin/event/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
+        <form th:action="@{'/mypage/mypageAdmin/safemint/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
                     <a class="Admin_tablink_on" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
                     <a class="Admin_tablink" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
                 </div>
                 <div class="Admin_tabcontent">
-                    <div class="event-card" th:each="event, status : ${tickets.getContent()}">
+                    <div class="event-card" th:each="ticket, status : ${tickets.getContent()}">
                         <div class="event-img">
-                            <img th:src="${event.imgURL}" th:alt="${event.evName}" class="event-img">
+                            <img th:src="${ticket.imgURL}" th:alt="${ticket.evName}" class="event-img">
                         </div>
                         <div class="event-info">
-                            <p class="evHead" th:text="${event.evName}"></p>
+                            <p class="evHead" th:text="${ticket.evName}"></p>
                             <div class="evText">
-                                <p th:text="'일시: ' + ${event.date}"></p>
-                                <p th:text="'장소: ' + ${event.place}"></p>
-                                <p th:text="'주최: ' + ${event.nick}"></p>
-                                <p th:text="'인원: ' + ${event.number}"></p>
+                                <p th:text="'일시: ' + ${ticket.date}"></p>
+                                <p th:text="'장소: ' + ${ticket.place}"></p>
+                                <p th:text="'주최: ' + ${ticket.nick}"></p>
+                                <p th:text="'인원: ' + ${ticket.number}"></p>
                             </div>
                         </div>
                         <div class="tip">
