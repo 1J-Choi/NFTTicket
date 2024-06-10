@@ -13,4 +13,5 @@ public interface EventRepositoryCustom {
     Page<EventShowDto> getEventsByCategory(EventSearchDto eventSearchDto, String category, Pageable pageable);
     List<EventShowDto> getNewest5Events();
     Page<EventShowDto> getRequestEvents(EventSearchDto eventSearchDto, Pageable pageable);
+    Page<EventShowDto> getOwnerEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId);
 }

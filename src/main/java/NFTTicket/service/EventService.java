@@ -53,6 +53,11 @@ public class EventService {
         return eventRepository.getRequestEvents(eventSearchDto, pageable);
     }
 
+    @Transactional(readOnly = true)
+    public Page<EventShowDto> getOwnerEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId) {
+        return eventRepository.getOwnerEvents(eventSearchDto, pageable, memberId);
+    }
+
     public void confirmEvent(Long eventId){
         Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
         event.confirmEventTransNow();
