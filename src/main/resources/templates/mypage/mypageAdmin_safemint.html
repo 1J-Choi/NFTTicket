@@ -2,6 +2,10 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
       layout:decorate="~{layouts/layout1}">
+<head>
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}">
+</head>
 
 <!--사용자 CSS 추가-->
 <th:block layout:fragment="css">
@@ -144,7 +148,7 @@
             outline: none;
         }
 
-        .Admin_tabcontent
+        .Admin_tabcontent{
             width: 1500px;
             height: 100%;
             padding: 20px;
@@ -261,7 +265,7 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/safeMint";
+            var url = "/admins/ticketConfirm/"+ticketId;
             var paramData = {
                 ticketId: ticketId
             }
@@ -279,7 +283,7 @@
                 dataType: "json",
                 cache: false,
                 success: function(result, status) {
-                    alert("티켓 요청이 완료 되었습니다.");
+                    alert("티켓 등록이 완료 되었습니다.");
                     location.href = '/';
                 },
                 error: function(jqXHR, status, error) {
@@ -300,8 +304,8 @@
         <form th:action="@{'/mypage/mypageAdmin/safemint/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
-                    <a class="Admin_tablink_on" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
-                    <a class="Admin_tablink" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
+                    <a class="Admin_tablink" href="/mypage/mypageAdmin/event">이벤트 등록 신청 목록</a>
+                    <a class="Admin_tablink_on" href="/mypage/mypageAdmin/safemint">SafeMint 신청 목록</a>
                 </div>
                 <div class="Admin_tabcontent">
                     <div class="event-card" th:each="ticket, status : ${tickets.getContent()}">
