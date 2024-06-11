@@ -111,6 +111,61 @@
             background-color: #FFFFFF;
         }
 
+        .event-card {
+            position: relative;
+            width: 1200px;
+            height: 300px;
+            margin-top: 20px;
+            margin-left: 160px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
+
+        .event-img {
+            width: 195px;
+            height: 300px;
+            object-fit: cover;
+            position: absolute;
+            left: 0;
+        }
+
+        .event-info {
+            padding: 10px;
+            text-align: left;
+            width: 765px;
+            height: 300px;
+            position: absolute;
+            left: 225px;
+        }
+
+        .evHead {
+            font-size: 40px;
+            font-style: 'Source Sans Pro', bold;
+        }
+
+        .event-info .evText {
+            padding-left: 20px;
+            font-size: 20px;
+            font-style: 'Source Sans Pro';
+        }
+
+        .tip {
+            width: 238px;
+            height: 300px;
+            background-color: #163C9D;
+            position: absolute;
+            right: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-window{
+            width: 1550px;
+            height: 38px;
+            background-color: #FFFFFF;
+        }
+
         .User_tablink {
             background-color: #EFF3FF;
             color: black;
@@ -136,7 +191,6 @@
         }
 
         .User_tabcontent {
-            display: none;
             padding: 20px;
             background-color: #EFF3FF;
             border-radius: 5px;
@@ -166,33 +220,11 @@
             }
         });
 
-        function openTab_User(evt, tabName) {
-        var i, tabcontent, tablinks;
+        function page(page) {
+            var searchBy = $("#searchBy").val();
+            var searchQuery = $("#searchQuery").val();
 
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-
-        tablinks = document.getElementsByClassName("tablink");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-
-        document.getElementById(tabName).style.display = "block";
-        evt.currentTarget.className += " active";
-        }
-
-        window.onload = function() {
-            if (document.getElementsByClassName("Admin_tablink").length > 0) {
-                document.getElementsByClassName("Admin_tablink")[0].click();
-            }
-            if (document.getElementsByClassName("Owner_tablink").length > 0) {
-                document.getElementsByClassName("Owner_tablink")[0].click();
-            }
-            if (document.getElementsByClassName("User_tablink").length > 0) {
-                document.getElementsByClassName("User_tablink")[0].click();
-            }
+            location.href = "/mypage/mypageUser" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
     </script>
@@ -200,16 +232,58 @@
 
 <div class="wrap" layout:fragment="content">
     <div sec:authorize="hasRole('USER')"> <!--User-->
-        <div class="bottom-section" style="background-color: #EFF3FF; margin-top: 100px;">
-            <div class="tab">
-                <button class="User_tablink" onclick="openTab_User(event, 'joinlist')">참여한 행사(N)</button>
+        <form th:action="@{'/mypage/mypageUser/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
+            <div class="bottom-section" style="background-color: #EFF3FF; margin-top: 100px;">
+                <div class="tab">
+                    <button class="User_tablink" onclick="openTab_User(event, 'joinlist')">참여한 행사(N)</button>
+                </div>
+                <div id="joinlist" class="User_tabcontent">
+                    <div class="event-card" th:each="ticket, status : ${tickets.getContent()}">
+                        <div class="event-img">
+                            <img th:src="${ticket.imgURL}" th:alt="${ticket.evName}" class="event-img">
+                        </div>
+                        <div class="event-info">
+                            <p class="evHead" th:text="${ticket.evName}"></p>
+                            <div class="evText">
+                                <p th:text="'일시: ' + ${ticket.date}"></p>
+                                <p th:text="'장소: ' + ${ticket.place}"></p>
+                                <p th:text="'주최: ' + ${ticket.nick}"></p>
+                                <p th:text="'인원: ' + ${ticket.number}"></p>
+                            </div>
+                        </div>
+                        <div class="tip">
+                        </div>
+                    </div>
+                    <div th:with="start=${(tickets.number/maxPage)*maxPage +1},
+        end=(${(tickets.totalPages == 0) ? 1 : (start + (maxPage-1) < tickets.totalPages ? start + (maxPage - 1) : tickets.totalPages)})">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item" th:classappend="${tickets.first}?'disabled'">
+                                <a th:onclick="'javascript:page('+${tickets.number - 1} + ')'" aria-label="Previous" class="page-link">
+                                    <span aria-hidden="true">Previous</span>
+                                </a>
+                            </li>
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${tickets.number eq page-1}?'active':''">
+                                <a th:onclick="'javascript:page('+${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
+                            </li>
+                            <li class="page-item" th:classappend="${tickets.last}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${tickets.number + 1} + ')'" aria-label="Next" class="page-link">
+                                    <span aria-hidden="true">Next</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="search-window">
+                        <div class="form-inline justify-content-center" th:object="${ticketSearchDto}">
+                            <select th:field="*{searchBy}" class="form-control" style="width: auto;">
+                                <option value="eventNm">축제명</option>
+                            </select>
+                            <input th:field="*{searchQuery}" type="text" class="form-control" placeholder="검색어를 입력해주세요">
+                            <button id="searchBtn" type="submit" class="btn btn-primary">검색</button><!-- 버튼 클래스 구현 -->
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div id="joinlist" class="User_tabcontent">
-                <h2>참여한 행사 목록</h2>
-                <p>참여한 행사의 목록이 여기에 표시됩니다.</p>
-            </div>
-        </div>
-        <script src="script.js"></script>
+        </form>
     </div>
 </div>
 </html>
