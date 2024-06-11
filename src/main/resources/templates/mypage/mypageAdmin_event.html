@@ -95,15 +95,17 @@
             border-top-right-radius: 30px;
             border-bottom-left-radius: 30px;
             border-bottom-right-radius: 30px;
-            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .tabs {
-            position: absolute;
-            top: -100px;
-            left: -35px;
-            margin: 20px;
+            width: 1500px;
+            height: 80px;
             background-color: #FFFFFF;
+            padding: 0px;
+
         }
 
         .Admin_tablink {
@@ -116,7 +118,7 @@
             width: 250px;
             height: 80px;
             padding-bottom: 30px;
-            margin-left: 15px;
+            margin-right: 15px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             outline: none;
@@ -136,7 +138,7 @@
             width: 250px;
             height: 80px;
             padding-bottom: 30px;
-            margin-left: 15px;
+            margin-right: 15px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
             outline: none;
@@ -146,11 +148,13 @@
             outline: none;
         }
 
-        .Admin_tabcontent {
+        .Admin_tabcontent{
+            width: 1500px;
+            height: 100%;
             padding: 20px;
             background-color: #FFE7D9;
             border-radius: 5px;
-            margin-top: 60px;
+            margin-top: 0px;
         }
 
         .tab {
@@ -261,7 +265,7 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/mypageAdmin/"+eventId+"/confirm";
+            var url = "/admins/eventConfirm/"+eventId;
             var paramData = {
                 eventId: eventId
             }

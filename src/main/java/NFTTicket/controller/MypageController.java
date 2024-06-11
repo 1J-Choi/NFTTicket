@@ -108,8 +108,8 @@ public class MypageController {
         return "mypage/mypageAdmin_event";
     }
 
-    @PostMapping("/mypageAdmin/{eventId}/confirm")
-    public @ResponseBody ResponseEntity cancelOrder(@PathVariable("eventId") Long eventId, Principal principal) {
+    @PostMapping("/admins/eventConfirm/{eventId}")
+    public @ResponseBody ResponseEntity confirmEvent(@PathVariable("eventId") Long eventId, Principal principal) {
 //        if (!orderService.validateOrder(orderId, principal.getName())){
 //            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
 //        }
@@ -118,6 +118,18 @@ public class MypageController {
         }
         eventService.confirmEvent(eventId);
         return new ResponseEntity<Long>(eventId, HttpStatus.OK);
+    }
+
+    @PostMapping("/admins/ticketConfirm/{ticketId}")
+    public @ResponseBody ResponseEntity confirmTicket(@PathVariable("ticketId") Long ticketId, Principal principal) {
+//        if (!orderService.validateOrder(orderId, principal.getName())){
+//            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
+//        }
+        if(!memberService.findMember(principal.getName()).getRole().toString().equals(Role.ADMIN.toString())){
+            return new ResponseEntity<String>("티켓 컨펌 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
+        ticketService.confirmTicket(ticketId);
+        return new ResponseEntity<Long>(ticketId, HttpStatus.OK);
     }
 
     @GetMapping(value = {"/mypage/mypageUser", "/mypage/mypageUser/{page}"})
