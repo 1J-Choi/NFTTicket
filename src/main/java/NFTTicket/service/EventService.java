@@ -56,7 +56,7 @@ public class EventService {
     @Transactional(readOnly = true)
     public Page<EventShowDto> getOwnerEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId) {
         return eventRepository.getOwnerEvents(eventSearchDto, pageable, memberId);
-    }
+    } // 해당 메소드를 바탕으로 만들면 될 것 같습니다.
 
     public void confirmEvent(Long eventId){
         Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);

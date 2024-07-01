@@ -136,6 +136,15 @@ import java.util.List;
                 long total = results.getTotal();
                 return new PageImpl<>(content, pageable, total);
             }
+            @Override
+            public Page<EventShowDto> getOwnerRequestEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId){
+                return null;
+            }
+
+            @Override
+            public Page<EventShowDto> getOwnerCompletionEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId){
+                return null;
+            }
 
         }
 
