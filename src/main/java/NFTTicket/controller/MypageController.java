@@ -151,8 +151,8 @@ public class MypageController {
         model.addAttribute("maxPage", 5);
         return "mypage/mypageUser";
     }
-    @GetMapping(value = {"/mypage/mypageOwner", "/mypage/mypageOwner/{page}"})
-    public String ticketShowOwner(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+    @GetMapping(value = {"/mypage/mypageOwner/request", "/mypage/mypageOwner/request/{page}"})
+    public String eventShowOwnerRq(EventSearchDto eventSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
                              Principal principal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return "main";
@@ -160,14 +160,34 @@ public class MypageController {
 
         String email = principal.getName();
         Member memberNow = memberService.findMember(email);
-        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
-        Long ticketBoxid = ticketBox.getId();
+        Long memberId = memberNow.getId();
+
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<TicketShowDto> tickets = ticketService.getTicketList(ticketSearchDto, ticketBoxid, pageable);
+        Page<EventShowDto> tickets = eventService.getOwnerRequestEvents(eventSearchDto, pageable, memberId);
         model.addAttribute("tickets", tickets);
-        model.addAttribute("ticketSearchDto", ticketSearchDto);
+        model.addAttribute("ticketSearchDto", eventSearchDto);
         model.addAttribute("maxPage", 5);
-        return "mypage/mypageOwner";
+        return "mypage/mypageOwner_request";
+    }
+
+    @GetMapping(value = {"/mypage/mypageOwner/complete", "/mypage/mypageOwner/complete/{page}"})
+    public String eventShowOwnerCp(EventSearchDto eventSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                                  Principal principal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "main";
+        }
+
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        Long memberId = memberNow.getId();
+
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<EventShowDto> tickets = eventService.getOwnerCompletionEvents(eventSearchDto, pageable, memberId);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketSearchDto", eventSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "mypage/mypageOwner_complete";
     }
 }
