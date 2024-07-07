@@ -269,8 +269,8 @@
         <form th:action="@{'/mypage/mypageOwner/request/'+${events.number}}" role="form" method="get" th:object="${events}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
-                    <a class="Owner_tablink" href="/mypage/mypageOwner/request">신청 행사(N)</a>
-                    <a class="Owner_tablink_on" href="/mypage/mypageOwner/complete">등록된 행사(N)</a>
+                    <a class="Owner_tablink_on" href="/mypage/mypageOwner/request">신청 행사(N)</a>
+                    <a class="Owner_tablink" href="/mypage/mypageOwner/complete">등록된 행사(N)</a>
                 </div>
                 <div class="Owner_tabcontent">
                     <div class="event-card" th:each="event, status : ${events.getContent()}">
@@ -285,6 +285,7 @@
                                 <p th:text="'주최: ' + ${event.nick}"></p>
                                 <p th:text="'인원: ' + ${event.number}"></p>
                             </div>
+                            <div class="tip">
                         </div>
                     </div>
                     <div th:with="start=${(events.number/maxPage)*maxPage +1},
