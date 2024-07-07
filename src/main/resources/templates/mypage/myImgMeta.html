@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" xmlns:sec="http://www.w3.org/1999/xhtml"
+      layout:decorate="~{layouts/layout1}">
+
+<!--사용자 CSS 추가-->
+<th:block layout:fragment="css">
+    <style>
+        .headerText {
+          font-family: 'Source Sans Pro',bold;
+          color: black;
+          font-size: 18px;
+          width: 100%;
+          text-align: center;
+          font-weight: bold;
+        }
+
+        .topLine{
+            height: 4px;
+            width:100%;
+            background-color: #0D2D84;
+        }
+
+        .topHeader {
+            font-size: 32;
+            color: #FFFFFF;
+            font-family: 'Source Sans Pro';
+            background-color: #0D2D84;
+            height:60;
+            width:100%;
+            text-align: center;
+        }
+        .navbar-main-icon{
+            width: 162.57px;
+            height: 104px;
+            display: flex;
+            justify-content: center;
+            font-size: 20px;
+            margin:0 auto;
+            overflow:hidden;
+        }
+
+        .dku_icon{
+            width:100%;
+            height:100%;
+            object-fit:cover;
+        }
+
+        .custom_bg {
+            background-color: #FFFFFF;
+        }
+
+        .nav_right{
+            justify-content: flex-end;
+        }
+
+
+        .signText{
+            border-radius: 5px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 15px;
+            width:125px;
+            text-align: center;
+            font-weight: bold;
+            margin-top: 4px;
+        }
+        .noMargin{
+            padding-top: 0px;
+            padding-bottom: 0px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .wrap
+        {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background: #FFFFFF;
+            overflow: hidden;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .top-section {
+        width: 1500px;
+        height: 466px;
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        margin-top: 100px;
+        margin-bottom: 200px;
+        border-radius: 30px;
+        }
+
+        .left-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 400px;
+        }
+
+        .left-content img {
+            width: 290px;
+            height: 242px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .text-info p {
+            margin: 0;
+            color: black;
+            font-size: 30px;
+        }
+
+        .divider {
+        width: 5px;
+        background: repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 4px,
+            black 4px,
+            black 5px
+        );
+        height: 100%;
+    }
+
+        .right-content {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 1000px;
+        }
+
+        .bottom-section {
+            width: 1500px;
+            height: 800px;
+            margin-bottom: 100px;
+            border-top-right-radius: 30px;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            position: relative;
+        }
+
+        .tabs {
+        position: absolute;
+        top: -100px;
+        left: -35px;
+        margin: 20px;
+        background-color: #FFFFFF;
+        }
+
+        .Admin_tablink {
+                background-color: #FFBC96;
+                color: black;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                font-size: 30px;
+                width: 250px;
+                height: 80px;
+                padding-bottom: 30px;
+                margin-left: 15px;
+                border-top-left-radius: 10px;
+                border-top-right-radius: 10px;
+                outline: none;
+            }
+
+        .Admin_tablink:hover {
+            background-color: #FFE7D9;
+        }
+
+        .Admin_tablink.active {
+            background-color: #FFE7D9;
+        }
+
+        .Admin_tablink:focus {
+            outline: none;
+
+        }
+        .Admin_tabcontent {
+            display: none;
+            padding: 20px;
+            background-color: #FFE7D9;
+            border-radius: 5px;
+            margin-top: 60px;
+        }
+
+        .Owner_tablink {
+            background-color: #FFD584;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            width: 250px;
+            height: 80px;
+            padding-bottom: 30px;
+            margin-left: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            outline: none;
+        }
+
+        .Owner_tablink:hover {
+            background-color: #FFEECD;
+        }
+
+        .Owner_tablink.active {
+            background-color: #FFEECD;
+        }
+
+        .Owner_tablink:focus {
+            outline: none;
+        }
+
+        .Owner_tabcontent {
+            display: none;
+            padding: 20px;
+            background-color: #FFEECD;
+            border-radius: 5px;
+            margin-top: 60px;
+        }
+
+        .tab {
+            position: absolute;
+            top: -100px;
+            left: -35px;
+            margin: 20px;
+            background-color: #FFFFFF;
+        }
+
+        .User_tablink {
+            background-color: #EFF3FF;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            width: 250px;
+            height: 80px;
+            padding-bottom: 30px;
+            margin-left: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            outline: none;
+        }
+
+        .User_tablink.active {
+            background-color: #EFF3FF;
+        }
+
+        .User_tablink:focus {
+            outline: none;
+        }
+
+        .User_tabcontent {
+            display: none;
+            padding: 20px;
+            background-color: #EFF3FF;
+            border-radius: 5px;
+            margin-top: 60px;
+        }
+
+        .modi_button{
+            border-radius: 10px;
+            font-family: 'Source Sans Pro';
+            color: white;
+            background-color: #EF8C2F;
+            font-size: 16pt;
+            width:185px;
+            height:60px;
+            text-align: center;
+            font-weight: bold;
+            padding: 15px 20px;
+        }
+
+        .info_text{
+            border-radius: 20px;
+            font-family: 'Source Sans Pro';
+            background-color: #ffffff;
+            width: fit-content;
+            max-width: 100%;
+            height: 60px;
+            font-size: 17pt;
+            font-weight: bold;
+            padding-left: 20px;
+            padding-right: 20px;
+            padding-top: 12px;
+            margin: 15px;
+
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px 0;
+            background-color: #007bff;
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16pt;
+            font-weight: bold;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .vertical-line {
+                border-left: 1px solid #ccc;
+                margin-right: 10px;
+                margin-left: 5px;
+                margin-top: 8px;
+                height: 32px;
+                display: inline-block;
+                vertical-align: middle;
+            }
+
+    </style>
+</th:block>
+
+<!--사용자 스크립트 추가-->
+<th:block layout:fragment="script">
+    <script th:inline="javascript">
+        $(document).ready(function(){
+            var errorMessage = [[${errorMessage}]];
+            if (errorMessage != null){
+                alert(errorMessage);
+            }
+        });
+
+        function openTab_Admin(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("Admin_tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("Admin_tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function openTab_Owner(evt, tabName) {
+            var i, tabcontent, tablinks;
+
+            tabcontent = document.getElementsByClassName("Owner_tabcontent");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+            }
+
+            tablinks = document.getElementsByClassName("Owner_tablink");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+
+            document.getElementById(tabName).style.display = "block";
+            evt.currentTarget.className += " active";
+        }
+
+        function openTab_User(evt, tabName) {
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablink");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+        }
+
+        window.onload = function() {
+            if (document.getElementsByClassName("Admin_tablink").length > 0) {
+                document.getElementsByClassName("Admin_tablink")[0].click();
+            }
+            if (document.getElementsByClassName("Owner_tablink").length > 0) {
+                document.getElementsByClassName("Owner_tablink")[0].click();
+            }
+            if (document.getElementsByClassName("User_tablink").length > 0) {
+                document.getElementsByClassName("User_tablink")[0].click();
+            }
+        }
+
+        function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function() {
+            const output = document.getElementById('profileImage');
+            output.src = reader.result;
+            output.style.display = 'block';
+        };
+        reader.readAsDataURL(event.target.files[0]);
+        }
+
+    </script>
+</th:block>
+
+<div class="wrap" layout:fragment="content">
+    <form role="form" method="post" enctype="multipart/form-data" th:action="@{'/imgmeta/'+${memberImgMetaDto.id}}" th:object="${memberImgMetaDto}">
+        <div sec:authorize="hasRole('ADMIN')">
+            <div class="top-section" style="background-color: #FFE7D9;">
+                <div class="left-content">
+                    <div style="height:50px;"></div>
+                    <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
+                    <div style="height:20px;"></div>
+                    <input type="file" id="imageInput" name="memberImgFile" accept="image/*" onchange="previewImage(event)">
+                    <div style="height:50px;"></div>
+                </div>
+
+                <div class="divider"></div>
+
+                <div class="right-content">
+                    <input type="text" th:field="*{metaAddress}" class="info_text" placeholder="메타마스크 주소 입력">
+                    <p th:if="${#fields.hasErrors('metaAddress')}" th:errors="*{metaAddress}" class="fieldError">올바른 주소를 입력해 주세요.</p>
+                </div>
+            </div>
+        </div>
+        <button th:formaction="@{'/imgmeta/'+${memberImgMetaDto.id}}" type="submit" class="btn btn-primary">수정</button>
+    </form>
+    
+
+
+
+        <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
+            <div class="top-section" style="background-color: #FFEECD;">
+                <div class="left-content">
+                    <div style="height:50px;"></div>
+                    <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
+                    <div style="height:20px;"></div>
+                    <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
+                    <div style="height:50px;"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="right-content">
+                    <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
+                    <div style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+
+
+
+        <div sec:authorize="hasRole('USER')"> <!--User-->
+            <div class="top-section" style="background-color: #EFF3FF;">
+                <div class="left-content">
+                    <div style="height:50px;"></div>
+                    <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
+                    <div style="height:20px;"></div>
+                    <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
+                    <div style="height:50px;"></div>
+                </div>
+                <div class="divider"></div>
+                <div class="right-content">
+                    <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
+                    <div style="height:100px;"></div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+</html>
