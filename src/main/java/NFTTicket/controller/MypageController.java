@@ -50,7 +50,7 @@ public class MypageController {
         return "mypage/mypage";
     }
 
-    @GetMapping("/imgmeta/{memberId}")
+    @GetMapping(value = "/imgmeta/{memberId}")
     public String imgMeta(@PathVariable("memberId")Long memberId, Model model){
         try{
             MemberImgMetaDto memberImgMetaDto = memberService.getMemberDtl(memberId);
@@ -63,7 +63,7 @@ public class MypageController {
         return "mypage/myImgMeta";
     }
 
-    @PostMapping("/imgmeta/{memberId}")
+    @PostMapping(value = "/imgmeta/{memberId}")
     public String imgMetaUpdate(@Valid MemberImgMetaDto memberImgMetaDto, BindingResult bindingResult,
                                 @RequestParam("memberImgFile") MultipartFile memberImgFile, Model model){
         if (bindingResult.hasErrors()) {
@@ -72,7 +72,8 @@ public class MypageController {
         try{
             memberService.updateMember(memberImgMetaDto, memberImgFile);
         }catch (Exception e){
-            model.addAttribute("errorMessage", "회원 정보 수정 중 에러가 발생하였습니다.");
+            model.addAttribute("errorMessage", "회원 정보 수정 중 에러가 발생하였습니다."
+                    + memberImgMetaDto.getMetaAddress() + " "+ memberImgMetaDto.getMemberImgId());
             return "mypage/myImgMeta";
         }
         return "redirect:/"; // 다시 실행 /

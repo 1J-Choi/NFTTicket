@@ -410,14 +410,18 @@
 </th:block>
 
 <div class="wrap" layout:fragment="content">
-    <form role="form" method="post" enctype="multipart/form-data" th:action="@{'/imgmeta/'+${memberImgMetaDto.id}}" th:object="${memberImgMetaDto}">
-        <div sec:authorize="hasRole('ADMIN')">
+    <form role="form" method="post" enctype="multipart/form-data" th:object="${memberImgMetaDto}">
+
+        <input type="hidden" th:field="*{id}">
+        <input type="hidden" th:field="*{memberImgId}">
+
+
             <div class="top-section" style="background-color: #FFE7D9;">
                 <div class="left-content">
                     <div style="height:50px;"></div>
                     <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
                     <div style="height:20px;"></div>
-                    <input type="file" id="imageInput" name="memberImgFile" accept="image/*" onchange="previewImage(event)">
+                    <input type="file" id="imageInput" name="memberImgFile">
                     <div style="height:50px;"></div>
                 </div>
 
@@ -428,48 +432,8 @@
                     <p th:if="${#fields.hasErrors('metaAddress')}" th:errors="*{metaAddress}" class="fieldError">올바른 주소를 입력해 주세요.</p>
                 </div>
             </div>
-        </div>
         <button th:formaction="@{'/imgmeta/'+${memberImgMetaDto.id}}" type="submit" class="btn btn-primary">수정</button>
-    </form>
-    
-
-
-
-        <div sec:authorize="hasRole('OWNER')"> <!--Owner-->
-            <div class="top-section" style="background-color: #FFEECD;">
-                <div class="left-content">
-                    <div style="height:50px;"></div>
-                    <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
-                    <div style="height:20px;"></div>
-                    <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
-                    <div style="height:50px;"></div>
-                </div>
-                <div class="divider"></div>
-                <div class="right-content">
-                    <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
-                    <div style="height:100px;"></div>
-                </div>
-            </div>
-        </div>
-
-
-
-        <div sec:authorize="hasRole('USER')"> <!--User-->
-            <div class="top-section" style="background-color: #EFF3FF;">
-                <div class="left-content">
-                    <div style="height:50px;"></div>
-                    <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
-                    <div style="height:20px;"></div>
-                    <input type="file" id="imageInput" accept="image/*" onchange="previewImage(event)">
-                    <div style="height:50px;"></div>
-                </div>
-                <div class="divider"></div>
-                <div class="right-content">
-                    <p>마침내 당신은<br>모든 준비를 마쳤습니다!</p>
-                    <div style="height:100px;"></div>
-                </div>
-            </div>
-        </div>
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
     </form>
 </div>
 
