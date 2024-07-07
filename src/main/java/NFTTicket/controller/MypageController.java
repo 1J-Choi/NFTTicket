@@ -164,9 +164,9 @@ public class MypageController {
 
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<EventShowDto> tickets = eventService.getOwnerRequestEvents(eventSearchDto, pageable, memberId);
-        model.addAttribute("tickets", tickets);
-        model.addAttribute("ticketSearchDto", eventSearchDto);
+        Page<EventShowDto> events = eventService.getOwnerRequestEvents(eventSearchDto, pageable, memberId);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
         model.addAttribute("maxPage", 5);
         return "mypage/mypageOwner_request";
     }
@@ -184,9 +184,9 @@ public class MypageController {
 
 
         Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
-        Page<EventShowDto> tickets = eventService.getOwnerCompletionEvents(eventSearchDto, pageable, memberId);
-        model.addAttribute("tickets", tickets);
-        model.addAttribute("ticketSearchDto", eventSearchDto);
+        Page<EventShowDto> events = eventService.getOwnerCompletionEvents(eventSearchDto, pageable, memberId);
+        model.addAttribute("events", events);
+        model.addAttribute("eventSearchDto", eventSearchDto);
         model.addAttribute("maxPage", 5);
         return "mypage/mypageOwner_complete";
     }

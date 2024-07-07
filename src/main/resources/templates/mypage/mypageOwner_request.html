@@ -286,9 +286,6 @@
                                 <p th:text="'인원: ' + ${event.number}"></p>
                             </div>
                         </div>
-                        <div class="tip">
-                            <button class="safe-mint" th:onclick="'order(' + ${event.id} + ')'">Confirm</button>
-                        </div>
                     </div>
                     <div th:with="start=${(events.number/maxPage)*maxPage +1},
         end=(${(events.totalPages == 0) ? 1 : (start + (maxPage-1) < events.totalPages ? start + (maxPage - 1) : events.totalPages)})">

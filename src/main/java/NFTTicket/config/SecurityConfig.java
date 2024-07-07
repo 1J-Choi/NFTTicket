@@ -61,7 +61,7 @@ public class SecurityConfig{
 //                                .requestMatchers(PathRequest.toH2Console()).permitAll()
                                 .requestMatchers("/", "/**","/member/**","/event/**").permitAll()
 //                                .requestMatchers("/posts/**", "/api/v1/posts/**").hasRole("USER")
-                                .requestMatchers("/owner/**", "/api/v1/owner/**").hasRole("OWNER")
+                                .requestMatchers("/mypage/mypageOwner/**","/owner/**", "/api/v1/owner/**").hasRole("OWNER")
                                 .requestMatchers("/admins/**", "/api/v1/admins/**").hasRole("ADMIN")
                                 .anyRequest().authenticated()
         );
