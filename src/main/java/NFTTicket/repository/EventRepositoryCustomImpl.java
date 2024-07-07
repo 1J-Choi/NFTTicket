@@ -138,12 +138,32 @@ import java.util.List;
             }
             @Override
             public Page<EventShowDto> getOwnerRequestEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId){
-                return null;
+                QEvent event = QEvent.event;
+                QEventImg eventImg = QEventImg.eventImg;
+
+                QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                        .from(eventImg).join(eventImg.event, event)
+                        .where(transactionRq(), memberIdEq(memberId), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                        .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+                List<EventShowDto> content = results.getResults();
+                long total = results.getTotal();
+                return new PageImpl<>(content, pageable, total);
             }
 
             @Override
             public Page<EventShowDto> getOwnerCompletionEvents(EventSearchDto eventSearchDto, Pageable pageable, Long memberId){
-                return null;
+                QEvent event = QEvent.event;
+                QEventImg eventImg = QEventImg.eventImg;
+
+                QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                        .from(eventImg).join(eventImg.event, event)
+                        .where(transactionCp(), memberIdEq(memberId), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
+                        .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
+                List<EventShowDto> content = results.getResults();
+                long total = results.getTotal();
+                return new PageImpl<>(content, pageable, total);
             }
 
         }

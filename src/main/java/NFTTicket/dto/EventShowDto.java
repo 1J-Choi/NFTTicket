@@ -31,5 +31,4 @@ public class EventShowDto {
         this.imgURL = imgURL;
         this.transNow = transNow;
     }
-
 }
