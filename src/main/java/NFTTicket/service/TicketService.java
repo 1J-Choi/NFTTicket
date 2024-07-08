@@ -41,6 +41,9 @@ public class TicketService {
         Ticket buyedTicket = Ticket.createTicket(event, ticketBox);
         ticketRepository.save(buyedTicket);
 
+        int nowNumber = event.getNowNumber();
+        event.setNowNumber(nowNumber+1);
+
         return buyedTicket.getId();
     }
 

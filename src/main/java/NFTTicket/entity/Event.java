@@ -33,6 +33,8 @@ public class Event {
 
     private int number;
 
+    private int nowNumber;
+
     private String place;
 
     @Temporal(TemporalType.TIMESTAMP)
@@ -53,6 +55,7 @@ public class Event {
         event.setTranNow(TransactionStatus.REQUEST);
         event.setCategory(eventFormDto.getCategory());
         event.setMember(member);
+        event.setNowNumber(0);
         return event;
     }
 
