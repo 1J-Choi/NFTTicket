@@ -304,6 +304,8 @@
             border-radius: 5px;
             font-size: 16pt;
             font-weight: bold;
+            margin-left: 850px;
+            margin-top: 250px;
         }
 
         .btn:hover {
@@ -397,13 +399,17 @@
         }
 
         function previewImage(event) {
-        const reader = new FileReader();
-        reader.onload = function() {
-            const output = document.getElementById('profileImage');
-            output.src = reader.result;
-            output.style.display = 'block';
-        };
-        reader.readAsDataURL(event.target.files[0]);
+            var input = event.target;
+            var reader = new FileReader();
+            
+            reader.onload = function(){
+                var dataURL = reader.result;
+                var output = document.getElementById('profileImage');
+                output.src = dataURL;
+                output.style.display = 'block';
+            };
+            
+            reader.readAsDataURL(input.files[0]);
         }
 
     </script>
@@ -416,12 +422,12 @@
         <input type="hidden" th:field="*{memberImgId}">
 
 
-            <div class="top-section" style="background-color: #FFE7D9;">
+            <div class="top-section" style="background-color: #EFF3FF;">
                 <div class="left-content">
                     <div style="height:50px;"></div>
                     <img id="profileImage" src="#" alt="Profile Image" style="display: none;" width="150">
                     <div style="height:20px;"></div>
-                    <input type="file" id="imageInput" name="memberImgFile">
+                    <input type="file" id="imageInput" name="memberImgFile" accept="image/*" onchange="previewImage(event)">
                     <div style="height:50px;"></div>
                 </div>
 
@@ -430,10 +436,13 @@
                 <div class="right-content">
                     <input type="text" th:field="*{metaAddress}" class="info_text" placeholder="메타마스크 주소 입력">
                     <p th:if="${#fields.hasErrors('metaAddress')}" th:errors="*{metaAddress}" class="fieldError">올바른 주소를 입력해 주세요.</p>
+                    <div>
+                        <button th:formaction="@{'/imgmeta/'+${memberImgMetaDto.id}}" type="submit" class="btn">수정</button>
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+                    </div>
                 </div>
             </div>
-        <button th:formaction="@{'/imgmeta/'+${memberImgMetaDto.id}}" type="submit" class="btn btn-primary">수정</button>
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}">
+        
     </form>
 </div>
 
