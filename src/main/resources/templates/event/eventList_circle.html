@@ -284,6 +284,45 @@
             location.href="/event/circle/" + page + "?searchBy=" + searchBy
             + "&searchQuery=" + searchQuery;
         }
+
+        function order(eventId) {
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content"); // 토큰과 헤더를 생성한 이후 -> ajax -> beforeSend
+
+            var url = "/safeMint"; // Controller safeMint로 매핑이 된 메소드로 이동
+            var paramData = { // Json 형식으로 데이터 세팅
+                eventId : eventId
+            }
+
+            var param = JSON.stringify(paramData);
+
+            $.ajax({
+                url : url,
+                type : "POST",
+                contentType : "application/json",
+                data : param, /*Json 형식으로 만든 데이터*/
+                beforeSend : function(xhr){
+                    /*데이터 전송하기 전에 헤더에 csrf 값을 설정 (이것 때문에 order() 함수 시작에서 토큰을 변수에 담은 것)*/
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache : false,
+                success : function(result, status){ /*백엔드에서 성공하면 여기로 온다 -> /safeMint 로 PostMapping 된 TicketController.ticketSafeMint() 로 간다*/
+                    /*alert(result); orderId*/
+                    /*alert(status); HttpStatus.OK*/
+                    alert("티켓 요청이 완료 되었습니다.");
+                    location.href='/';
+                },
+                error : function(jqXHR, status, error){ /*백엔드에서 실패하면 여기로 온다*/
+                    if(jqXHR.status == '401'){
+                        alert("로그인 후 이용해주세요.");
+                        location.href='/members/login';
+                    }else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
     </script>
 </th:block>
 
@@ -317,7 +356,7 @@
                         </div>
                     </div>
                     <div class="tip">
-                        <button class="safe-mint">SAFE MINT</button>
+                        <button class="safe-mint" th:onclick="order([[${event.id}]])">SAFE MINT</button>
                     </div>
                 </div>
                 <div th:with="start=${(events.number/maxPage)*maxPage +1},
