@@ -17,8 +17,10 @@ public class TicketShowDto {
     private int number;
     private String imgURL;
 
+    private int nowNumber;
+
     @QueryProjection
-    public TicketShowDto(Long id, String evName, LocalDateTime date, String place, String nick, int number, String imgURL) {
+    public TicketShowDto(Long id, String evName, LocalDateTime date, String place, String nick, int number, String imgURL, int nowNumber) {
         this.id = id;
         this.evName = evName;
         this.date = date;
@@ -26,5 +28,6 @@ public class TicketShowDto {
         this.nick = nick;
         this.number = number;
         this.imgURL = imgURL;
+        this.nowNumber = nowNumber;
     }
 }

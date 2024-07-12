@@ -68,7 +68,7 @@ import java.util.List;
 
                 //QEventShowDto @QueryProjection을 활용하면 DTO로 바로 조회 가능
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         // join 내부조인 .repImgYn.eq("Y")인 대표 이미지만 가져온다.
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionCp(), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
@@ -84,7 +84,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName, event.date,
-                                event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionCp(), categoryEq(category), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                         .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
@@ -99,7 +99,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionCp())
                         .limit(5)
@@ -113,7 +113,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionRq(), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                         .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
@@ -128,7 +128,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(memberIdEq(memberId), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                         .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
@@ -142,7 +142,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionRq(), memberIdEq(memberId), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                         .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();
@@ -157,7 +157,7 @@ import java.util.List;
                 QEventImg eventImg = QEventImg.eventImg;
 
                 QueryResults<EventShowDto> results = queryFactory.select(new QEventShowDto(event.id, event.evName,
-                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow))
+                                event.date, event.place, event.member.nick, event.number, eventImg.imgURL, event.tranNow, event.nowNumber))
                         .from(eventImg).join(eventImg.event, event)
                         .where(transactionCp(), memberIdEq(memberId), searchByLike(eventSearchDto.getSearchBy(), eventSearchDto.getSearchQuery()))
                         .orderBy(event.id.desc()).offset(pageable.getOffset()).limit(pageable.getPageSize()).fetchResults();

@@ -41,9 +41,6 @@ public class TicketService {
         Ticket buyedTicket = Ticket.createTicket(event, ticketBox);
         ticketRepository.save(buyedTicket);
 
-        int nowNumber = event.getNowNumber();
-        event.setNowNumber(nowNumber+1);
-
         return buyedTicket.getId();
     }
 
@@ -66,6 +63,12 @@ public class TicketService {
 
     public void confirmTicket(Long ticketId){
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(EntityNotFoundException::new);
+        Event nowEvent = eventRepository.findById(ticket.getEvent().getId()).orElseThrow(EntityNotFoundException::new);
+
+        // 여기서 nowEvent를 사용한 인원수 초가 관련 if를 추가해야 될 것
+
         ticket.confirmTicketSafeMint();
+        int nowNumber = nowEvent.getNowNumber();
+        nowEvent.setNowNumber(nowNumber+1);
     }
 }
