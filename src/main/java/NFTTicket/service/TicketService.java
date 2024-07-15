@@ -14,6 +14,7 @@ import NFTTicket.repository.TicketRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -65,10 +66,17 @@ public class TicketService {
         Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(EntityNotFoundException::new);
         Event nowEvent = eventRepository.findById(ticket.getEvent().getId()).orElseThrow(EntityNotFoundException::new);
 
+        validateNumberEvent(nowEvent);
         // 여기서 nowEvent를 사용한 인원수 초가 관련 if를 추가해야 될 것
 
         ticket.confirmTicketSafeMint();
         int nowNumber = nowEvent.getNowNumber();
         nowEvent.setNowNumber(nowNumber+1);
+    }
+
+    public void validateNumberEvent(Event event) {
+        if (event.getNumber() <= event.getNowNumber()) {
+            throw new IllegalStateException("제한 인원수가 가득 찬 행사입니다.");
+        }
     }
 }
