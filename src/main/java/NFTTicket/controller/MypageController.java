@@ -117,7 +117,11 @@ public class MypageController {
         if(!memberService.findMember(principal.getName()).getRole().toString().equals(Role.ADMIN.toString())){
             return new ResponseEntity<String>("행사 컨펌 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
-        eventService.confirmEvent(eventId);
+        try{
+            eventService.confirmEvent(eventId);
+        } catch (Exception e) {
+            return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
         return new ResponseEntity<Long>(eventId, HttpStatus.OK);
     }
 
