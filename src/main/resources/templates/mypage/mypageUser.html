@@ -87,7 +87,7 @@
 
         .bottom-section {
             width: 1500px;
-            height: 800px;
+            height: 100%;
             margin-bottom: 100px;
             border-top-right-radius: 30px;
             border-bottom-left-radius: 30px;
@@ -163,7 +163,7 @@
         .search-window{
             width: 1550px;
             height: 38px;
-            background-color: #FFFFFF;
+            background-color: #EFF3FF;
         }
 
         .User_tablink {
@@ -238,6 +238,11 @@
                     <button class="User_tablink" onclick="openTab_User(event, 'joinlist')">참여한 행사(N)</button>
                 </div>
                 <div id="joinlist" class="User_tabcontent">
+                    <div class="event-card"></div>
+                    <div class="event-card"></div>
+                    <div class="event-card"></div>
+                    <div class="event-card"></div>
+                    <div class="event-card"></div>
                     <div class="event-card" th:each="ticket, status : ${tickets.getContent()}">
                         <div class="event-img">
                             <img th:src="${ticket.imgURL}" th:alt="${ticket.evName}" class="event-img">
