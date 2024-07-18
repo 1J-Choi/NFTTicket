@@ -9,9 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.util.List;
@@ -40,6 +38,12 @@ public class TicketController {
         } catch (Exception e) {
             return new ResponseEntity<String>(e.getMessage(), HttpStatus.BAD_REQUEST);
         }
+        return new ResponseEntity<Long>(ticketId, HttpStatus.OK);
+    }
+
+    @DeleteMapping(value = "/ticketItem/{ticketItemId}")
+    public @ResponseBody ResponseEntity deleteTicket(@PathVariable("ticketId") Long ticketId) {
+        ticketService.deleteTicket(ticketId);
         return new ResponseEntity<Long>(ticketId, HttpStatus.OK);
     }
 }

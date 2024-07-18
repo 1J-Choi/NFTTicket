@@ -79,4 +79,9 @@ public class TicketService {
             throw new IllegalStateException("제한 인원수가 가득 찬 행사입니다.");
         }
     }
+
+    public void deleteTicket(Long ticketId) {
+        Ticket ticket = ticketRepository.findById(ticketId).orElseThrow(EntityNotFoundException::new);
+        ticketRepository.delete(ticket);
+    }
 }
