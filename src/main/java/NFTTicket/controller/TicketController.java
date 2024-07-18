@@ -1,6 +1,7 @@
 package NFTTicket.controller;
 
 import NFTTicket.dto.TicketDto;
+import NFTTicket.service.MemberService;
 import NFTTicket.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import java.util.List;
 @RequiredArgsConstructor
 public class TicketController {
     private final TicketService ticketService;
+
+    private final MemberService memberService;
 
     @PostMapping(value = "/safeMint")
     public @ResponseBody ResponseEntity ticketSafeMint(@RequestBody @Valid TicketDto ticketDto, BindingResult bindingResult, Principal principal) {
@@ -42,7 +45,11 @@ public class TicketController {
     }
 
     @DeleteMapping(value = "/ticket/{ticketId}")
-    public @ResponseBody ResponseEntity deleteTicket(@PathVariable("ticketId") Long ticketId) {
+    public @ResponseBody ResponseEntity deleteTicket(@PathVariable("ticketId") Long ticketId, Principal principal) {
+        // Admin인지 확인하는 부분
+        if(!memberService.validateAdmin(principal.getName())){
+            return new ResponseEntity<String>("삭제 권한이 없습니다.", HttpStatus.FORBIDDEN);
+        }
         ticketService.deleteTicket(ticketId);
         return new ResponseEntity<Long>(ticketId, HttpStatus.OK);
     }

@@ -1,5 +1,6 @@
 package NFTTicket.service;
 
+import NFTTicket.constant.Role;
 import NFTTicket.dto.MemberImgDto;
 import NFTTicket.dto.MemberImgMetaDto;
 import NFTTicket.dto.MypageShowDto;
@@ -111,5 +112,14 @@ public class MemberService implements UserDetailsService {
         }
         MypageShowDto mypageShowDto = new MypageShowDto(member, imgURL);
         return mypageShowDto;
+    }
+
+    public boolean validateAdmin(String email){
+        Member nowMember = memberRepository.findByEmail(email);
+
+        if(nowMember.getRole() == Role.ADMIN){
+            return true;
+        }
+        return false;
     }
 }

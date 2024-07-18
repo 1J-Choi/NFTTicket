@@ -17,11 +17,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.EntityNotFoundException;
 import java.security.Principal;
+import java.util.List;
 import java.util.Optional;
 
 
@@ -110,13 +112,24 @@ public class MypageController {
     }
 
     @PostMapping("/admins/eventConfirm/{eventId}")
-    public @ResponseBody ResponseEntity confirmEvent(@PathVariable("eventId") Long eventId, Principal principal) {
+    public @ResponseBody ResponseEntity confirmEvent(@PathVariable("eventId") Long eventId, Principal principal,
+                                                     BindingResult bindingResult) {
 //        if (!orderService.validateOrder(orderId, principal.getName())){
 //            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
 //        }
+        if(bindingResult.hasErrors()) {
+            StringBuilder sb = new StringBuilder();
+            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+            for (FieldError fieldError : fieldErrors) {
+                sb.append(fieldError.getDefaultMessage());
+            }
+            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+        }
+
         if(!memberService.findMember(principal.getName()).getRole().toString().equals(Role.ADMIN.toString())){
             return new ResponseEntity<String>("행사 컨펌 권한이 없습니다.", HttpStatus.FORBIDDEN);
         }
+
         try{
             eventService.confirmEvent(eventId);
         } catch (Exception e) {
