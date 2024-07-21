@@ -151,9 +151,29 @@ public class MypageController {
         return new ResponseEntity<Long>(ticketId, HttpStatus.OK);
     }
 
-    @GetMapping(value = {"/mypage/mypageUser", "/mypage/mypageUser/{page}"})
-    public String ticketShowUser(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
-                             Principal principal, BindingResult bindingResult) {
+    @GetMapping(value = {"/mypage/mypageUser/request", "/mypage/mypageUser/request/{page}"})
+    public String ticketShowUser_request(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                                         Principal principal, BindingResult bindingResult) {
+        if(bindingResult.hasErrors()){
+            return "main";
+        }
+
+        String email = principal.getName();
+        Member memberNow = memberService.findMember(email);
+        TicketBox ticketBox = ticketBoxService.findTicketBox(memberNow.getId());
+        Long ticketBoxid = ticketBox.getId();
+
+        Pageable pageable = PageRequest.of(page.isPresent() ? page.get() : 0, 5);
+        Page<TicketShowDto> tickets = ticketService.getNTicketList(ticketSearchDto, ticketBoxid, pageable);
+        model.addAttribute("tickets", tickets);
+        model.addAttribute("ticketSearchDto", ticketSearchDto);
+        model.addAttribute("maxPage", 5);
+        return "mypage/mypageUser_request";
+    }
+
+    @GetMapping(value = {"/mypage/mypageUser/complete", "/mypage/mypageUser/complete/{page}"})
+    public String ticketShowUser_complete(TicketSearchDto ticketSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
+                                          Principal principal, BindingResult bindingResult) {
         if(bindingResult.hasErrors()){
             return "main";
         }
@@ -168,8 +188,9 @@ public class MypageController {
         model.addAttribute("tickets", tickets);
         model.addAttribute("ticketSearchDto", ticketSearchDto);
         model.addAttribute("maxPage", 5);
-        return "mypage/mypageUser";
+        return "mypage/mypageUser_complete";
     }
+
     @GetMapping(value = {"/mypage/mypageOwner/request", "/mypage/mypageOwner/request/{page}"})
     public String eventShowOwnerRq(EventSearchDto eventSearchDto, @PathVariable("page")Optional<Integer> page, Model model,
                              Principal principal, BindingResult bindingResult) {
