@@ -201,10 +201,32 @@
             position: absolute;
             right: 0;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            display: flex; /* 여기서부터 추가 */
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
 
-        .safe-mint {
-            position: absolute;
+
+        .safe-mint-confirm {
+            position: static;
+            right: 65px; /* 오른쪽 경계로부터 10px */
+            top: 50%; /* 상단으로부터 50% 위치 */
+            transform: translateY(-50%); /* Y축 기준 50% 올림 */
+            padding: 10px 11px; /* 패딩 */
+            background-color: #EF8C2F; /* 배경색 */
+            color: white; /* 글자색 */
+            border: none; /* 테두리 없음 */
+            cursor: pointer; /* 커서 모양 */
+            border-radius: 5px;
+            font-size: 15px;
+            font-style: 'Source Sans Pro';
+            font-weight: bold;
+            margin: 60px 0;
+        }
+
+        .safe-mint-delete {
+            position: static;
             right: 65px; /* 오른쪽 경계로부터 10px */
             top: 50%; /* 상단으로부터 50% 위치 */
             transform: translateY(-50%); /* Y축 기준 50% 올림 */
@@ -214,10 +236,12 @@
             border: none; /* 테두리 없음 */
             cursor: pointer; /* 커서 모양 */
             border-radius: 5px;
-            font-size: 15px;
+            font-size: 20px;
             font-style: 'Source Sans Pro';
             font-weight: bold;
+            margin: 10px 0;
         }
+        
 
         .evHead {
             font-size: 40px;
@@ -351,9 +375,9 @@
                             </div>
                         </div>
                         <div class="tip">
-                            <button class="safe-mint" th:onclick="'order(' + ${ticket.id} + ')'">Confirm</button>
-                            <button type="button" class="close" aria-label="Close">
-                                    <span aria-hidden="true" th:data-id="${ticket.id}"
+                            <button class="safe-mint-confirm" th:onclick="'order(' + ${ticket.id} + ')'">Confirm</button>
+                            <button type="button" class="safe-mint-delete">
+                                    <span th:data-id="${ticket.id}"
                                           onclick="deleteTicket(this)">delete</span>
                             </button>
                         </div>

@@ -203,22 +203,6 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
-        .safe-mint {
-            position: absolute;
-            right: 65px; /* 오른쪽 경계로부터 10px */
-            top: 50%; /* 상단으로부터 50% 위치 */
-            transform: translateY(-50%); /* Y축 기준 50% 올림 */
-            padding: 10px 20px; /* 패딩 */
-            background-color: #EF8C2F; /* 배경색 */
-            color: white; /* 글자색 */
-            border: none; /* 테두리 없음 */
-            cursor: pointer; /* 커서 모양 */
-            border-radius: 5px;
-            font-size: 15px;
-            font-style: 'Source Sans Pro';
-            font-weight: bold;
-        }
-
         .evHead {
             font-size: 40px;
             font-style: 'Source Sans Pro', bold;
@@ -238,6 +222,22 @@
             height: 32px;
             display: inline-block;
             vertical-align: middle;
+        }
+
+        .safe-mint {
+            position: absolute;
+            right: 65px; /* 오른쪽 경계로부터 10px */
+            top: 50%; /* 상단으로부터 50% 위치 */
+            transform: translateY(-50%); /* Y축 기준 50% 올림 */
+            padding: 10px 20px; /* 패딩 */
+            background-color: #EF8C2F; /* 배경색 */
+            color: white; /* 글자색 */
+            border: none; /* 테두리 없음 */
+            cursor: pointer; /* 커서 모양 */
+            border-radius: 5px;
+            font-size: 24px;
+            font-style: 'Source Sans Pro';
+            font-weight: bold;
         }
     </style>
 </th:block>
@@ -316,7 +316,7 @@
                             </div>
                         </div>
                         <div class="tip">
-                            <button type="button" class="close" aria-label="Close">
+                            <button type="button" class="safe-mint" aria-label="Close">
                                     <span aria-hidden="true" th:data-id="${event.id}"
                                           onclick="deleteEvent(this)">delete</span>
                             </button>
