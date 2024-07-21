@@ -166,12 +166,12 @@
         }
 
         .search-window{
-            width: 1550px;
+            width: 100%;
             height: 38px;
             background-color: #EFF3FF;
         }
 
-        .User_tablink {
+        .User_tablink_on {
             background-color: #EFF3FF;
             color: black;
             padding: 10px 20px;
@@ -180,7 +180,23 @@
             font-size: 30px;
             width: 250px;
             height: 80px;
-            padding-bottom: 30px;
+            padding-bottom: 40px;
+            margin-left: 15px;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            outline: none;
+        }
+
+        .User_tablink {
+            background-color: #8BAAFF;
+            color: black;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            font-size: 30px;
+            width: 250px;
+            height: 80px;
+            padding-bottom: 40px;
             margin-left: 15px;
             border-top-left-radius: 10px;
             border-top-right-radius: 10px;
@@ -196,6 +212,7 @@
         }
 
         .User_tabcontent {
+            height: 1775px;
             padding: 20px;
             background-color: #EFF3FF;
             border-radius: 5px;
@@ -229,7 +246,7 @@
             var searchBy = $("#searchBy").val();
             var searchQuery = $("#searchQuery").val();
 
-            location.href = "/mypage/mypageUser" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
+            location.href = "/mypage/mypageUser/request" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
         function deleteTicket(obj){
@@ -237,7 +254,7 @@
             var token = $("meta[name='_csrf']").attr("content");
             var header = $("meta[name='_csrf_header']").attr("content");
 
-            var url = "/uesr/ticket/" + ticketId;
+            var url = "/user/ticket/" + ticketId;
 
             $.ajax({
                 url : url,
@@ -248,7 +265,7 @@
                 dataType : "json",
                 cache : false,
                 success : function(result, status){
-                    location.href='/mypage';
+                    location.href='/mypage/mypageUser/request';
                 },
                 error : function(jqXHR, status, error){
                     if(jqXHR.status == '401'){
@@ -265,15 +282,15 @@
 </th:block>
 
 <div class="wrap" layout:fragment="content">
-    <div sec:authorize="hasRole('USER')"> <!-- Owner -->
-        <form th:action="@{'/mypage/mypageUser/request/'+${events.number}}" role="form" method="get" th:object="${events}">
+    <div sec:authorize="hasRole('USER')"> <!-- User -->
+        <form th:action="@{'/mypage/mypageUser/request/'+${tickets.number}}" role="form" method="get" th:object="${tickets}">
             <div class="bottom-section" style="background-color: #FFE7D9; margin-top: 100px;">
                 <div class="tabs">
                     <a class="User_tablink_on" href="/mypage/mypageUser/request">신청 행사(N)</a>
                     <a class="User_tablink" href="/mypage/mypageUser/complete">Mint 완료 행사(N)</a>
                 </div>
                 <div class="User_tabcontent">
-                    <div class="event-card" th:each="event, status : ${events.getContent()}">
+                    <div class="event-card" th:each="event, status : ${tickets.getContent()}">
                         <div class="event-img">
                             <img th:src="${event.imgURL}" th:alt="${event.evName}" class="event-img">
                         </div>
@@ -293,26 +310,26 @@
                             </button>
                         </div>
                     </div>
-                    <div th:with="start=${(events.number/maxPage)*maxPage +1},
-        end=(${(events.totalPages == 0) ? 1 : (start + (maxPage-1) < events.totalPages ? start + (maxPage - 1) : events.totalPages)})">
+                    <div th:with="start=${(tickets.number/maxPage)*maxPage +1},
+        end=(${(tickets.totalPages == 0) ? 1 : (start + (maxPage-1) < tickets.totalPages ? start + (maxPage - 1) : tickets.totalPages)})">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item" th:classappend="${events.first}?'disabled'">
-                                <a th:onclick="'javascript:page('+${events.number - 1} + ')'" aria-label="Previous" class="page-link">
+                            <li class="page-item" th:classappend="${tickets.first}?'disabled'">
+                                <a th:onclick="'javascript:page('+${tickets.number - 1} + ')'" aria-label="Previous" class="page-link">
                                     <span aria-hidden="true">Previous</span>
                                 </a>
                             </li>
-                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${events.number eq page-1}?'active':''">
+                            <li class="page-item" th:each="page: ${#numbers.sequence(start, end)}" th:classappend="${tickets.number eq page-1}?'active':''">
                                 <a th:onclick="'javascript:page('+${page - 1} + ')'" th:inline="text" class="page-link">[[${page}]]</a>
                             </li>
-                            <li class="page-item" th:classappend="${events.last}?'disabled'">
-                                <a th:onclick="'javascript:page(' + ${events.number + 1} + ')'" aria-label="Next" class="page-link">
+                            <li class="page-item" th:classappend="${tickets.last}?'disabled'">
+                                <a th:onclick="'javascript:page(' + ${tickets.number + 1} + ')'" aria-label="Next" class="page-link">
                                     <span aria-hidden="true">Next</span>
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="search-window">
-                        <div class="form-inline justify-content-center" th:object="${eventSearchDto}">
+                        <div class="form-inline justify-content-center" th:object="${ticketSearchDto}">
                             <select th:field="*{searchBy}" class="form-control" style="width: auto;">
                                 <option value="eventNm">이벤트</option>
                             </select>
