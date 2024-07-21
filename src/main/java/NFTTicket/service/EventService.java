@@ -1,5 +1,7 @@
 package NFTTicket.service;
 
+import NFTTicket.constant.Role;
+import NFTTicket.constant.TransactionStatus;
 import NFTTicket.dto.EventFormDto;
 import NFTTicket.dto.EventSearchDto;
 import NFTTicket.dto.EventShowDto;
@@ -71,5 +73,19 @@ public class EventService {
     public void confirmEvent(Long eventId){
         Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
         event.confirmEventTransNow();
+    }
+
+    public boolean validateRequest(Long eventId){
+        Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
+        if(event.getTranNow() == TransactionStatus.REQUEST){
+            return true;
+        }
+        return false;
+    }
+
+    public void deleteEvent(Long eventId){
+        Event event = eventRepository.findById(eventId).orElseThrow(EntityNotFoundException::new);
+        eventImgService.deleteEventImg(event);
+        eventRepository.delete(event);
     }
 }

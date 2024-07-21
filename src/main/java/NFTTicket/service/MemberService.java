@@ -122,4 +122,13 @@ public class MemberService implements UserDetailsService {
         }
         return false;
     }
+
+    public boolean validateOwner(String email){
+        Member nowMember = memberRepository.findByEmail(email);
+
+        if(nowMember.getRole() == Role.OWNER){
+            return true;
+        }
+        return false;
+    }
 }

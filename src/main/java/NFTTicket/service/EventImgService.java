@@ -1,5 +1,6 @@
 package NFTTicket.service;
 
+import NFTTicket.entity.Event;
 import NFTTicket.entity.EventImg;
 import NFTTicket.repository.EventImgRepository;
 import lombok.RequiredArgsConstructor;
@@ -36,5 +37,10 @@ public class EventImgService {
         // imgURL : 로컬에 저장된 이벤트 이미지 파일을 불러오는 경로
         eventImg.updateEventImg(oriImgName, imgName, imgURL);
         eventImgRepository.save(eventImg);
+    }
+
+    public void deleteEventImg(Event event){
+        EventImg eventImg = eventImgRepository.findByEvent(event);
+        eventImgRepository.delete(eventImg);
     }
 }

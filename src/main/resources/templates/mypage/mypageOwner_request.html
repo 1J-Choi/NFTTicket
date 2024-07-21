@@ -261,6 +261,35 @@
             location.href = "/mypage/mypageOwner/request/" + page + "?searchBy=" + searchBy + "&searchQuery=" + searchQuery;
         }
 
+        function deleteEvent(obj){
+            var eventId = obj.dataset.id;
+            var token = $("meta[name='_csrf']").attr("content");
+            var header = $("meta[name='_csrf_header']").attr("content");
+
+            var url = "/owner/event/" + eventId;
+
+            $.ajax({
+                url : url,
+                type : "DELETE",
+                beforeSend : function(xhr){
+                    xhr.setRequestHeader(header, token);
+                },
+                dataType : "json",
+                cache : false,
+                success : function(result, status){
+                    location.href='/mypage';
+                },
+                error : function(jqXHR, status, error){
+                    if(jqXHR.status == '401'){
+                        alert('로그인 후 사용해주세요.');
+                        location.href='member/login';
+                    }else{
+                        alert(jqXHR.responseText);
+                    }
+                }
+            });
+        }
+
     </script>
 </th:block>
 
@@ -286,7 +315,12 @@
                                 <p th:text="'인원: ' + ${event.nowNumber} + '/' + ${event.number}"></p>
                             </div>
                         </div>
-                        <div class="tip"></div>
+                        <div class="tip">
+                            <button type="button" class="close" aria-label="Close">
+                                    <span aria-hidden="true" th:data-id="${event.id}"
+                                          onclick="deleteEvent(this)">delete</span>
+                            </button>
+                        </div>
                     </div>
                     <div th:with="start=${(events.number/maxPage)*maxPage +1},
         end=(${(events.totalPages == 0) ? 1 : (start + (maxPage-1) < events.totalPages ? start + (maxPage - 1) : events.totalPages)})">
