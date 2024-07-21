@@ -112,19 +112,20 @@ public class MypageController {
     }
 
     @PostMapping("/admins/eventConfirm/{eventId}")
-    public @ResponseBody ResponseEntity confirmEvent(@PathVariable("eventId") Long eventId, Principal principal,
-                                                     BindingResult bindingResult) {
+    public @ResponseBody ResponseEntity confirmEvent(@PathVariable("eventId") Long eventId, Principal principal
+//                                                     ,BindingResult bindingResult
+    ) {
 //        if (!orderService.validateOrder(orderId, principal.getName())){
 //            return new ResponseEntity<String>("주문 취소 권한이 없습니다.", HttpStatus.FORBIDDEN);
 //        }
-        if(bindingResult.hasErrors()) {
-            StringBuilder sb = new StringBuilder();
-            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
-            for (FieldError fieldError : fieldErrors) {
-                sb.append(fieldError.getDefaultMessage());
-            }
-            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
-        }
+//        if(bindingResult.hasErrors()) {
+//            StringBuilder sb = new StringBuilder();
+//            List<FieldError> fieldErrors = bindingResult.getFieldErrors();
+//            for (FieldError fieldError : fieldErrors) {
+//                sb.append(fieldError.getDefaultMessage());
+//            }
+//            return new ResponseEntity<String>(sb.toString(), HttpStatus.BAD_REQUEST);
+//        }
 
         if(!memberService.findMember(principal.getName()).getRole().toString().equals(Role.ADMIN.toString())){
             return new ResponseEntity<String>("행사 컨펌 권한이 없습니다.", HttpStatus.FORBIDDEN);
