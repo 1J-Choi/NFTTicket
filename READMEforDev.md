@@ -5,31 +5,37 @@ NFTTicket의 구동에 필요한 요소에 대해 설명한다.
 
 시스템 구조 및 설계
 -------------------
-![Back-end구성도]()
+![Back-end구성도](src/main/resources/img/mvc.png)
 
 NFTTicket은 Spring boot와 JPA, QueryDsl을 통해
 만들어진 웹 서비스이다.
 
-mvc 패턴 설명
+사용되어진 디자인 패턴은 MVC 패턴으로 위 사진과 같이
+entity와 repository를 통해 데이터 DB에 보내거나 받고 Cotroller와 Service를
+통해 프론트와 백 사이에서 데이터를 주고 받는 형태이다.
 
 ## DB 구성
 ![DB구성도](src/main/resources/img/ERD.png)
 
 데이터의 경우 크게 회원의 Role과 같은 정보가 있는 Member,
 행사의 정보가 있는 Event, 행사 참여를 위한 티켓 정보가 있는 Ticket으로 구성되었으며
-한 멤버가 소유한 Ticket들을 관리하는 TicketBox
+
+여기에 Member와 1대1 매핑이 되어 한 멤버가 소유한 티켓들을 관리할 수
+있도록 한 TicketBox, 
 멤버와 행사 이미지 파일 관리를 위한 MemberImg와 EventImg가 존재한다.
 
-각 db 매핑 관계 간략 설명
-
 ## 프론트엔드 구성
-![Front-end구성도]()
+![Front-end구성도](src/main/resources/img/front.png)
 
 View의 경우 HTML과 Thymeleaf layout을 통해 만들어 졌으며
-header, content, footer의 레이아웃 구성을 가지고 있다.
+header, content, footer의 레이아웃 구성을 가지고 있다. 해당 서비스에서는
+header 부분에 기능들로 이루어진 상단 메뉴바가 있어 원하는 기능을 선택하면
+content 부분에 그에 맞는 화면을 노출시키는 방식이다.
 
-header 메뉴바 누르면 content 바뀌는 것 설명
-AJAX를 사용해 View와 Controller 간 데이터 오고 감 설명
+데이터 통신의 경우 클라이언트 쪽에서 jQuery를 사용한 AJAX를 통해
+요청을 보내면 Spring boot의 Controller에서 요청에 맞게 매핑된 코드를
+처리하고 응답을 반환시키는 구조이다.
+
 
 
 기타 사항
@@ -38,8 +44,13 @@ AJAX를 사용해 View와 Controller 간 데이터 오고 감 설명
 해당 프로젝트에서는 DB, 이미지 파일과 관련된 정보들을
 application.properties 파일에 저장하여 관리하고 있다.
 
-로컬이기 떄문에 따로 작성하였다 설명
-어떻게 썼는지 아래 코드로 보여줄 것
+하지만 해당 파일은 Github 내에 올라가 있지 않은데 이는
+개발에 참여한 팀원들이 각자의 로컬 컴퓨터 환경의 DB를 사용하여
+각자 다른 설정값이 적힌 application.properties 파일을 가지고 있었기 때문이다.
+
+따라서 해당 웹 서비스를 정상적으로 작동시키기 위해서는
+아래의 application.properties파일을 src/main/resources/application.properties 의 주소에
+임의로 작성하여야 한다.
 
 ### application-api.properties
 ```PROPERTIES
