@@ -17,7 +17,7 @@ entity와 repository를 통해 데이터 DB에 보내거나 받고 Cotroller와 
 ## DB 구성
 ![DB구성도](src/main/resources/img/ERD.png)
 
-데이터의 경우 크게 회원의 Role과 같은 정보가 있는 Member,
+데이터의 경우 크게 회원의 Role, MetaMask 지값의 주소값과 같은 정보가 있는 Member,
 행사의 정보가 있는 Event, 행사 참여를 위한 티켓 정보가 있는 Ticket으로 구성되었으며
 
 여기에 Member와 1대1 매핑이 되어 한 멤버가 소유한 티켓들을 관리할 수
