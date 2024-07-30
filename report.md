@@ -4,9 +4,8 @@ NFTTicket 개발 일지
 오류&문제 사항들에 대한 로그를 정리하였습니다.
 
 웹서비스 특성상 웹개발과 SC개발이 동시에 진행되어
-SC개발 관련 일자는 빨간색으로 표기하였습니다.
+SC개발 관련 일자는 볼드체로 표기하였습니다.
 
-추가로 프로젝트를 진행하면서 발생한 문제의 경우 파란색으로 표기하였습니다.
 
 개발일지 목록
 ---
@@ -16,7 +15,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - NFT를 활용한 웹사이트 아이디어 서칭 및 공유
   + NFT(Smart Contract)를 접목시킬 아이디어를 선정하는 과정으로 브레인스토밍 방식을 채택했다.
 
-*<span style="color:red;">2024-03-18</span>*
+**<span style="color:red;">2024-03-18</span>**
 
 - NFT관련 1차 보고서 작성
   + [NFT보고서_1](src/main/resources/img/NFT_report_1.pdf)
@@ -26,7 +25,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - 웹서비스의 아이디어 선정, 프로토타입 제작
   + 여러가지 의견 가운데 NFTTicket으로 선정되었으며 프로토타입을 제작해 개발의 방향을 빠르게 잡고자 하였다.
 
-*<span style="color:red;">2024-03-26</span>*
+**<span style="color:red;">2024-03-26</span>**
 
 - NFT관련 2차 보고서 작성
   + [NFT보고서_2](src/main/resources/img/NFT_report_2.pdf)
@@ -39,7 +38,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - DB구조 수정 및 기술스택 논의
   + DB 설계를 완료하고 웹서비스를 개발하는데 필요한 기술 스택을 논의하였다.
 
-*<span style="color:red;">2024-04-2</span>*
+**<span style="color:red;">2024-04-2</span>**
 
 - NFT관련 2차 보고서 작성
   + [NFT보고서_3](src/main/resources/img/NFT_report_3.pdf)
@@ -53,11 +52,11 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - 로그인 기능 구현
   + 기본적인 웹서비스 형태를 제작하고 로그인 기능을 구현 및 테스트하였다.
 
-*<span style="color:red;">2024-04-17</span>*
+**<span style="color:red;">2024-04-17</span>**
 - 웹서비스에 필요한 Solidity 개발사항 논의
   + 프로젝트에서 여러 개의 행사에 각자 다른 NFT가 다르게 생성되어야 하며, Ticket limit가 있어야 한다는 결과를 도출하였다.
 
-*<span style="color:red;">2024-04-18</span>*
+**<span style="color:red;">2024-04-18</span>**
 - Solidity 제헌된 개수의 NFT 발행 기능 구현
   + hardhat을 활용하여 Smart Contract가 정해진 갯수만큼 NFT를 발행하고 이를 초과하면 기능이 작동되지 않는 코드를 구현하였다.
 
@@ -65,7 +64,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - 로그인 기능, My page기능 기초 개발
   + 로그인 기능을 완료하고 My page기능의 기초를 개발하였다. 
 
-*<span style="color:red;">2024-05-08</span>*
+**<span style="color:red;">2024-05-08</span>**
 - Contract 주소, 지갑주소, Max_token값 받아오는 기능 구현
   + Contract 주소, 지갑주소, Max_token값을 입력받을 수 있는 형태로 구현하여 웹서비스에 맞게 활용할 수 있도록 하였다.
 
@@ -73,7 +72,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - Event list 구현, Event Register 구현
   + Event Register를 통해 Owner가 행사를 등록하고, Event list에서 등록된 행사를 열람할 수 있게 구현하였다.
 
-*<span style="color:red;">2024-05-10</span>*
+**<span style="color:red;">2024-05-10</span>**
 - Pinata API 연동
   + 기존의 SC 프로젝트에 Pinata API를 연동하여 IPFS 관련 기능을 구현하고자 하였다.
 
@@ -82,7 +81,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - Event Regist에 이미지를 등록하는 기능 구현
   + 기존의 Regist방식에 이미지를 넣는 기능을 추가하여 행사마다 고유의 이미지를 활용할 수 있도록 하였다.
 
-*<span style="color:blue;">2024-05-27</span>*
+**<span style="color:blue;">2024-05-27</span>**
 - Solidity프로젝트와 MAVEN프로젝트 연동 문제
   + 두 프로젝트가 어느정도 구성된 상태에서 연동과 관련된 문제가 제기되었다. 
   + 이를 통해 프로젝트를 따로 두고 통신하는 방향과 Solidity 프로젝트를 java로 변환하는 방향으로 논의가 이루어졌다.
@@ -95,7 +94,7 @@ SC개발 관련 일자는 빨간색으로 표기하였습니다.
 - Admin 권한의 Mypage 구현 완료
   + User가 신청한 Ticket 컨펌 후 노출, Owner가 Mint신청 목록 노출 기능을 구현하였다.
 
-*<span style="color:blue;">2024-06-12</span>*
+**<span style="color:blue;">2024-06-12</span>**
 - CSRF오류 문제
   + 웹서비스를 테스트하면서 CSRF문제로 페이지간 이동에 불편함이 생기는 것을 인지하였다. 관련문제가 복잡하여 전체 웹개발을 완료한 이후 수정하는 것으로 계획하였다.
 
